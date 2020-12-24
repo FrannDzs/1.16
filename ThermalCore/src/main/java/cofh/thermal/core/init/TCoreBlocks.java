@@ -7,6 +7,7 @@ import cofh.thermal.core.block.TileBlockCell;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.entity.item.*;
 import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer;
+import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
@@ -15,6 +16,7 @@ import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.item.BlockItemEnergyCell;
 import cofh.thermal.core.item.BlockItemFluidCell;
 import cofh.thermal.core.tileentity.device.DeviceHiveExtractorTile;
+import cofh.thermal.core.tileentity.device.DeviceCollectorTile;
 import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
@@ -288,6 +290,7 @@ public class TCoreBlocks {
         registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlockActive4Way(create(Material.WOOD).sound(SoundType.SCAFFOLDING).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_TREE_EXTRACTOR));
         registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlockActive4Way(create(Material.IRON).sound(SoundType.LANTERN).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_WATER_GEN));
         // registerAugBlock(ID_DEVICE_ROCK_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceRockGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_ROCK_GEN));
+        registerAugBlock(ID_DEVICE_COLLECTOR, () -> new TileBlockActive4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceCollectorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_COLLECTOR));
 
         IntSupplier storageAugs = () -> ThermalConfig.storageAugments;
         Predicate<ItemStack> storageValidator = (e) -> true;
@@ -307,6 +310,7 @@ public class TCoreBlocks {
         CONTAINERS.register(ID_DEVICE_TREE_EXTRACTOR, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceTreeExtractorContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
         CONTAINERS.register(ID_DEVICE_WATER_GEN, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceWaterGenContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
         // CONTAINERS.register(ID_DEVICE_ROCK_GEN, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceRockGenContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
+        CONTAINERS.register(ID_DEVICE_COLLECTOR, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceCollectorContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
 
         CONTAINERS.register(ID_TINKER_BENCH, () -> IForgeContainerType.create((windowId, inv, data) -> new TinkerBenchContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
 
@@ -320,6 +324,7 @@ public class TCoreBlocks {
         TILE_ENTITIES.register(ID_DEVICE_TREE_EXTRACTOR, () -> TileEntityType.Builder.create(DeviceTreeExtractorTile::new, DEVICE_TREE_EXTRACTOR_BLOCK).build(null));
         TILE_ENTITIES.register(ID_DEVICE_WATER_GEN, () -> TileEntityType.Builder.create(DeviceWaterGenTile::new, DEVICE_WATER_GEN_BLOCK).build(null));
         // TILE_ENTITIES.register(ID_DEVICE_ROCK_GEN, () -> TileEntityType.Builder.create(DeviceRockGenTile::new, DEVICE_ROCK_GEN_BLOCK).build(null));
+        TILE_ENTITIES.register(ID_DEVICE_COLLECTOR, () -> TileEntityType.Builder.create(DeviceCollectorTile::new, DEVICE_COLLECTOR_BLOCK).build(null));
 
         TILE_ENTITIES.register(ID_TINKER_BENCH, () -> TileEntityType.Builder.create(TinkerBenchTile::new, TINKER_BENCH_BLOCK).build(null));
 

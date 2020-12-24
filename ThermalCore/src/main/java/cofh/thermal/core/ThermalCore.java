@@ -5,6 +5,7 @@ import cofh.core.client.renderer.entity.TNTRendererCoFH;
 import cofh.core.init.CoreEnchantments;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
+import cofh.thermal.core.client.gui.device.DeviceCollectorScreen;
 import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceWaterGenScreen;
 import cofh.thermal.core.client.gui.storage.EnergyCellScreen;
@@ -136,6 +137,7 @@ public class ThermalCore {
         ScreenManager.registerFactory(DEVICE_TREE_EXTRACTOR_CONTAINER, DeviceTreeExtractorScreen::new);
         ScreenManager.registerFactory(DEVICE_WATER_GEN_CONTAINER, DeviceWaterGenScreen::new);
         // ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
+        ScreenManager.registerFactory(DEVICE_COLLECTOR_CONTAINER, DeviceCollectorScreen::new);
 
         ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
 

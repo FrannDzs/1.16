@@ -376,6 +376,7 @@
   "_comment": "========================================================================================================",
 
   "block.thermal.device_hive_extractor": "Hive Hopper",
+  "block.thermal.device_collector": "Vacuumulator",
   "block.thermal.device_rock_gen": "Igneous Extruder",
   "block.thermal.device_tree_extractor": "Arboreal Extractor",
   "block.thermal.device_water_gen": "Aqueous Accumulator",
@@ -391,6 +392,10 @@
   "info.thermal.device_hive_extractor.0": "Carefully extracts products from beehives.",
   "info.thermal.device_hive_extractor.1": "Good for bees and keepers alike!",
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
+
+  "info.thermal.device_collector.0": "Picks up items and XP from the nearby area.",
+  "info.thermal.device_collector.1": "Filter configuration will apply to this behavior.",
+  "info.thermal.device_collector.2": "Keep those floors clean!",
 
   "info.thermal.device_rock_gen.0": "Generates various types of stone.",
   "info.thermal.device_rock_gen.1": "Requires an adjacent lava source and cooling.",

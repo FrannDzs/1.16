@@ -5,19 +5,13 @@ import cofh.thermal.core.entity.monster.BasalzEntity;
 import cofh.thermal.core.entity.monster.BlitzEntity;
 import cofh.thermal.core.entity.monster.BlizzEntity;
 import cofh.thermal.core.entity.projectile.*;
-import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer;
-import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
-import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
-import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
+import cofh.thermal.core.inventory.container.device.*;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
 import cofh.thermal.core.inventory.container.workbench.ChargeBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.ProjectBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
-import cofh.thermal.core.tileentity.device.DeviceHiveExtractorTile;
-import cofh.thermal.core.tileentity.device.DeviceRockGenTile;
-import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
-import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
+import cofh.thermal.core.tileentity.device.*;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
 import cofh.thermal.core.tileentity.storage.FluidCellTile;
 import cofh.thermal.core.tileentity.workbench.ChargeBenchTile;
@@ -135,6 +129,13 @@ public class TCoreReferences {
     public static final TileEntityType<DeviceWaterGenTile> DEVICE_WATER_GEN_TILE = null;
     @ObjectHolder(ID_DEVICE_WATER_GEN)
     public static final ContainerType<DeviceWaterGenContainer> DEVICE_WATER_GEN_CONTAINER = null;
+
+    @ObjectHolder(ID_DEVICE_COLLECTOR)
+    public static final Block DEVICE_COLLECTOR_BLOCK = null;
+    @ObjectHolder(ID_DEVICE_COLLECTOR)
+    public static final TileEntityType<DeviceCollectorTile> DEVICE_COLLECTOR_TILE = null;
+    @ObjectHolder(ID_DEVICE_COLLECTOR)
+    public static final ContainerType<DeviceCollectorContainer> DEVICE_COLLECTOR_CONTAINER = null;
     // endregion
 
     // region STORAGE

@@ -106,6 +106,8 @@ public class TCoreIDs {
 
     public static final String ID_DEVICE_ROCK_GEN = "device_rock_gen";
     public static final String ID_DEVICE_WATER_GEN = "device_water_gen";
+
+    public static final String ID_DEVICE_COLLECTOR = "device_collector";
     // endregion
 
     // region STORAGE

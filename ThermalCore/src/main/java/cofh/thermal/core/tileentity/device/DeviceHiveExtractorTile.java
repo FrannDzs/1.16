@@ -129,24 +129,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
         return new DeviceHiveExtractorContainer(i, world, pos, inventory, player);
     }
 
-    @Override
-    public void handleControlPacket(PacketBuffer buffer) {
-
-        super.handleControlPacket(buffer);
-        if (redstoneControl.getState()) {
-            extractProducts(pos.up());
-        }
-    }
-
-    @Override
-    public void handleStatePacket(PacketBuffer buffer) {
-
-        super.handleStatePacket(buffer);
-        if (redstoneControl.getState()) {
-            extractProducts(pos.up());
-        }
-    }
-
     // region ITileCallback
     @Override
     public void onControlUpdate() {
