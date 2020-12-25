@@ -6,11 +6,11 @@ import net.minecraft.inventory.EquipmentSlotType;
 
 import java.util.Random;
 
-public class ExpBoostEnchantment extends EnchantmentCoFH {
+public class XpBoostEnchantment extends EnchantmentCoFH {
 
-    public static int experience = 4;
+    public static int xp = 4;
 
-    public ExpBoostEnchantment() {
+    public XpBoostEnchantment() {
 
         super(Rarity.UNCOMMON, EnchantmentType.ARMOR_HEAD, new EquipmentSlotType[]{EquipmentSlotType.HEAD});
         maxLevel = 3;
@@ -31,7 +31,7 @@ public class ExpBoostEnchantment extends EnchantmentCoFH {
     // region HELPERS
     public static int getExp(int baseExp, int level, Random rand) {
 
-        return baseExp + level + rand.nextInt(1 + level * experience);
+        return baseExp + level + rand.nextInt(1 + level * xp);
     }
     // endregion
 }

@@ -13,7 +13,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.BeehiveTileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;

@@ -75,6 +75,12 @@ public class MachineCrafterTile extends MachineTileProcess {
         super.tick();
     }
 
+    @Override
+    protected int getBaseXpStorage() {
+
+        return 0;
+    }
+
     protected void setRecipe() {
 
         if (world == null || Utils.isClientWorld(world)) {

@@ -41,7 +41,7 @@ public class CoreReferences {
 
     // region FLUIDS
     @ObjectHolder(ID_FLUID_EXPERIENCE)
-    public static final FlowingFluid FLUID_EXPERIENCE = null;
+    public static final FlowingFluid FLUID_XP = null;
 
     @ObjectHolder(ID_FLUID_HONEY)
     public static final FlowingFluid FLUID_HONEY = null;

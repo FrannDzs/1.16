@@ -29,7 +29,7 @@
   "info.cofh.arrows": "矢",
   "info.cofh.chance": "確率",
   "info.cofh.chance_additional": "追加の確率",
-  "info.cofh.clear_storage": "ShiftとAltを押しながらクリックで消去します。",
+  "info.cofh.click_to_clear": "ShiftとAltを押しながらクリックで消去します。",
   "info.cofh.effects": "効果",
   "info.cofh.efficiency": "効率",
   "info.cofh.empty": "空",

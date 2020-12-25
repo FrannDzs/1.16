@@ -36,7 +36,7 @@ public class DeviceSoilInfuserScreen extends ThermalScreenBase<DeviceSoilInfuser
 
         super.init();
 
-        if (tile.getEnergyStorage().getMaxEnergyStored() > 0) {
+        if (tile.getEnergyStorage() != null && tile.getEnergyStorage().getMaxEnergyStored() > 0) {
             addPanel(ThermalGuiHelper.createDefaultEnergyUserPanel(this, tile));
             addElement(setClearable(createDefaultEnergyStorage(this, 8, 8, tile.getEnergyStorage()), tile, 0));
         }

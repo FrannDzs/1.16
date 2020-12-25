@@ -28,7 +28,7 @@ public class EnsorcEnchantments {
 
         // HELMET
         ENCHANTMENTS.register(ID_AIR_AFFINITY, AirAffinityEnchantment::new);
-        ENCHANTMENTS.register(ID_EXP_BOOST, ExpBoostEnchantment::new);
+        ENCHANTMENTS.register(ID_EXP_BOOST, XpBoostEnchantment::new);
         ENCHANTMENTS.register(ID_GOURMAND, GourmandEnchantment::new);
 
         // CHESTPLATE

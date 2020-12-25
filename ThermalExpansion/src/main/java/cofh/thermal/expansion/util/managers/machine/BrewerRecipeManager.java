@@ -66,7 +66,7 @@ public class BrewerRecipeManager extends AbstractManager implements IRecipeManag
     public void addRecipe(ThermalRecipe recipe) {
 
         for (ItemStack recipeInput : recipe.getInputItems().get(0).getMatchingStacks()) {
-            addRecipe(recipe.getEnergy(), recipe.getExperience(), Collections.singletonList(recipeInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
+            addRecipe(recipe.getEnergy(), recipe.getXp(), Collections.singletonList(recipeInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
         }
     }
 

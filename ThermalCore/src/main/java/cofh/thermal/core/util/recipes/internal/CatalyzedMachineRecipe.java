@@ -101,13 +101,13 @@ public abstract class CatalyzedMachineRecipe extends BaseMachineRecipe {
     }
 
     @Override
-    public float getExperience(IMachineInventory inventory) {
+    public float getXp(IMachineInventory inventory) {
 
         if (catalyzable && inventory.inputSlots().size() > catalystSlot) {
             IRecipeCatalyst catalyst = getCatalyst(inventory.inputSlots().get(catalystSlot).getItemStack());
-            return catalyst == null ? super.getExperience(inventory) : Math.round(energy * catalyst.getExperienceMod() * inventory.getExperienceMod());
+            return catalyst == null ? super.getXp(inventory) : Math.round(energy * catalyst.getExperienceMod() * inventory.getExperienceMod());
         }
-        return super.getExperience(inventory);
+        return super.getXp(inventory);
     }
     // endregion
 }

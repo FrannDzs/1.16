@@ -2,6 +2,7 @@ package cofh.core.item;
 
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.core.xp.IXpContainerItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -18,17 +19,17 @@ import java.util.List;
 import static cofh.core.util.constants.Constants.MB_PER_XP;
 import static cofh.core.util.constants.Constants.RGB_DURABILITY_XP;
 import static cofh.core.util.helpers.StringHelper.*;
-import static cofh.core.util.helpers.XPHelper.*;
-import static cofh.core.util.references.CoreReferences.FLUID_EXPERIENCE;
+import static cofh.core.util.helpers.XpHelper.*;
+import static cofh.core.util.references.CoreReferences.FLUID_XP;
 
 /**
  * This class does not set the XP Timer on the player entity.
  */
-public class XPContainerItem extends FluidContainerItem implements IXPContainerItem {
+public class XpContainerItem extends FluidContainerItem implements IXpContainerItem {
 
     protected int xpCapacity;
 
-    public XPContainerItem(Properties builder, int fluidCapacity) {
+    public XpContainerItem(Properties builder, int fluidCapacity) {
 
         super(builder, fluidCapacity, FluidHelper.IS_XP); // TODO: Validator w/ xp fluid tag
         xpCapacity = fluidCapacity / MB_PER_XP;
@@ -37,7 +38,7 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
     @Override
     protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        tooltip.add(getTextComponent(localize("info.cofh.amount") + ": " + getScaledNumber(getStoredXP(stack)) + " / " + getScaledNumber(getCapacityXP(stack))));
+        tooltip.add(getTextComponent(localize("info.cofh.amount") + ": " + getScaledNumber(getStoredXp(stack)) + " / " + getScaledNumber(getCapacityXP(stack))));
     }
 
     @Override
@@ -57,31 +58,31 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
         int curLevel = player.experienceLevel;
 
         if (player.isSneaking()) {
-            if (getExtraPlayerXP(player) > 0) {
-                xp = Math.min(getTotalXPForLevel(player.experienceLevel + 1) - getTotalXPForLevel(player.experienceLevel) - getExtraPlayerXP(player), getStoredXP(stack));
+            if (getExtraPlayerXp(player) > 0) {
+                xp = Math.min(getTotalXpForLevel(player.experienceLevel + 1) - getTotalXpForLevel(player.experienceLevel) - getExtraPlayerXp(player), getStoredXp(stack));
             } else {
-                xp = Math.min(getTotalXPForLevel(player.experienceLevel + 1) - getTotalXPForLevel(player.experienceLevel), getStoredXP(stack));
+                xp = Math.min(getTotalXpForLevel(player.experienceLevel + 1) - getTotalXpForLevel(player.experienceLevel), getStoredXp(stack));
             }
             setPlayerXP(player, getPlayerXP(player) + xp);
-            if (player.experienceLevel < curLevel + 1 && getPlayerXP(player) >= getTotalXPForLevel(curLevel + 1)) {
+            if (player.experienceLevel < curLevel + 1 && getPlayerXP(player) >= getTotalXpForLevel(curLevel + 1)) {
                 setPlayerLevel(player, curLevel + 1);
             }
-            modifyXP(stack, -xp);
+            modifyXp(stack, -xp);
         } else {
-            if (getExtraPlayerXP(player) > 0) {
-                xp = Math.min(getExtraPlayerXP(player), getSpaceXP(stack));
+            if (getExtraPlayerXp(player) > 0) {
+                xp = Math.min(getExtraPlayerXp(player), getSpaceXP(stack));
                 setPlayerXP(player, getPlayerXP(player) - xp);
                 if (player.experienceLevel < curLevel) {
                     setPlayerLevel(player, curLevel);
                 }
-                modifyXP(stack, xp);
+                modifyXp(stack, xp);
             } else if (player.experienceLevel > 0) {
-                xp = Math.min(getTotalXPForLevel(player.experienceLevel) - getTotalXPForLevel(player.experienceLevel - 1), getSpaceXP(stack));
+                xp = Math.min(getTotalXpForLevel(player.experienceLevel) - getTotalXpForLevel(player.experienceLevel - 1), getSpaceXP(stack));
                 setPlayerXP(player, getPlayerXP(player) - xp);
                 if (player.experienceLevel < curLevel - 1) {
                     setPlayerLevel(player, curLevel - 1);
                 }
-                modifyXP(stack, xp);
+                modifyXp(stack, xp);
             }
         }
         return ActionResult.resultSuccess(stack);
@@ -98,8 +99,8 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
     @Override
     public FluidStack getFluid(ItemStack container) {
 
-        int xp = getStoredXP(container);
-        return xp > 0 ? new FluidStack(FLUID_EXPERIENCE, xp * MB_PER_XP) : FluidStack.EMPTY;
+        int xp = getStoredXp(container);
+        return xp > 0 ? new FluidStack(FLUID_XP, xp * MB_PER_XP) : FluidStack.EMPTY;
     }
 
     @Override
@@ -114,11 +115,11 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
         if (resource.isEmpty() || !isFluidValid(container, resource)) {
             return 0;
         }
-        int xp = getStoredXP(container);
+        int xp = getStoredXp(container);
         int filled = Math.min(getCapacityXP(container) - xp, resource.getAmount() / MB_PER_XP);
 
         if (action.execute()) {
-            modifyXP(container, filled);
+            modifyXp(container, filled);
         }
         return filled * MB_PER_XP;
     }
@@ -126,16 +127,16 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
     @Override
     public FluidStack drain(ItemStack container, int maxDrain, IFluidHandler.FluidAction action) {
 
-        int xp = getStoredXP(container);
+        int xp = getStoredXp(container);
         if (xp <= 0) {
             return FluidStack.EMPTY;
         }
         int drained = Math.min(xp, maxDrain / MB_PER_XP);
 
         if (action.execute() && !isCreative(container)) {
-            modifyXP(container, -drained);
+            modifyXp(container, -drained);
         }
-        return new FluidStack(FLUID_EXPERIENCE, drained * MB_PER_XP);
+        return new FluidStack(FLUID_XP, drained * MB_PER_XP);
     }
 
     // endregion

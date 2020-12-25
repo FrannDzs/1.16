@@ -31,7 +31,13 @@
   "info.cofh.arrows": "Pfeile",
   "info.cofh.chance": "Chance",
   "info.cofh.chance_additional": "Zusätzliche Chance",
+  "info.cofh.clear_storage": "Alt + Shift + Click zum entleeren.",
+  "info.cofh.clear_storage": "Alt + Shift + Click zum entleeren.",
+<<<<<<< .mine
+  "info.cofh.click_to_clear": "Alt + Shift + Click zum entleeren.",
+=======
   "info.cofh.clear_storage": "§e§oAlt+Shift+Click§r§7 zum entleeren.",
+>>>>>>> .theirs
   "info.cofh.effects": "Effekte",
   "info.cofh.efficiency": "Effizienz",
   "info.cofh.empty": "Leer",

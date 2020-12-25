@@ -7,6 +7,7 @@ import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.network.packet.server.StorageClearPacket;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.IReconfigurable;
+import cofh.core.xp.XpStorage;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.BooleanSupplier;
@@ -166,6 +167,20 @@ public class GuiHelper {
         return (ElementSlot) new ElementSlot(gui, posX, posY)
                 .setUnderlayTexture(underlayTexture, drawUnderlay)
                 .setOverlayTexture(overlayTexture)
+                .setSize(width, height)
+                .setTexture(texture, texW, texH);
+    }
+    // endregion
+
+    // region EXPERIENCE
+    public static ElementXpStorage createDefaultXpStorage(IGuiAccess gui, int posX, int posY, XpStorage storage) {
+
+        return createDefaultXpStorage(gui, posX, posY, storage, 16, 16, PATH_ELEMENTS + "storage_xp.png", 16, 80);
+    }
+
+    public static ElementXpStorage createDefaultXpStorage(IGuiAccess gui, int posX, int posY, XpStorage storage, int width, int height, String texture, int texW, int texH) {
+
+        return (ElementXpStorage) new ElementXpStorage(gui, posX, posY, storage)
                 .setSize(width, height)
                 .setTexture(texture, texW, texH);
     }

@@ -2,23 +2,23 @@ package cofh.core.util.helpers;
 
 import net.minecraft.entity.player.PlayerEntity;
 
-public class XPHelper {
+public class XpHelper {
 
-    private XPHelper() {
+    private XpHelper() {
 
     }
 
     public static int getPlayerXP(PlayerEntity player) {
 
-        return getTotalXPForLevel(player.experienceLevel) + getExtraPlayerXP(player);
+        return getTotalXpForLevel(player.experienceLevel) + getExtraPlayerXp(player);
     }
 
     public static int getLevelPlayerXP(PlayerEntity player) {
 
-        return getTotalXPForLevel(player.experienceLevel);
+        return getTotalXpForLevel(player.experienceLevel);
     }
 
-    public static int getExtraPlayerXP(PlayerEntity player) {
+    public static int getExtraPlayerXp(PlayerEntity player) {
 
         return Math.round(player.experience * player.xpBarCap());
     }
@@ -62,7 +62,7 @@ public class XPHelper {
         }
     }
 
-    public static int getTotalXPForLevel(int level) {
+    public static int getTotalXpForLevel(int level) {
 
         return level >= 32 ? (9 * level * level - 325 * level + 4440) / 2 : level >= 17 ? (5 * level * level - 81 * level + 720) / 2 : (level * level + 6 * level);
     }

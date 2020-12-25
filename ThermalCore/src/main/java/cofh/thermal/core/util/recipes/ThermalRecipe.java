@@ -21,16 +21,16 @@ public abstract class ThermalRecipe extends SerializableRecipe {
     protected final List<Float> outputItemChances = new ArrayList<>();
 
     protected int energy;
-    protected float experience;
+    protected float xp;
 
     protected boolean catalyzable;
 
-    protected ThermalRecipe(ResourceLocation recipeId, int energy, float experience, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> outputItemChances, List<FluidStack> outputFluids) {
+    protected ThermalRecipe(ResourceLocation recipeId, int energy, float xp, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> outputItemChances, List<FluidStack> outputFluids) {
 
         super(recipeId);
 
         this.energy = energy;
-        this.experience = Math.max(0.0F, experience);
+        this.xp = Math.max(0.0F, xp);
 
         if (inputItems != null) {
             this.inputItems.addAll(inputItems);
@@ -100,9 +100,9 @@ public abstract class ThermalRecipe extends SerializableRecipe {
         return energy;
     }
 
-    public float getExperience() {
+    public float getXp() {
 
-        return experience;
+        return xp;
     }
 
     public boolean isCatalyzable() {

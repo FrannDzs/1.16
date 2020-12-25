@@ -30,6 +30,6 @@ public interface IMachineRecipe {
 
     int getEnergy(IMachineInventory inventory);
 
-    float getExperience(IMachineInventory inventory);
+    float getXp(IMachineInventory inventory);
 
 }

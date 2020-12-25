@@ -6,6 +6,7 @@ import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.MathHelper;
+import cofh.core.xp.XpStorage;
 import cofh.thermal.core.util.IMachineInventory;
 import cofh.thermal.core.util.recipes.internal.IMachineRecipe;
 import cofh.thermal.core.util.recipes.internal.IRecipeCatalyst;
@@ -28,6 +29,8 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
 
 public abstract class MachineTileProcess extends ReconfigurableTile4Way implements ITickableTileEntity, IMachineInventory {
 
+    protected static final int BASE_XP_STORAGE = 2500;
+
     protected IMachineRecipe curRecipe;
     protected IRecipeCatalyst curCatalyst;
     protected List<Integer> itemInputCounts = new ArrayList<>();
@@ -39,10 +42,13 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected int baseProcessTick = getBaseProcessTick();
     protected int processTick = baseProcessTick;
 
+    protected XpStorage xpStorage;
+
     public MachineTileProcess(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
         energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), getBaseEnergyXfer());
+        xpStorage = new XpStorage(getBaseXpStorage());
     }
 
     @Override
@@ -77,6 +83,11 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         }
         updateActiveState(curActive);
         chargeEnergy();
+    }
+
+    protected int getBaseXpStorage() {
+
+        return BASE_XP_STORAGE;
     }
 
     // region PROCESS
@@ -304,6 +315,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
                 }
             }
         }
+        // Xp
+        xpStorage.receiveXPFloat(curRecipe.getXp(this), false);
     }
 
     protected void resolveInputs() {
@@ -320,6 +333,12 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     // endregion
 
     // region GUI
+    @Override
+    public XpStorage getXpStorage() {
+
+        return xpStorage;
+    }
+
     @Override
     public int getCurSpeed() {
 
@@ -366,6 +385,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.getGuiPacket(buffer);
 
+        xpStorage.writeToBuffer(buffer);
+
         buffer.writeInt(process);
         buffer.writeInt(processMax);
         buffer.writeInt(processTick);
@@ -377,6 +398,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     public void handleGuiPacket(PacketBuffer buffer) {
 
         super.handleGuiPacket(buffer);
+
+        xpStorage.readFromBuffer(buffer);
 
         process = buffer.readInt();
         processMax = buffer.readInt();
@@ -390,6 +413,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.read(state, nbt);
 
+        xpStorage.read(nbt);
+
         process = nbt.getInt(TAG_PROCESS);
         processMax = nbt.getInt(TAG_PROCESS_MAX);
         processTick = nbt.getInt(TAG_PROCESS_TICK);
@@ -399,6 +424,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     public CompoundNBT write(CompoundNBT nbt) {
 
         super.write(nbt);
+
+        xpStorage.write(nbt);
 
         nbt.putInt(TAG_PROCESS, process);
         nbt.putInt(TAG_PROCESS_MAX, processMax);
@@ -452,6 +479,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
+
+        xpStorage.applyModifiers(baseMod);
 
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);

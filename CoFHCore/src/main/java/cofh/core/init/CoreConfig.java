@@ -73,7 +73,7 @@ public class CoreConfig {
                 .define("Improved Feather Falling", improvedFeatherFalling);
 
         serverImprovedMending = SERVER_CONFIG
-                .comment("If TRUE, Mending behavior is altered so that XP orbs always repair items if possible, and the most damaged item is prioritized. This option may not work with alternative versions (overrides) of Mending.")
+                .comment("If TRUE, Mending behavior is altered so that Experience Orbs always repair items if possible, and the most damaged item is prioritized. This option may not work with alternative versions (overrides) of Mending.")
                 .define("Improved Mending", improvedMending);
 
         SERVER_CONFIG.pop();

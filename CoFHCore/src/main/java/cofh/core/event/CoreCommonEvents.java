@@ -1,7 +1,7 @@
 package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
-import cofh.core.item.IXPContainerItem;
+import cofh.core.xp.IXpContainerItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -92,12 +92,12 @@ public class CoreCommonEvents {
                 }
             }
         }
-        // XP Storage Items
+        // Xp Storage Items
         if (player.world.getGameTime() - player.getPersistentData().getLong(TAG_XP_TIMER) <= 40) {
             PlayerInventory inventory = player.inventory;
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
-                if (stack.getItem() instanceof IXPContainerItem && IXPContainerItem.storeXPOrb(event, stack)) {
+                if (stack.getItem() instanceof IXpContainerItem && IXpContainerItem.storeXpOrb(event, stack)) {
                     break;
                 }
             }

@@ -276,6 +276,7 @@ public abstract class RecipeJsonUtils {
     public static final String USE_CHANCE = "use_chance";
     public static final String VALUE = "value";
     public static final String WILDCARD = "wildcard";
+    public static final String XP = "xp";
 
     public static final String TRUNK = "trunk";
     public static final String LEAF = "leaf";

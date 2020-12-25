@@ -62,8 +62,9 @@ public class NBTTags {
     public static final String TAG_TRACK_OUT = "TrackOut";
     public static final String TAG_TYPE = "Type";
     public static final String TAG_UUID = "UUID";
-    public static final String TAG_XP = "XP";
-    public static final String TAG_XP_TIMER = "XPTimer";
+    public static final String TAG_XP = "Xp";
+    public static final String TAG_XP_MAX = "XpMax";
+    public static final String TAG_XP_TIMER = "XpTimer";
 
     public static final String TAG_SECURITY = "Security";
     public static final String TAG_SEC_ACCESS = "SecAccess";

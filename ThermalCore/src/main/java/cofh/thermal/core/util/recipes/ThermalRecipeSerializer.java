@@ -67,9 +67,11 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
         if (json.has(ENERGY_MOD)) {
             energy *= json.get(ENERGY_MOD).getAsFloat();
         }
-        /* EXPERIENCE */
+        /* XP */
         if (json.has(EXPERIENCE)) {
             experience = json.get(EXPERIENCE).getAsFloat();
+        } else if (json.has(XP)) {
+            experience = json.get(XP).getAsFloat();
         }
         return factory.create(recipeId, energy, experience, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
     }
@@ -113,7 +115,7 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
     public void write(PacketBuffer buffer, T recipe) {
 
         buffer.writeVarInt(recipe.energy);
-        buffer.writeFloat(recipe.experience);
+        buffer.writeFloat(recipe.xp);
 
         int numInputItems = recipe.inputItems.size();
         buffer.writeVarInt(numInputItems);

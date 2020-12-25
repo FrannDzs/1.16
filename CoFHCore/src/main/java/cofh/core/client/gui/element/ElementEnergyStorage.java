@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.energy.EnergyStorageCoFH;
+import cofh.core.util.helpers.RenderHelper;
 
 public class ElementEnergyStorage extends ElementResourceStorage {
 
@@ -11,6 +12,8 @@ public class ElementEnergyStorage extends ElementResourceStorage {
     }
 
     protected void drawResource() {
+
+        RenderHelper.bindTexture(texture);
 
         int resourceHeight = height - 2;
         int amount = getScaled(resourceHeight);

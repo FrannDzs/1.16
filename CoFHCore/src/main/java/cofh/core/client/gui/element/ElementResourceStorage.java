@@ -31,6 +31,7 @@ public abstract class ElementResourceStorage extends ElementBase {
     protected boolean infinite;
     protected int minDisplay = 1;
 
+    protected BooleanSupplier drawStorage = TRUE;
     protected BooleanSupplier drawUnderlay = TRUE;
     protected BooleanSupplier drawOverlay = TRUE;
 
@@ -110,7 +111,7 @@ public abstract class ElementResourceStorage extends ElementBase {
             tooltipList.add(new StringTextComponent(format(storage.getStored()) + " / " + format(storage.getCapacity()) + " " + storage.getUnit()));
         }
         if (clearStorage != FALSE && (hasAltDown() || hasShiftDown())) {
-            tooltipList.add(new TranslationTextComponent("info.cofh.clear_storage").mergeStyle(TextFormatting.GRAY));
+            tooltipList.add(new TranslationTextComponent("info.cofh.click_to_clear").mergeStyle(TextFormatting.GRAY));
         }
     }
 
@@ -135,8 +136,10 @@ public abstract class ElementResourceStorage extends ElementBase {
 
     protected void drawStorage() {
 
-        RenderHelper.bindTexture(texture);
-        drawTexturedModalRect(posX(), posY(), 0, 0, width, height);
+        if (drawStorage.getAsBoolean() && texture != null) {
+            RenderHelper.bindTexture(texture);
+            drawTexturedModalRect(posX(), posY(), 0, 0, width, height);
+        }
     }
 
     protected void drawUnderlayTexture() {

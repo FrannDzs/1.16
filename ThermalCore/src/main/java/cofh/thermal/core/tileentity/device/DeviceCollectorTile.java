@@ -1,10 +1,10 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.util.helpers.InventoryHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,6 +12,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.items.IItemHandler;
 
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static cofh.core.util.StorageGroup.ACCESSIBLE;
-import static cofh.core.util.constants.Constants.TANK_MEDIUM;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
@@ -42,16 +42,16 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
     protected int timeConstant = TIME_CONSTANT;
     protected final int timeOffset;
-    protected FluidStorageCoFH xpTank = new FluidStorageCoFH(TANK_MEDIUM);
+    // protected FluidStorageCoFH xpTank = new FluidStorageCoFH(TANK_MEDIUM);
 
     public DeviceCollectorTile() {
 
         super(DEVICE_COLLECTOR_TILE);
         timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT);
 
-        inventory.addSlots(ACCESSIBLE, 18);
+        inventory.addSlots(ACCESSIBLE, 15);
 
-        tankInv.addTank(xpTank, ACCESSIBLE);
+        // tankInv.addTank(xpTank, ACCESSIBLE);
 
         addAugmentSlots(deviceAugments);
         initHandlers();
@@ -71,7 +71,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
             return;
         }
         if (isActive) {
-            collectItemsAndXP();
+            collectItemsAndXp();
         }
         updateActiveState();
     }
@@ -84,25 +84,41 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     }
 
     // region HELPERS
-    protected void collectItemsAndXP() {
+    protected void collectItemsAndXp() {
 
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -radius, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
 
         if (true) { // TODO: Item Config
-            List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, VALID_ITEM_ENTITY);
-            IItemHandler handler = inventory.getHandler(ACCESSIBLE);
-            for (ItemEntity item : items) {
-                ItemStack entityStack = item.getItem();
-                entityStack = InventoryHelper.insertStackIntoInventory(handler, entityStack, false);
-                if (entityStack.isEmpty()) {
-                    item.remove();
-                } else {
-                    item.setItem(entityStack);
-                }
+            collectItems(area);
+        }
+        if (true) { // TODO: Xp Config
+            collectXpOrbs(area);
+        }
+    }
+
+    protected void collectItems(AxisAlignedBB area) {
+
+        IItemHandler handler = inventory.getHandler(ACCESSIBLE);
+        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, VALID_ITEM_ENTITY);
+
+        for (ItemEntity item : items) {
+            ItemStack entityStack = item.getItem();
+            entityStack = InventoryHelper.insertStackIntoInventory(handler, entityStack, false);
+            if (entityStack.isEmpty()) {
+                item.remove();
+            } else {
+                item.setItem(entityStack);
             }
         }
-        if (true) { // TODO: XP Config
+    }
 
+    protected void collectXpOrbs(AxisAlignedBB area) {
+
+        List<ExperienceOrbEntity> orbs = world.getEntitiesWithinAABB(ExperienceOrbEntity.class, area, EntityPredicates.IS_ALIVE);
+
+        for (ExperienceOrbEntity orb : orbs) {
+            // xpBuffer += orb.getXpValue();
+            orb.remove();
         }
     }
 

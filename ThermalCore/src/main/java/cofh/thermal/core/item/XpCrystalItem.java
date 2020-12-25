@@ -1,7 +1,7 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.IMultiModeItem;
-import cofh.core.item.XPContainerItem;
+import cofh.core.item.XpContainerItem;
 import cofh.core.util.ChatHelper;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.Utils;
@@ -23,13 +23,13 @@ import java.util.List;
 import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
-public class XPCrystalItem extends XPContainerItem implements IMultiModeItem {
+public class XpCrystalItem extends XpContainerItem implements IMultiModeItem {
 
-    public XPCrystalItem(Properties builder, int fluidCapacity) {
+    public XpCrystalItem(Properties builder, int fluidCapacity) {
 
         super(builder, fluidCapacity);
 
-        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("stored"), (stack, world, living) -> ((float) getStoredXP(stack)) / getCapacityXP(stack));
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("stored"), (stack, world, living) -> ((float) getStoredXp(stack)) / getCapacityXP(stack));
     }
 
     @Override

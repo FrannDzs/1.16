@@ -262,9 +262,9 @@ public class CommonEvents {
                 return;
             }
             // EXP BOOST
-            int encExpBoost = getMaxEnchantmentLevel(EXP_BOOST, player);
+            int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
             if (encExpBoost > 0) {
-                event.setDroppedExperience(ExpBoostEnchantment.getExp(event.getDroppedExperience(), encExpBoost, player.world.rand));
+                event.setDroppedExperience(XpBoostEnchantment.getExp(event.getDroppedExperience(), encExpBoost, player.world.rand));
             }
         }
     }
@@ -413,9 +413,9 @@ public class CommonEvents {
             }
         }
         // EXP BOOST
-        int encExpBoost = getMaxEnchantmentLevel(EXP_BOOST, player);
+        int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
         if (encExpBoost > 0) {
-            hook.world.addEntity(new ExperienceOrbEntity(player.world, player.getPosX(), player.getPosY() + 0.5D, player.getPosZ() + 0.5D, ExpBoostEnchantment.getExp(0, encExpBoost, player.world.rand)));
+            hook.world.addEntity(new ExperienceOrbEntity(player.world, player.getPosX(), player.getPosY() + 0.5D, player.getPosZ() + 0.5D, XpBoostEnchantment.getExp(0, encExpBoost, player.world.rand)));
         }
     }
 
@@ -490,9 +490,9 @@ public class CommonEvents {
                 return;
             }
             // EXP BOOST
-            int encExpBoost = getMaxEnchantmentLevel(EXP_BOOST, player);
+            int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
             if (encExpBoost > 0) {
-                event.setExpToDrop(ExpBoostEnchantment.getExp(event.getExpToDrop(), encExpBoost, player.world.rand));
+                event.setExpToDrop(XpBoostEnchantment.getExp(event.getExpToDrop(), encExpBoost, player.world.rand));
             }
         }
     }

@@ -31,7 +31,8 @@
   "info.cofh.arrows": "Arrows",
   "info.cofh.chance": "Chance",
   "info.cofh.chance_additional": "Additional Chance",
-  "info.cofh.clear_storage": "§e§oAlt+Shift+Click§r§7 to clear.",
+  "info.cofh.click_to_claim": "§e§oClick§r§7 to claim.",
+  "info.cofh.click_to_clear": "§e§oAlt+Shift+Click§r§7 to clear.",
   "info.cofh.effects": "Effects",
   "info.cofh.efficiency": "Efficiency",
   "info.cofh.empty": "Empty",
@@ -47,7 +48,7 @@
   "info.cofh.single_block": "Single Block",
   "info.cofh.transfer": "Transfer",
   "info.cofh.type": "Type",
-  "info.cofh.xp": "Exp",
+  "info.cofh.xp": "XP",
 
   "info.cofh.block_tags": "Block Tags",
   "info.cofh.fluid_tags": "Fluid Tags",

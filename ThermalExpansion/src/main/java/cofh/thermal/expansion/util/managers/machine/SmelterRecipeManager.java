@@ -58,13 +58,13 @@ public class SmelterRecipeManager extends AbstractManager implements IRecipeMana
         switch (recipe.getInputItems().size()) {
             case 1:
                 for (ItemStack firstInput : recipe.getInputItems().get(0).getMatchingStacks()) {
-                    addRecipe(recipe.getEnergy(), recipe.getExperience(), Collections.singletonList(firstInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
+                    addRecipe(recipe.getEnergy(), recipe.getXp(), Collections.singletonList(firstInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
                 }
                 return;
             case 2:
                 for (ItemStack firstInput : recipe.getInputItems().get(0).getMatchingStacks()) {
                     for (ItemStack secondInput : recipe.getInputItems().get(1).getMatchingStacks()) {
-                        addRecipe(recipe.getEnergy(), recipe.getExperience(), asList(firstInput, secondInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
+                        addRecipe(recipe.getEnergy(), recipe.getXp(), asList(firstInput, secondInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
                     }
                 }
                 return;
@@ -72,7 +72,7 @@ public class SmelterRecipeManager extends AbstractManager implements IRecipeMana
                 for (ItemStack firstInput : recipe.getInputItems().get(0).getMatchingStacks()) {
                     for (ItemStack secondInput : recipe.getInputItems().get(1).getMatchingStacks()) {
                         for (ItemStack thirdInput : recipe.getInputItems().get(2).getMatchingStacks()) {
-                            addRecipe(recipe.getEnergy(), recipe.getExperience(), asList(firstInput, secondInput, thirdInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
+                            addRecipe(recipe.getEnergy(), recipe.getXp(), asList(firstInput, secondInput, thirdInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
                         }
                     }
                 }

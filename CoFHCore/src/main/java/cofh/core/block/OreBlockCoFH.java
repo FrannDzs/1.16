@@ -12,8 +12,8 @@ import net.minecraftforge.common.ToolType;
 
 public class OreBlockCoFH extends Block {
 
-    protected int minXP = 0;
-    protected int maxXP = 0;
+    protected int minXp = 0;
+    protected int maxXp = 0;
 
     public OreBlockCoFH(int harvestLevel) {
 
@@ -30,22 +30,22 @@ public class OreBlockCoFH extends Block {
         super(properties);
     }
 
-    public OreBlockCoFH xp(int minXP, int maxXP) {
+    public OreBlockCoFH xp(int minXp, int maxXp) {
 
-        this.minXP = minXP;
-        this.maxXP = maxXP;
+        this.minXp = minXp;
+        this.maxXp = maxXp;
         return this;
     }
 
     protected int getExperience() {
 
-        if (maxXP <= 0) {
+        if (maxXp <= 0) {
             return 0;
         }
-        if (minXP >= maxXP) {
-            return minXP;
+        if (minXp >= maxXp) {
+            return minXp;
         }
-        return MathHelper.nextInt(minXP, maxXP);
+        return MathHelper.nextInt(minXp, maxXp);
     }
 
     @Override

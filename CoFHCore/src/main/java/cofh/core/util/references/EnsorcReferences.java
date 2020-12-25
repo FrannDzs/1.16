@@ -31,7 +31,7 @@ public class EnsorcReferences {
     public static final Enchantment AIR_AFFINITY = null;
 
     @ObjectHolder(ID_EXP_BOOST)
-    public static final Enchantment EXP_BOOST = null;
+    public static final Enchantment XP_BOOST = null;
 
     @ObjectHolder(ID_GOURMAND)
     public static final Enchantment GOURMAND = null;

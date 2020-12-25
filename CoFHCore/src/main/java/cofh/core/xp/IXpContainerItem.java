@@ -1,4 +1,4 @@
-package cofh.core.item;
+package cofh.core.xp;
 
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -10,23 +10,23 @@ import net.minecraftforge.event.entity.player.PlayerXpEvent;
 
 import static cofh.core.util.constants.NBTTags.TAG_XP;
 
-public interface IXPContainerItem {
+public interface IXpContainerItem {
 
     int getCapacityXP(ItemStack stack);
 
-    default int getStoredXP(ItemStack stack) {
+    default int getStoredXp(ItemStack stack) {
 
         return stack.getOrCreateTag().getInt(TAG_XP);
     }
 
     default int getSpaceXP(ItemStack stack) {
 
-        return getCapacityXP(stack) - getStoredXP(stack);
+        return getCapacityXP(stack) - getStoredXp(stack);
     }
 
-    default int modifyXP(ItemStack stack, int xp) {
+    default int modifyXp(ItemStack stack, int xp) {
 
-        int totalXP = getStoredXP(stack) + xp;
+        int totalXP = getStoredXp(stack) + xp;
 
         if (totalXP > getCapacityXP(stack)) {
             totalXP = getCapacityXP(stack);
@@ -37,9 +37,9 @@ public interface IXPContainerItem {
         return totalXP;
     }
 
-    static boolean storeXPOrb(PlayerXpEvent.PickupXp event, ItemStack stack) {
+    static boolean storeXpOrb(PlayerXpEvent.PickupXp event, ItemStack stack) {
 
-        IXPContainerItem item = (IXPContainerItem) stack.getItem();
+        IXpContainerItem item = (IXpContainerItem) stack.getItem();
         ExperienceOrbEntity orb = event.getOrb();
         int toAdd = Math.min(item.getSpaceXP(stack), orb.xpValue);
 
@@ -48,7 +48,7 @@ public interface IXPContainerItem {
             PlayerEntity player = event.getPlayer();
             player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.1F, (MathHelper.RANDOM.nextFloat() - MathHelper.RANDOM.nextFloat()) * 0.35F + 0.9F);
 
-            item.modifyXP(stack, toAdd);
+            item.modifyXp(stack, toAdd);
             orb.xpValue -= toAdd;
             return true;
         }

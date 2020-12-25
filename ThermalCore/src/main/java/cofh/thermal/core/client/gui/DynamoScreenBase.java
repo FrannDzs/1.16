@@ -10,7 +10,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.List;
 
-import static cofh.core.util.GuiHelper.setClearable;
 import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
 import static cofh.core.util.helpers.StringHelper.DF0;
 
@@ -31,7 +30,7 @@ public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalScreenBase
 
         addPanel(ThermalGuiHelper.createDefaultEnergyProducerPanel(this, tile));
 
-        if (tile.getEnergyStorage().getMaxEnergyStored() > 0) {
+        if (tile.getEnergyStorage() != null && tile.getEnergyStorage().getMaxEnergyStored() > 0) {
             ElementEnergyStorage throttle = (ElementEnergyStorage) new ElementEnergyStorage(this, 125, 22, tile.getEnergyStorage()) {
 
                 @Override
@@ -39,20 +38,11 @@ public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalScreenBase
 
                     tooltipList.add(new TranslationTextComponent("info.cofh.output")
                             .append(new StringTextComponent(": " + DF0.format(100 * (double) tile.getCurSpeed() / tile.getMaxSpeed()) + "%")));
-
-                    //                    if (infinite) {
-                    //                        tooltipList.add(new TranslationTextComponent("info.cofh.infinite"));
-                    //                    } else {
-                    //                        tooltipList.add(new StringTextComponent(format(storage.getStored()) + " / " + format(storage.getCapacity()) + " " + storage.getUnit()));
-                    //                    }
-                    //        if (advancedTooltips.getAsBoolean()) {
-                    //            tooltipList.add(new TranslationTextComponent("info.cofh.clear_storage"));
-                    //        }
                 }
             }
                     .setSize(16, 42)
                     .setTexture(PATH_ELEMENTS + "storage_energy.png", 32, 64);
-            addElement(setClearable(throttle, tile, 0));
+            addElement(throttle);
         }
     }
 

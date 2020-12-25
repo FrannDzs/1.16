@@ -149,16 +149,16 @@ public class EnsorcConfig {
         SERVER_CONFIG.pop();
 
         SERVER_CONFIG.push("Insight");
-        enableExpBoost = SERVER_CONFIG
+        enableXpBoost = SERVER_CONFIG
                 .comment("If TRUE, the Insight Enchantment is available for Helmets.")
                 .define("Enable", true);
-        treasureExpBoost = SERVER_CONFIG
+        treasureXpBoost = SERVER_CONFIG
                 .comment(treasure)
                 .define("Treasure", false);
-        levelExpBoost = SERVER_CONFIG
+        levelXpBoost = SERVER_CONFIG
                 .comment(level)
                 .defineInRange("Max Level", 3, 1, MAX_ENCHANT_LEVEL);
-        amountExpBoost = SERVER_CONFIG
+        amountXpBoost = SERVER_CONFIG
                 .comment("Adjust this to change the max experience awarded per level of the Enchantment.")
                 .defineInRange("Experience Amount", 4, 1, 1000);
         SERVER_CONFIG.pop();
@@ -668,11 +668,11 @@ public class EnsorcConfig {
             ((EnchantmentCoFH) AIR_AFFINITY).setEnable(enableAirAffinity.get());
             ((EnchantmentCoFH) AIR_AFFINITY).setTreasure(treasureAirAffinity.get());
         }
-        if (EXP_BOOST instanceof EnchantmentCoFH) {
-            ((EnchantmentCoFH) EXP_BOOST).setEnable(enableExpBoost.get());
-            ((EnchantmentCoFH) EXP_BOOST).setTreasure(treasureExpBoost.get());
-            ((EnchantmentCoFH) EXP_BOOST).setMaxLevel(levelExpBoost.get());
-            ExpBoostEnchantment.experience = amountExpBoost.get();
+        if (XP_BOOST instanceof EnchantmentCoFH) {
+            ((EnchantmentCoFH) XP_BOOST).setEnable(enableXpBoost.get());
+            ((EnchantmentCoFH) XP_BOOST).setTreasure(treasureXpBoost.get());
+            ((EnchantmentCoFH) XP_BOOST).setMaxLevel(levelXpBoost.get());
+            XpBoostEnchantment.xp = amountXpBoost.get();
         }
         if (GOURMAND instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) GOURMAND).setEnable(enableGourmand.get());
@@ -906,10 +906,10 @@ public class EnsorcConfig {
     private static BooleanValue enableAirAffinity;
     private static BooleanValue treasureAirAffinity;
 
-    private static BooleanValue enableExpBoost;
-    private static BooleanValue treasureExpBoost;
-    private static IntValue levelExpBoost;
-    private static IntValue amountExpBoost;
+    private static BooleanValue enableXpBoost;
+    private static BooleanValue treasureXpBoost;
+    private static IntValue levelXpBoost;
+    private static IntValue amountXpBoost;
 
     private static BooleanValue enableGourmand;
     private static BooleanValue treasureGourmand;

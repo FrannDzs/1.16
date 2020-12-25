@@ -2,12 +2,12 @@ package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.element.panel.PanelConfiguration;
 import cofh.core.inventory.container.ContainerCoFH;
+import cofh.thermal.core.tileentity.MachineTileProcess;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
-import static cofh.core.util.GuiHelper.createDefaultEnergyStorage;
-import static cofh.core.util.GuiHelper.setClearable;
+import static cofh.core.util.GuiHelper.*;
 
 public class MachineScreenReconfigurable<T extends ContainerCoFH> extends ThermalScreenBase<T> {
 
@@ -27,9 +27,12 @@ public class MachineScreenReconfigurable<T extends ContainerCoFH> extends Therma
         addPanel(new PanelConfiguration(this, tile, tile, () -> tile.getFacing())
                 .addConditionals(ThermalGuiHelper.createDefaultMachineConfigs(this, name, tile)));
 
-        if (tile.getEnergyStorage().getMaxEnergyStored() > 0) {
+        if (tile.getEnergyStorage() != null && tile.getEnergyStorage().getMaxEnergyStored() > 0) {
             addPanel(ThermalGuiHelper.createDefaultEnergyUserPanel(this, tile));
             addElement(setClearable(createDefaultEnergyStorage(this, 8, 8, tile.getEnergyStorage()), tile, 0));
+        }
+        if (tile.getXpStorage() != null && tile.getXpStorage().getMaxXpStored() > 0) {
+            addElement(createDefaultXpStorage(this, 152, 65, tile.getXpStorage()));
         }
     }
 
