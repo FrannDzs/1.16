@@ -436,6 +436,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     // endregion
 
     // region AUGMENTS
+    protected boolean xpStorageFeature = true;
+
     protected float processMod = 1.0F;
     protected float primaryMod = 1.0F;
     protected float secondaryMod = 1.0F;
@@ -448,6 +450,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected void resetAttributes() {
 
         super.resetAttributes();
+
+        xpStorageFeature = true;
 
         processMod = 1.0F;
         primaryMod = 1.0F;
@@ -462,6 +466,8 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
 
         super.setAttributesFromAugment(augmentData);
+
+        xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
 
         processMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_POWER);
         primaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_PRIMARY);
@@ -480,7 +486,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
-        xpStorage.applyModifiers(baseMod);
+        xpStorage.applyModifiers(baseMod * (xpStorageFeature ? 1 : 0));
 
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);

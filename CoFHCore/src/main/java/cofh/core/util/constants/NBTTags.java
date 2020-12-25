@@ -80,6 +80,11 @@ public class NBTTags {
     public static final String TAG_XFER_IN = "XferIn";
     public static final String TAG_XFER_OUT = "XferOut";
 
+    // Compatibility
+    public static final String TAG_DEMAGNETIZE_COMPAT = "AllowMachineRemoteMovement";
+    public static final String TAG_CONVEYOR_COMPAT = "PreventRemoteMovement";
+
+    // region AUGMENTS
     public static final String TAG_PROPERTIES = "Properties";
 
     // Types
@@ -102,7 +107,9 @@ public class NBTTags {
     public static final String TAG_AUGMENT_AREA_RADIUS = "AERad";
     public static final String TAG_AUGMENT_AREA_REACH = "AERch";
 
+    public static final String TAG_AUGMENT_FEATURE_RS_CONTROL = "FtrRSCon";
     public static final String TAG_AUGMENT_FEATURE_RECYCLE = "FtrRecyc";
+    public static final String TAG_AUGMENT_FEATURE_XP_STORAGE = "FtrXpStor";
 
     public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotAmp";
     public static final String TAG_AUGMENT_POTION_DURATION = "PotDur";
@@ -121,9 +128,5 @@ public class NBTTags {
     public static final String TAG_AUGMENT_MACHINE_ENERGY = "MchEn";
     public static final String TAG_AUGMENT_MACHINE_CATALYST = "MchCat";
     public static final String TAG_AUGMENT_MACHINE_XP = "MchXp";
-
-    // Compatibility
-    public static final String TAG_DEMAGNETIZE_COMPAT = "AllowMachineRemoteMovement";
-    public static final String TAG_CONVEYOR_COMPAT = "PreventRemoteMovement";
-
+    // endregion
 }

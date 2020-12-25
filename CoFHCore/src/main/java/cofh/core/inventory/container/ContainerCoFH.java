@@ -84,8 +84,8 @@ public abstract class ContainerCoFH extends Container {
     protected boolean performMerge(int index, ItemStack stack) {
 
         // TODO: Consider reverting or allowing augment shift-click in some cases.
-        // int invBase = getSizeTileInventory();
-        int invBase = getSizeTileInventory() - getNumAugmentSlots();
+        int invBase = getSizeTileInventory();
+        // int invBase = getSizeTileInventory() - getNumAugmentSlots();
         int invFull = inventorySlots.size();
         int invHotbar = invFull - 9;
         int invPlayer = invHotbar - 27;

@@ -89,6 +89,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     public ThermalTileBase(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
+        redstoneControl.setEnabled(() -> redstoneControlFeature);
     }
 
     // region BASE PARAMETERS
@@ -545,6 +546,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     // endregion
 
     // region AUGMENTS
+    protected boolean redstoneControlFeature = true;
+
     protected float baseMod = 1.0F;
     protected float energyStorageMod = 1.0F;
     protected float energyXferMod = 1.0F;
@@ -583,6 +586,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected void resetAttributes() {
 
+        redstoneControlFeature = true;
+
         baseMod = 1.0F;
         energyStorageMod = 1.0F;
         energyXferMod = 1.0F;
@@ -590,6 +595,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     }
 
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
+
+        redstoneControlFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_RS_CONTROL) > 0;
 
         baseMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_BASE_MOD), baseMod);
         energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_STORAGE), energyStorageMod);
