@@ -24,10 +24,7 @@ public interface IReconfigurable {
     /**
      * This returns whether or not reconfiguration functionality is enabled at all.
      */
-    default boolean isReconfigurable() {
-
-        return true;
-    }
+    boolean isReconfigurable();
 
     // region CONFIGS
     enum SideConfig implements IStringSerializable {

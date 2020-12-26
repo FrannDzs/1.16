@@ -109,6 +109,7 @@ public class NBTTags {
 
     public static final String TAG_AUGMENT_FEATURE_RS_CONTROL = "FtrRSCon";
     public static final String TAG_AUGMENT_FEATURE_RECYCLE = "FtrRecyc";
+    public static final String TAG_AUGMENT_FEATURE_SIDE_CONFIG = "FtrReconfig";
     public static final String TAG_AUGMENT_FEATURE_XP_STORAGE = "FtrXpStor";
 
     public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotAmp";

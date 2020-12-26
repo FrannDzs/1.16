@@ -345,6 +345,11 @@ public class TCoreItems {
                         .mod(TAG_AUGMENT_FEATURE_RS_CONTROL, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_RS_CONTROL_AUGMENT)));
 
+        registerItem("side_config_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .mod(TAG_AUGMENT_FEATURE_SIDE_CONFIG, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_SIDE_CONFIG_AUGMENT)));
+
         registerItem("xp_storage_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .mod(TAG_AUGMENT_FEATURE_XP_STORAGE, 1.0F)

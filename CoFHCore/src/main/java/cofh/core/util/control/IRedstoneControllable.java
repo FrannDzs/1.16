@@ -20,10 +20,7 @@ public interface IRedstoneControllable {
     /**
      * This returns whether or not redstone control functionality is enabled at all.
      */
-    default boolean isControllable() {
-
-        return true;
-    }
+    boolean isControllable();
 
     // region CONTROL MODE
     enum ControlMode {

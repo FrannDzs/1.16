@@ -55,5 +55,11 @@ public interface IReconfigurableTile extends IReconfigurable, ITileCallback {
 
         return reconfigControl().hasOutputSide();
     }
+
+    @Override
+    default boolean isReconfigurable() {
+
+        return reconfigControl().isReconfigurable();
+    }
     // endregion
 }

@@ -138,6 +138,13 @@ public class ReconfigControlModule implements IReconfigurable {
     }
     // endregion
 
+    public void disable() {
+
+        this.sides = new SideConfig[]{SIDE_ACCESSIBLE, SIDE_ACCESSIBLE, SIDE_ACCESSIBLE, SIDE_ACCESSIBLE, SIDE_ACCESSIBLE, SIDE_ACCESSIBLE};
+        this.sides[facing.ordinal()] = SIDE_NONE;
+        tile.onControlUpdate();
+    }
+
     public SideConfig getSideConfig(int side) {
 
         if (side > 5) {

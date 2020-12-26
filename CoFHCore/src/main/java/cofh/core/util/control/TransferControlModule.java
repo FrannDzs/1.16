@@ -29,6 +29,12 @@ public class TransferControlModule implements ITransferControllable {
         this.hasAutoOutput = hasAutoOutput;
     }
 
+    public void disable() {
+
+        enableAutoInput = false;
+        enableAutoOutput = false;
+    }
+
     // region NETWORK
     public void readFromBuffer(PacketBuffer buffer) {
 

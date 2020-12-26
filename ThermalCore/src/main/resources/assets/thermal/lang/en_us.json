@@ -363,6 +363,9 @@
   "item.thermal.rs_control_augment": "Redstone Response Mechanism",
   "item.thermal.rs_control_augment.desc": "Allows control via redstone signals.",
 
+  "item.thermal.side_config_augment": "Modular Reconfiguration",
+  "item.thermal.side_config_augment.desc": "Allows sides to be reconfigured for input and output.",
+
   "item.thermal.upgrade_augment_1": "Hardened Integral Components",
   "item.thermal.upgrade_augment_1.desc": "Improves base attributes and amplifies augments.",
   "item.thermal.upgrade_augment_2": "Reinforced Integral Components",

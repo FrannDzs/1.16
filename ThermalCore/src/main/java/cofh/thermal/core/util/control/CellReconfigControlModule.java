@@ -23,6 +23,13 @@ public class CellReconfigControlModule extends ReconfigControlModule {
     }
 
     @Override
+    public void disable() {
+
+        this.sides = new SideConfig[]{SIDE_NONE, SIDE_NONE, SIDE_NONE, SIDE_NONE, SIDE_NONE, SIDE_NONE};
+        tile.onControlUpdate();
+    }
+
+    @Override
     public SideConfig getSideConfig(int side) {
 
         if (side > 5) {

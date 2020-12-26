@@ -629,7 +629,17 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                     .patternLine(" i ")
                     .patternLine("iri")
                     .patternLine(" i ")
-                    .addCriterion("has_redstone", hasItem(Tags.Items.DUSTS_REDSTONE))
+                    .addCriterion("has_redstone_dust", hasItem(Tags.Items.DUSTS_REDSTONE))
+                    .build(consumer, this.modid + ":" + folder + "/" + name(result));
+
+            result = reg.get("side_config_augment");
+            ShapedRecipeBuilder.shapedRecipe(result)
+                    .key('i', ItemTagsCoFH.NUGGETS_TIN)
+                    .key('G', Tags.Items.INGOTS_GOLD)
+                    .patternLine(" i ")
+                    .patternLine("iGi")
+                    .patternLine(" i ")
+                    .addCriterion("has_gold_ingot", hasItem(Tags.Items.INGOTS_GOLD))
                     .build(consumer, this.modid + ":" + folder + "/" + name(result));
 
             result = reg.get("xp_storage_augment");
@@ -673,7 +683,7 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addIngredient(Items.PAPER)
                 .addIngredient(Tags.Items.DUSTS_REDSTONE)
                 .addIngredient(Tags.Items.DUSTS_REDSTONE)
-                .addCriterion("has_redstone", hasItem(Tags.Items.DUSTS_REDSTONE))
+                .addCriterion("has_redstone_dust", hasItem(Tags.Items.DUSTS_REDSTONE))
                 .build(consumer, this.modid + ":" + folder + "/" + name(result));
 
         result = reg.get("lock");
