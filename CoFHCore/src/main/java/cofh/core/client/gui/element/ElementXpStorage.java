@@ -10,8 +10,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.List;
 
 import static cofh.core.util.constants.Constants.FALSE;
-import static net.minecraft.client.gui.screen.Screen.hasAltDown;
-import static net.minecraft.client.gui.screen.Screen.hasShiftDown;
 
 public class ElementXpStorage extends ElementResourceStorage {
 
@@ -42,6 +40,9 @@ public class ElementXpStorage extends ElementResourceStorage {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
+        if (storage.getStored() > 0) {
+            return claimStorage.getAsBoolean();
+        }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 

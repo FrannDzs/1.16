@@ -5,9 +5,11 @@ import cofh.core.util.IConveyableData;
 import cofh.core.util.Utils;
 import cofh.core.util.control.ISecurable;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.core.xp.XpStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -24,6 +26,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -155,6 +158,33 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
     public boolean clearTank(int tank) {
 
         return false;
+    }
+
+    public boolean claimXP(Vector3d pos) {
+
+        if (getXpStorage() != null) {
+            spawnXpOrbs(getXpStorage().getStored(), pos);
+            getXpStorage().clear();
+            return true;
+        }
+        return false;
+    }
+
+    public void spawnXpOrbs(int xp, Vector3d pos) {
+
+        if (world == null) {
+            return;
+        }
+        while (xp > 0) {
+            int orbAmount = ExperienceOrbEntity.getXPSplit(xp);
+            xp -= orbAmount;
+            world.addEntity(new ExperienceOrbEntity(world, pos.x, pos.y, pos.z, orbAmount));
+        }
+    }
+
+    public XpStorage getXpStorage() {
+
+        return null;
     }
     // endregion
 

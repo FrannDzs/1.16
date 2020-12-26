@@ -149,6 +149,7 @@ public class Constants {
     public static final int PACKET_TRANSFER_CONTROL = 35;
     public static final int PACKET_SIDE_CONFIG = 36;
     public static final int PACKET_STORAGE_CLEAR = 37;
+    public static final int PACKET_CLAIM_XP = 38;
 
     public static final int PACKET_ITEM_MODE_CHANGE = 64;
     // endregion

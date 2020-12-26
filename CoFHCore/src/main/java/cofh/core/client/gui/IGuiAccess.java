@@ -3,6 +3,7 @@ package cofh.core.client.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 public interface IGuiAccess {
@@ -12,6 +13,8 @@ public interface IGuiAccess {
     int getGuiLeft();
 
     FontRenderer getFontRenderer();
+
+    PlayerEntity getPlayer();
 
     boolean handleElementButtonClick(String buttonName, int mouseButton);
 

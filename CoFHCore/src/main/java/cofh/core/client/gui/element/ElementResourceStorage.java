@@ -35,6 +35,7 @@ public abstract class ElementResourceStorage extends ElementBase {
     protected BooleanSupplier drawUnderlay = TRUE;
     protected BooleanSupplier drawOverlay = TRUE;
 
+    protected BooleanSupplier claimStorage = FALSE;
     protected BooleanSupplier clearStorage = FALSE;
 
     public ElementResourceStorage(IGuiAccess gui, int posX, int posY, IResourceStorage storage) {
@@ -72,6 +73,12 @@ public abstract class ElementResourceStorage extends ElementBase {
         }
         this.overlayTexture = new ResourceLocation(texture);
         this.drawOverlay = draw;
+        return this;
+    }
+
+    public final ElementResourceStorage setClaimStorage(BooleanSupplier claimStorage) {
+
+        this.claimStorage = claimStorage;
         return this;
     }
 

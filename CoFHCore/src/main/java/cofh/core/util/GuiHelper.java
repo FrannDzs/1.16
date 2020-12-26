@@ -4,6 +4,7 @@ import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.*;
 import cofh.core.energy.EnergyStorageCoFH;
 import cofh.core.fluid.FluidStorageCoFH;
+import cofh.core.network.packet.server.ClaimXPPacket;
 import cofh.core.network.packet.server.StorageClearPacket;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.IReconfigurable;
@@ -183,6 +184,11 @@ public class GuiHelper {
         return (ElementXpStorage) new ElementXpStorage(gui, posX, posY, storage)
                 .setSize(width, height)
                 .setTexture(texture, texW, texH);
+    }
+
+    public static ElementResourceStorage setClaimable(ElementXpStorage storage, TileCoFH tile) {
+
+        return storage.setClaimStorage(() -> ClaimXPPacket.sendToServer(tile));
     }
     // endregion
 

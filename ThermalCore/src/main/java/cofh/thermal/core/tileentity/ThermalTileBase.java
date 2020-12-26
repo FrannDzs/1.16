@@ -15,7 +15,6 @@ import cofh.core.util.Utils;
 import cofh.core.util.control.*;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.core.util.helpers.MathHelper;
-import cofh.core.xp.XpStorage;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.util.IThermalInventory;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -309,11 +308,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     public EnergyStorageCoFH getEnergyStorage() {
 
         return energyStorage;
-    }
-
-    public XpStorage getXpStorage() {
-
-        return null;
     }
 
     public FluidStack getRenderFluid() {

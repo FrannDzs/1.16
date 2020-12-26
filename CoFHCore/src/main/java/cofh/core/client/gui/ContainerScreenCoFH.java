@@ -485,6 +485,12 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     }
 
     @Override
+    public PlayerEntity getPlayer() {
+
+        return player;
+    }
+
+    @Override
     public boolean handleElementButtonClick(String buttonName, int mouseButton) {
 
         return false;

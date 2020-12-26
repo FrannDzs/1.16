@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -492,7 +493,11 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         float holdingMod = getHoldingMod(enchantmentMap);
 
+        int storedXp = xpStorage.getStored();
         xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
+        if (xpStorage.getStored() < storedXp) {
+            spawnXpOrbs(storedXp - xpStorage.getStored(), new Vector3d(pos.getX(), pos.getY(), pos.getZ()));
+        }
 
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);
