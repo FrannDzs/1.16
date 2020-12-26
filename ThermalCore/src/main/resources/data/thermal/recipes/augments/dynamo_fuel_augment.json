@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:dynamo_fuel_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "dynamo_augments"
+    }
+  ]
 }

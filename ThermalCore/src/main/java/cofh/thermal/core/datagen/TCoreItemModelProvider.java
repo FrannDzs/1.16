@@ -153,6 +153,9 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
         for (int i = 1; i <= 3; ++i) {
             generated(reg.getSup("upgrade_augment_" + i), AUGMENTS);
         }
+        generated(reg.getSup("rs_control_augment"), AUGMENTS);
+        generated(reg.getSup("xp_storage_augment"), AUGMENTS);
+
         generated(reg.getSup("fluid_tank_augment"), AUGMENTS);
         generated(reg.getSup("rf_coil_augment"), AUGMENTS);
         generated(reg.getSup("rf_coil_storage_augment"), AUGMENTS);

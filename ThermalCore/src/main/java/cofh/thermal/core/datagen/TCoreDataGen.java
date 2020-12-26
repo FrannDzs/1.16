@@ -11,6 +11,8 @@ import static cofh.core.util.constants.Constants.ID_THERMAL;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID_THERMAL)
 public class TCoreDataGen {
 
+    public static final boolean CONDITIONAL = false;
+
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event) {
 

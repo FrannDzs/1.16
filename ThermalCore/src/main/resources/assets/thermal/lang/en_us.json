@@ -360,6 +360,9 @@
   "item.thermal.rf_coil_storage_augment": "Stabilized RF Coil",
   "item.thermal.rf_coil_xfer_augment": "High-Flux RF Coil",
 
+  "item.thermal.rs_control_augment": "Redstone Response Mechanism",
+  "item.thermal.rs_control_augment.desc": "Allows control via redstone signals.",
+
   "item.thermal.upgrade_augment_1": "Hardened Integral Components",
   "item.thermal.upgrade_augment_1.desc": "Improves base attributes and amplifies augments.",
   "item.thermal.upgrade_augment_2": "Reinforced Integral Components",
@@ -369,6 +372,9 @@
 
   "item.thermal.upgrade_augment_4": "Resonant+ Integral Components",
   "item.thermal.upgrade_augment_4.desc": "Improves base attributes and amplifies augments.",
+
+  "item.thermal.xp_storage_augment": "Knowledge Concentrator",
+  "item.thermal.xp_storage_augment.desc": "Allows XP to be stored and retrieved.",
 
   "_comment": "========================================================================================================",
   "_comment": "Thermal Core - External",

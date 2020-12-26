@@ -5,6 +5,7 @@ import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 
 import static cofh.core.util.constants.Constants.*;
 import static cofh.core.util.constants.NBTTags.*;
@@ -302,13 +304,14 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         super.setAttributesFromAugment(augmentData);
 
         processMod += getAttributeMod(augmentData, TAG_AUGMENT_DYNAMO_PRODUCTION);
+
         energyMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_DYNAMO_EFFICIENCY, 1.0F);
     }
 
     @Override
-    protected void finalizeAttributes() {
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        super.finalizeAttributes();
+        super.finalizeAttributes(enchantmentMap);
 
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;

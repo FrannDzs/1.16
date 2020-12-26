@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:potion_amplifier_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "potion_augments"
+    }
+  ]
 }

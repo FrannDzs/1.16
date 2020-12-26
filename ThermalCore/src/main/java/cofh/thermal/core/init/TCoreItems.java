@@ -43,6 +43,7 @@ public class TCoreItems {
         registerParts();
 
         registerUpgradeAugments();
+        registerFeatureAugments();
         registerStorageAugments();
         registerMachineAugments();
         registerDynamoAugments();
@@ -333,6 +334,21 @@ public class TCoreItems {
                         .type(TAG_AUGMENT_TYPE_DYNAMO)
                         .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 1.10F)
                         .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
+    }
+
+    private static void registerFeatureAugments() {
+
+        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+
+        registerItem("rs_control_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .mod(TAG_AUGMENT_FEATURE_RS_CONTROL, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_RS_CONTROL_AUGMENT)));
+
+        registerItem("xp_storage_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .mod(TAG_AUGMENT_FEATURE_XP_STORAGE, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_XP_STORAGE_AUGMENT)));
     }
 
     private static void registerMachineAugments() {

@@ -49,6 +49,9 @@ public class ThermalFlags {
     public static String FLAG_STORAGE_AUGMENTS = "storage_augments";
     public static String FLAG_UPGRADE_AUGMENTS = "upgrade_augments";
 
+    public static String FLAG_RS_CONTROL_AUGMENT = "rs_control_augment";
+    public static String FLAG_XP_STORAGE_AUGMENT = "xp_storage_augment";
+
     public static String FLAG_TOOL_COMPONENTS = "tool_components";
 
     public static String FLAG_COINS = "coins";

@@ -6,6 +6,7 @@ import cofh.core.util.control.ReconfigControlModule;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.util.control.CellReconfigControlModule;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,6 +17,8 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.ModelDataManager;
+
+import java.util.Map;
 
 import static cofh.core.util.constants.Constants.FACING_HORIZONTAL;
 import static cofh.core.util.constants.NBTTags.*;
@@ -252,9 +255,9 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
     // region AUGMENTS
     @Override
-    protected void finalizeAttributes() {
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        super.finalizeAttributes();
+        super.finalizeAttributes(enchantmentMap);
 
         amountInput = MathHelper.clamp(amountInput, 0, getMaxInput());
         amountOutput = MathHelper.clamp(amountOutput, 0, getMaxOutput());

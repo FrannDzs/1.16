@@ -7,6 +7,7 @@ import cofh.thermal.core.block.SoilBlock;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -17,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
+
+import java.util.Map;
 
 import static cofh.core.util.StorageGroup.INTERNAL;
 import static cofh.core.util.constants.NBTTags.*;
@@ -186,9 +189,9 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
     }
 
     @Override
-    protected void finalizeAttributes() {
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        super.finalizeAttributes();
+        super.finalizeAttributes(enchantmentMap);
 
         processMax = BASE_PROCESS_MAX * (1 + radius);
         processTick = Math.round(getBaseProcessTick() * baseMod);

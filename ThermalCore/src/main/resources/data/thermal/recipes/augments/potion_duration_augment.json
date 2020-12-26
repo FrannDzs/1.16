@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:potion_duration_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "potion_augments"
+    }
+  ]
 }

@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:machine_catalyst_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "machine_augments"
+    }
+  ]
 }

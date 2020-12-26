@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:rf_coil_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "storage_augments"
+    }
+  ]
 }

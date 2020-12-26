@@ -70,13 +70,13 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
 
     public EnergyStorageCoFH setMaxReceive(int maxReceive) {
 
-        this.maxReceive = maxReceive;
+        this.maxReceive = MathHelper.clamp(maxReceive, 0, MAX_CAPACITY);
         return this;
     }
 
     public EnergyStorageCoFH setMaxExtract(int maxExtract) {
 
-        this.maxExtract = maxExtract;
+        this.maxExtract = MathHelper.clamp(maxExtract, 0, MAX_CAPACITY);
         return this;
     }
 

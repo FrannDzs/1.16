@@ -24,5 +24,11 @@
   },
   "result": {
     "item": "thermal:device_water_gen"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "device_water_gen"
+    }
+  ]
 }

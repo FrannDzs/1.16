@@ -8,6 +8,7 @@ import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -26,6 +27,7 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Map;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.OUTPUT;
@@ -186,9 +188,10 @@ public class DeviceRockGenTile extends ThermalTileBase {
     //    // endregion
 
     // region AUGMENTS
-    protected void finalizeAttributes() {
+    @Override
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        super.finalizeAttributes();
+        super.finalizeAttributes(enchantmentMap);
 
         if (!slot.isEmpty()) {
             slot.setItemStack(cloneStack(slot.getItemStack(), (int) Math.min((AMOUNT * baseMod), slot.getCapacity())));

@@ -11,6 +11,7 @@ import cofh.thermal.core.util.IMachineInventory;
 import cofh.thermal.core.util.recipes.internal.IMachineRecipe;
 import cofh.thermal.core.util.recipes.internal.IRecipeCatalyst;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -20,6 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static cofh.core.util.constants.Constants.*;
 import static cofh.core.util.constants.NBTTags.*;
@@ -436,22 +438,22 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     // endregion
 
     // region AUGMENTS
-    protected boolean xpStorageFeature = true;
+    protected boolean xpStorageFeature = defaultXpStorageState();
 
     protected float processMod = 1.0F;
     protected float primaryMod = 1.0F;
     protected float secondaryMod = 1.0F;
     protected float energyMod = 1.0F;
     protected float experienceMod = 1.0F;
-    protected float minOutputChance = 0.0F;
     protected float catalystMod = 1.0F;
+    protected float minOutputChance = 0.0F;
 
     @Override
     protected void resetAttributes() {
 
         super.resetAttributes();
 
-        xpStorageFeature = true;
+        xpStorageFeature = defaultXpStorageState();
 
         processMod = 1.0F;
         primaryMod = 1.0F;
@@ -472,21 +474,25 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         processMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_POWER);
         primaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_PRIMARY);
         secondaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_SECONDARY);
+
         energyMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_ENERGY, 1.0F);
         experienceMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_XP, 1.0F);
         catalystMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_CATALYST, 1.0F);
+
         minOutputChance = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_MIN_OUTPUT), minOutputChance);
     }
 
     @Override
-    protected void finalizeAttributes() {
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        super.finalizeAttributes();
+        super.finalizeAttributes(enchantmentMap);
 
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
-        xpStorage.applyModifiers(baseMod * (xpStorageFeature ? 1 : 0));
+        float holdingMod = getHoldingMod(enchantmentMap);
+
+        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
 
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);

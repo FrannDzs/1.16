@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:area_radius_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "area_augments"
+    }
+  ]
 }

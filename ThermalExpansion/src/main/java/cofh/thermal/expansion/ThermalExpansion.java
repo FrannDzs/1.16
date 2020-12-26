@@ -64,6 +64,8 @@ public class ThermalExpansion {
 
         setFlag(ID_FLUID_CELL_FRAME, true);
         setFlag(ID_FLUID_CELL, true);
+
+        setFlag(FLAG_XP_STORAGE_AUGMENT, true);
     }
 
     // region INITIALIZATION

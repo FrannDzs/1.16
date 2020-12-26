@@ -258,7 +258,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         if (keepFluids()) {
             getTankInv().write(nbt);
         }
-        if (ThermalConfig.keepRSControl.get()) {
+        if (ThermalConfig.keepRSControl.get() && redstoneControlFeature) {
             redstoneControl().write(nbt);
         }
         if (ThermalConfig.keepSideConfig.get() && this instanceof IReconfigurableTile) {
@@ -546,7 +546,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     // endregion
 
     // region AUGMENTS
-    protected boolean redstoneControlFeature = true;
+    protected boolean redstoneControlFeature = defaultRedstoneControlState();
 
     protected float baseMod = 1.0F;
     protected float energyStorageMod = 1.0F;
@@ -581,12 +581,12 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             augmentTypes.add(AugmentDataHelper.getAugmentType(augment));
             setAttributesFromAugment(augmentData);
         }
-        finalizeAttributes();
+        finalizeAttributes(EnchantmentHelper.deserializeEnchantments(enchantments));
     }
 
     protected void resetAttributes() {
 
-        redstoneControlFeature = true;
+        redstoneControlFeature = defaultRedstoneControlState();
 
         baseMod = 1.0F;
         energyStorageMod = 1.0F;
@@ -604,15 +604,12 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         fluidStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_FLUID_STORAGE), fluidStorageMod);
     }
 
-    protected void finalizeAttributes() {
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
-        Map<Enchantment, Integer> encMap = EnchantmentHelper.deserializeEnchantments(enchantments);
-
-        int holding = encMap.getOrDefault(HOLDING, 0);
-        float holdingMod = 1 + holding / 2F;
+        float holdingMod = getHoldingMod(enchantmentMap);
 
         energyStorageMod = holdingMod * MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
         energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
@@ -622,6 +619,22 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             tankInv.getTank(i).applyModifiers(getFluidStorageMod());
         }
+    }
+
+    protected boolean defaultRedstoneControlState() {
+
+        return ThermalConfig.flagRSControl.get();
+    }
+
+    protected boolean defaultXpStorageState() {
+
+        return ThermalConfig.flagXPStorage.get();
+    }
+
+    protected float getHoldingMod(Map<Enchantment, Integer> enchantmentMap) {
+
+        int holding = enchantmentMap.getOrDefault(HOLDING, 0);
+        return 1 + holding / 2F;
     }
 
     protected float getEnergyStorageMod() {

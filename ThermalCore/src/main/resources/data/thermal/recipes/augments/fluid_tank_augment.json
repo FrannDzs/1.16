@@ -18,5 +18,11 @@
   },
   "result": {
     "item": "thermal:fluid_tank_augment"
-  }
+  },
+  "conditions": [
+    {
+      "type": "thermal:flag",
+      "flag": "storage_augments"
+    }
+  ]
 }
