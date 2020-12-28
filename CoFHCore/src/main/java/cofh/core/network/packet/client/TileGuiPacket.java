@@ -55,7 +55,7 @@ public class TileGuiPacket extends PacketBase implements IPacketClient {
 
     public static void sendToClient(TileCoFH tile, ServerPlayerEntity player) {
 
-        if (Utils.isClientWorld(tile.world())) {
+        if (tile.world() == null || Utils.isClientWorld(tile.world())) {
             return;
         }
         TileGuiPacket packet = new TileGuiPacket();

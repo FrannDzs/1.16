@@ -615,6 +615,11 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         }
     }
 
+    protected boolean defaultReconfigState() {
+
+        return ThermalConfig.flagReconfigSides.get();
+    }
+
     protected boolean defaultRedstoneControlState() {
 
         return ThermalConfig.flagRSControl.get();
@@ -768,7 +773,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public void readConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        redstoneControl.read(tag);
+        redstoneControl.readSettings(tag);
 
         onControlUpdate();
     }
@@ -776,7 +781,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public void writeConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        redstoneControl.write(tag);
+        redstoneControl.writeSettings(tag);
     }
     // endregion
 }

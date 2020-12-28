@@ -12,6 +12,7 @@ import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.InventoryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -31,6 +32,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Map;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.client.renderer.model.ModelUtils.SIDES;
@@ -54,6 +56,8 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
     public ReconfigurableTile4Way(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
+        reconfigControl.setEnabled(() -> reconfigControlFeature);
+        transferControl.setEnabled(() -> reconfigControlFeature);
     }
 
     @Override
@@ -291,6 +295,37 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
     }
     // endregion
 
+    // region AUGMENTS
+    protected boolean reconfigControlFeature = defaultReconfigState();
+
+    @Override
+    protected void resetAttributes() {
+
+        super.resetAttributes();
+
+        reconfigControlFeature = defaultReconfigState();
+    }
+
+    @Override
+    protected void setAttributesFromAugment(CompoundNBT augmentData) {
+
+        super.setAttributesFromAugment(augmentData);
+
+        reconfigControlFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_SIDE_CONFIG) > 0;
+    }
+
+    @Override
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
+
+        super.finalizeAttributes(enchantmentMap);
+
+        if (!reconfigControlFeature) {
+            transferControl.disable();
+            reconfigControl.disable();
+        }
+    }
+    // endregion
+
     // region MODULES
     @Override
     public ReconfigControlModule reconfigControl() {
@@ -384,8 +419,8 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
     @Override
     public void readConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        reconfigControl.read(tag);
-        transferControl.read(tag);
+        reconfigControl.readSettings(tag);
+        transferControl.readSettings(tag);
 
         super.readConveyableData(player, tag);
     }
@@ -393,8 +428,8 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
     @Override
     public void writeConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        reconfigControl.write(tag);
-        transferControl.write(tag);
+        reconfigControl.writeSettings(tag);
+        transferControl.writeSettings(tag);
 
         super.writeConveyableData(player, tag);
     }

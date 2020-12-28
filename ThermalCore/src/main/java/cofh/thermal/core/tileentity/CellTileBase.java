@@ -285,7 +285,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     @Override
     public void readConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        reconfigControl.read(tag);
+        reconfigControl.readSettings(tag);
 
         super.readConveyableData(player, tag);
     }
@@ -293,7 +293,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     @Override
     public void writeConveyableData(PlayerEntity player, CompoundNBT tag) {
 
-        reconfigControl.write(tag);
+        reconfigControl.writeSettings(tag);
 
         super.writeConveyableData(player, tag);
     }

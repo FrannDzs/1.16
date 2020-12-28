@@ -136,6 +136,19 @@ public class ReconfigControlModule implements IReconfigurable {
         }
         return nbt;
     }
+
+    public ReconfigControlModule readSettings(CompoundNBT nbt) {
+
+        if (isReconfigurable()) {
+            return read(nbt);
+        }
+        return this;
+    }
+
+    public CompoundNBT writeSettings(CompoundNBT nbt) {
+
+        return write(nbt);
+    }
     // endregion
 
     public void disable() {

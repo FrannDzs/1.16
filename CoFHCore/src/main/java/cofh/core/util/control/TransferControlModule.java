@@ -5,28 +5,34 @@ import cofh.core.util.Utils;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 
+import java.util.function.BooleanSupplier;
+
+import static cofh.core.util.constants.Constants.TRUE;
 import static cofh.core.util.constants.NBTTags.*;
 
 public class TransferControlModule implements ITransferControllable {
 
     protected ITransferControllableTile tile;
-
-    protected boolean hasAutoInput;
-    protected boolean hasAutoOutput;
+    protected BooleanSupplier enabled;
 
     protected boolean enableAutoInput;
     protected boolean enableAutoOutput;
 
     public TransferControlModule(ITransferControllableTile tile) {
 
-        this(tile, true, true);
+        this(tile, TRUE);
     }
 
-    public TransferControlModule(ITransferControllableTile tile, boolean hasAutoInput, boolean hasAutoOutput) {
+    public TransferControlModule(ITransferControllableTile tile, BooleanSupplier enabled) {
 
         this.tile = tile;
-        this.hasAutoInput = hasAutoInput;
-        this.hasAutoOutput = hasAutoOutput;
+        this.enabled = enabled;
+    }
+
+    public TransferControlModule setEnabled(BooleanSupplier enabled) {
+
+        this.enabled = enabled;
+        return this;
     }
 
     public void disable() {
@@ -38,17 +44,11 @@ public class TransferControlModule implements ITransferControllable {
     // region NETWORK
     public void readFromBuffer(PacketBuffer buffer) {
 
-        hasAutoInput = buffer.readBoolean();
-        hasAutoOutput = buffer.readBoolean();
-
         enableAutoInput = buffer.readBoolean();
         enableAutoOutput = buffer.readBoolean();
     }
 
     public void writeToBuffer(PacketBuffer buffer) {
-
-        buffer.writeBoolean(hasAutoInput);
-        buffer.writeBoolean(hasAutoOutput);
 
         buffer.writeBoolean(enableAutoInput);
         buffer.writeBoolean(enableAutoOutput);
@@ -71,11 +71,26 @@ public class TransferControlModule implements ITransferControllable {
 
         CompoundNBT subTag = new CompoundNBT();
 
-        subTag.putBoolean(TAG_XFER_IN, enableAutoInput);
-        subTag.putBoolean(TAG_XFER_OUT, enableAutoOutput);
+        if (enabled.getAsBoolean()) {
+            subTag.putBoolean(TAG_XFER_IN, enableAutoInput);
+            subTag.putBoolean(TAG_XFER_OUT, enableAutoOutput);
 
-        nbt.put(TAG_XFER, subTag);
+            nbt.put(TAG_XFER, subTag);
+        }
         return nbt;
+    }
+
+    public TransferControlModule readSettings(CompoundNBT nbt) {
+
+        if (enabled.getAsBoolean()) {
+            return read(nbt);
+        }
+        return this;
+    }
+
+    public CompoundNBT writeSettings(CompoundNBT nbt) {
+
+        return write(nbt);
     }
     // endregion
 
@@ -83,13 +98,13 @@ public class TransferControlModule implements ITransferControllable {
     @Override
     public boolean hasTransferIn() {
 
-        return hasAutoInput;
+        return enabled.getAsBoolean();
     }
 
     @Override
     public boolean hasTransferOut() {
 
-        return hasAutoOutput;
+        return enabled.getAsBoolean();
     }
 
     @Override

@@ -96,10 +96,10 @@ public class ThermalConfig {
 
         flagReconfigSides = SERVER_CONFIG
                 .comment("If TRUE, Side Reconfiguration is enabled by default on most augmentable blocks which support it.\nIf FALSE, an augment is required.\nThis setting does not control ALL blocks.")
-                .define("Default Side Reconfiguration", false);
+                .define("Default Side Reconfiguration", true);
         flagRSControl = SERVER_CONFIG
                 .comment("If TRUE, Redstone Control is enabled by default on most augmentable blocks which support it.\nIf FALSE, an augment is required.\nThis setting does not control ALL blocks.")
-                .define("Default Redstone Control", false);
+                .define("Default Redstone Control", true);
         flagXPStorage = SERVER_CONFIG
                 .comment("If TRUE, XP Storage is enabled by default on most augmentable blocks which support it.\nIf FALSE, an augment is required.\nThis setting does not control ALL blocks.")
                 .define("Default XP Storage", false);

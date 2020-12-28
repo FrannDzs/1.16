@@ -58,7 +58,7 @@ public class TileStatePacket extends PacketBase implements IPacketClient {
 
     public static void sendToClient(TileCoFH tile) {
 
-        if (Utils.isClientWorld(tile.world())) {
+        if (tile.world() == null || Utils.isClientWorld(tile.world())) {
             return;
         }
         TileStatePacket packet = new TileStatePacket();
