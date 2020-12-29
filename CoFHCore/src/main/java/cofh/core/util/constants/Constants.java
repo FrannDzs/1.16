@@ -2,6 +2,7 @@ package cofh.core.util.constants;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
@@ -158,6 +159,7 @@ public class Constants {
     public static final BooleanSupplier TRUE = () -> true;
     public static final BooleanSupplier FALSE = () -> false;
 
+    public static final Supplier<ItemStack> EMPTY_ITEM = () -> ItemStack.EMPTY;
     public static final Supplier<FluidStack> EMPTY_FLUID = () -> FluidStack.EMPTY;
 
     public static final String DAMAGE_ARROW = "arrow";

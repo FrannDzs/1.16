@@ -224,6 +224,16 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
 
     // IResourceStorage
     @Override
+    public boolean clear() {
+
+        if (isEmpty()) {
+            return false;
+        }
+        this.fluid = emptyFluid.get();
+        return true;
+    }
+
+    @Override
     public void modify(int amount) {
 
         fluid.setAmount(Math.min(fluid.getAmount() + amount, capacity));

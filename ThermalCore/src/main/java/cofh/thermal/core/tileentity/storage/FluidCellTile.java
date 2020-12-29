@@ -65,7 +65,7 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
         if (redstoneControl.getState()) {
             transferFluid();
         }
-        if (timeCheck() || fluidStorage.getFluidStack() != renderFluid) {
+        if (timeCheck() || fluidStorage.getFluidStack().getFluid() != renderFluid.getFluid()) {
             updateTrackers(true);
         }
     }
@@ -169,9 +169,10 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
     @Override
     protected void updateHandlers() {
 
-        LazyOptional<?> oldCap = fluidCap;
+        // Optimization to prevent callback logic as contents may change rapidly.
+        LazyOptional<?> prevFluidCap = fluidCap;
         fluidCap = LazyOptional.of(() -> fluidStorage);
-        oldCap.invalidate();
+        prevFluidCap.invalidate();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class DeviceCollectorContainer extends TileContainer {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 5; ++j) {
-                addSlot(new SlotRemoveOnly(tileInv, i * 6 + j, 44 + j * 18, 17 + i * 18));
+                addSlot(new SlotRemoveOnly(tileInv, i * 5 + j, 44 + j * 18, 17 + i * 18));
             }
         }
         bindAugmentSlots(tileInv, 15, this.tile.augSize());

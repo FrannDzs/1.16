@@ -35,14 +35,14 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIM
 
 public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEntity {
 
+    protected static final byte REPLENISH = 0;
+    protected static final byte AUGMENT = 1;
+
     protected ItemStorageCoFH tinkerSlot = new ItemStorageCoFH(1, item -> AugmentableHelper.isAugmentableItem(item) || EnergyHelper.hasEnergyHandlerCap(item) || FluidHelper.hasFluidHandlerCap(item));
     protected ItemStorageCoFH chargeSlot = new ItemStorageCoFH(1, EnergyHelper::hasEnergyHandlerCap);
     protected ItemStorageCoFH tankSlot = new ItemStorageCoFH(1, (item) -> FluidHelper.hasFluidHandlerCap(item) || item.getItem() == Items.POTION);
 
     protected FluidStorageCoFH tank = new FluidStorageCoFH(TANK_MEDIUM);
-
-    protected static final byte REPLENISH = 0;
-    protected static final byte AUGMENT = 1;
 
     protected byte mode;
     protected boolean pause;

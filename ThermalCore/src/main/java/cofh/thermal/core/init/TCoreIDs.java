@@ -108,6 +108,7 @@ public class TCoreIDs {
     public static final String ID_DEVICE_WATER_GEN = "device_water_gen";
 
     public static final String ID_DEVICE_COLLECTOR = "device_collector";
+    public static final String ID_DEVICE_POTION_DIFFUSER = "device_potion_diffuser";
     // endregion
 
     // region STORAGE

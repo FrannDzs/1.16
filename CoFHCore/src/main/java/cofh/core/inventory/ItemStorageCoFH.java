@@ -9,7 +9,9 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
+import static cofh.core.util.constants.Constants.EMPTY_ITEM;
 import static cofh.core.util.constants.Constants.TRUE;
 import static cofh.core.util.helpers.ItemHelper.cloneStack;
 import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
@@ -22,6 +24,7 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
 public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourceStorage {
 
     protected BooleanSupplier enabled = TRUE;
+    protected Supplier<ItemStack> emptyItem = EMPTY_ITEM;
     protected Predicate<ItemStack> validator;
 
     @Nonnull
@@ -55,6 +58,17 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
         return this;
     }
 
+    public ItemStorageCoFH setEmptyItem(Supplier<ItemStack> emptyItemSupplier) {
+
+        if (emptyItemSupplier != null && emptyItemSupplier.get() != null) {
+            this.emptyItem = emptyItemSupplier;
+        }
+        if (item.isEmpty()) {
+            setItemStack(this.emptyItem.get());
+        }
+        return this;
+    }
+
     public ItemStorageCoFH setEnabled(BooleanSupplier enabled) {
 
         if (enabled != null) {
@@ -83,17 +97,17 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
 
     public void setItemStack(ItemStack item) {
 
-        this.item = item;
+        this.item = item.isEmpty() ? emptyItem.get() : item;
     }
 
     // region NBT
-    public ItemStorageCoFH readFromNBT(CompoundNBT nbt) {
+    public ItemStorageCoFH read(CompoundNBT nbt) {
 
         item = ItemStack.read(nbt);
         return this;
     }
 
-    public CompoundNBT writeToNBT(CompoundNBT nbt) {
+    public CompoundNBT write(CompoundNBT nbt) {
 
         item.write(nbt);
         return nbt;
@@ -178,7 +192,7 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
         if (!simulate) {
             item.shrink(retCount);
             if (item.isEmpty()) {
-                setItemStack(ItemStack.EMPTY);
+                setItemStack(emptyItem.get());
             }
         }
         return ret;
@@ -199,11 +213,21 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
 
     // region IResourceStorage
     @Override
+    public boolean clear() {
+
+        if (isEmpty()) {
+            return false;
+        }
+        this.item = emptyItem.get();
+        return true;
+    }
+
+    @Override
     public void modify(int quantity) {
 
         this.item.grow(quantity);
         if (this.item.isEmpty()) {
-            this.item = ItemStack.EMPTY;
+            this.item = emptyItem.get();
         }
     }
 

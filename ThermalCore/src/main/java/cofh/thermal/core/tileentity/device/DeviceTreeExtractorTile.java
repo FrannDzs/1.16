@@ -36,7 +36,7 @@ import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INPUT;
 import static cofh.core.util.StorageGroup.OUTPUT;
 import static cofh.core.util.constants.Constants.TANK_MEDIUM;
-import static cofh.core.util.constants.NBTTags.TAG_TIME_CONSTANT;
+import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_TREE_EXTRACTOR_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
@@ -294,8 +294,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
         super.read(state, nbt);
 
-        boostMult = nbt.getFloat("BoostMult");
-        boostCycles = nbt.getInt("BoostCycles");
+        boostMult = nbt.getFloat(TAG_BOOST_MULT);
+        boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
         timeConstant = nbt.getInt(TAG_TIME_CONSTANT);
 
         if (timeConstant <= 0) {
@@ -312,8 +312,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
         super.write(nbt);
 
-        nbt.putFloat("BoostMult", boostMult);
-        nbt.putInt("BoostCycles", boostCycles);
+        nbt.putFloat(TAG_BOOST_MULT, boostMult);
+        nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
         nbt.putInt(TAG_TIME_CONSTANT, timeConstant);
 
         for (int i = 0; i < NUM_LEAVES; ++i) {

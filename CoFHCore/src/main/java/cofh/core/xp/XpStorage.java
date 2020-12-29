@@ -146,6 +146,16 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
 
     // region IResourceStorage
     @Override
+    public boolean clear() {
+
+        if (isEmpty()) {
+            return false;
+        }
+        xp = 0;
+        return true;
+    }
+
+    @Override
     public void modify(int amount) {
 
         xp += amount;

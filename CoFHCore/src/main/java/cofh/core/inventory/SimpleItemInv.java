@@ -88,7 +88,7 @@ public class SimpleItemInv extends SimpleItemHandler {
             CompoundNBT slotTag = list.getCompound(i);
             int slot = slotTag.getByte(TAG_SLOT);
             if (slot >= 0 && slot < slots.size()) {
-                slots.get(slot).readFromNBT(slotTag);
+                slots.get(slot).read(slotTag);
             }
         }
         return this;
@@ -104,7 +104,7 @@ public class SimpleItemInv extends SimpleItemHandler {
             if (!slots.get(i).isEmpty()) {
                 CompoundNBT slotTag = new CompoundNBT();
                 slotTag.putByte(TAG_SLOT, (byte) i);
-                slots.get(i).writeToNBT(slotTag);
+                slots.get(i).write(slotTag);
                 list.add(slotTag);
             }
         }
@@ -136,7 +136,7 @@ public class SimpleItemInv extends SimpleItemHandler {
             if (!slots.get(i).isEmpty()) {
                 CompoundNBT slotTag = new CompoundNBT();
                 slotTag.putByte(TAG_SLOT, (byte) i);
-                slots.get(i).writeToNBT(slotTag);
+                slots.get(i).write(slotTag);
                 list.add(slotTag);
             }
         }
@@ -160,7 +160,7 @@ public class SimpleItemInv extends SimpleItemHandler {
         }
         for (int i = 0; i < Math.min(Math.min(endIndex, slots.size()) - startIndex, list.size()); ++i) {
             CompoundNBT slotTag = list.getCompound(i);
-            slots.get(startIndex + i).readFromNBT(slotTag);
+            slots.get(startIndex + i).read(slotTag);
         }
         return this;
     }
@@ -184,7 +184,7 @@ public class SimpleItemInv extends SimpleItemHandler {
         for (int i = startIndex; i < Math.min(endIndex, slots.size()); ++i) {
             if (!slots.get(i).isEmpty()) {
                 CompoundNBT slotTag = new CompoundNBT();
-                slots.get(i).writeToNBT(slotTag);
+                slots.get(i).write(slotTag);
                 list.add(slotTag);
             }
         }

@@ -384,8 +384,9 @@
   "_comment": "These 'live' in Thermal Core but are non-default and registered from multiple possible modules.",
   "_comment": "========================================================================================================",
 
-  "block.thermal.device_hive_extractor": "Hive Hopper",
   "block.thermal.device_collector": "Vacuumulator",
+  "block.thermal.device_hive_extractor": "Hive Hopper",
+  "block.thermal.device_potion_diffuser": "NYI Potion Diffuser",
   "block.thermal.device_rock_gen": "Igneous Extruder",
   "block.thermal.device_tree_extractor": "Arboreal Extractor",
   "block.thermal.device_water_gen": "Aqueous Accumulator",
@@ -398,13 +399,17 @@
 
   "block.thermal.tinker_bench": "Tinker's Workbench",
 
+  "info.thermal.device_collector.0": "Picks up things from the nearby area.",
+  "info.thermal.device_collector.1": "Filter configuration will apply to this behavior.",
+  "info.thermal.device_collector.2": "Keep those floors clean!",
+
   "info.thermal.device_hive_extractor.0": "Carefully extracts products from beehives.",
   "info.thermal.device_hive_extractor.1": "Good for bees and keepers alike!",
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
 
-  "info.thermal.device_collector.0": "Picks up items and XP from the nearby area.",
-  "info.thermal.device_collector.1": "Filter configuration will apply to this behavior.",
-  "info.thermal.device_collector.2": "Keep those floors clean!",
+  "info.thermal.device_potion_diffuser.0": "Spreads potions within the nearby area.",
+  "info.thermal.device_potion_diffuser.1": "Use reagents to boost the effectiveness.",
+  "info.thermal.device_potion_diffuser.2": "",
 
   "info.thermal.device_rock_gen.0": "Generates various types of stone.",
   "info.thermal.device_rock_gen.1": "Requires an adjacent lava source and cooling.",

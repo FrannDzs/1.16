@@ -2,8 +2,11 @@ package cofh.thermal.core.tileentity.device;
 
 import cofh.core.util.helpers.InventoryHelper;
 import cofh.core.util.helpers.MathHelper;
+import cofh.core.xp.XpStorage;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,13 +14,16 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import static cofh.core.util.StorageGroup.ACCESSIBLE;
@@ -35,14 +41,14 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
         return data.getBoolean(TAG_CONVEYOR_COMPAT) && !data.getBoolean(TAG_DEMAGNETIZE_COMPAT);
     };
 
-    protected static final int TIME_CONSTANT = 16;
-    protected static final int RADIUS = 5;
+    protected XpStorage xpStorage;
+    protected boolean pause;
 
+    protected static final int RADIUS = 5;
     public int radius = RADIUS;
 
-    protected int timeConstant = TIME_CONSTANT;
+    protected int timeConstant = TIME_CONSTANT / 2;
     protected final int timeOffset;
-    // protected FluidStorageCoFH xpTank = new FluidStorageCoFH(TANK_MEDIUM);
 
     public DeviceCollectorTile() {
 
@@ -51,7 +57,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
         inventory.addSlots(ACCESSIBLE, 15);
 
-        // tankInv.addTank(xpTank, ACCESSIBLE);
+        xpStorage = new XpStorage(2500);
 
         addAugmentSlots(deviceAugments);
         initHandlers();
@@ -83,15 +89,22 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
         return new DeviceCollectorContainer(i, world, pos, inventory, player);
     }
 
+    @Override
+    public boolean claimXP(Vector3d pos) {
+
+        pause = true;
+        return super.claimXP(pos);
+    }
+
     // region HELPERS
     protected void collectItemsAndXp() {
 
-        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -radius, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
+        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1, 1 + radius));
 
         if (true) { // TODO: Item Config
             collectItems(area);
         }
-        if (true) { // TODO: Xp Config
+        if (xpStorageFeature && true) { // TODO: XP Config
             collectXpOrbs(area);
         }
     }
@@ -114,11 +127,17 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
     protected void collectXpOrbs(AxisAlignedBB area) {
 
+        if (pause) {
+            pause = false;
+            return;
+        }
         List<ExperienceOrbEntity> orbs = world.getEntitiesWithinAABB(ExperienceOrbEntity.class, area, EntityPredicates.IS_ALIVE);
 
         for (ExperienceOrbEntity orb : orbs) {
-            // xpBuffer += orb.getXpValue();
-            orb.remove();
+            orb.xpValue -= xpStorage.receiveXp(orb.getXpValue(), false);
+            if (orb.xpValue <= 0) {
+                orb.remove();
+            }
         }
     }
 
@@ -128,11 +147,63 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     }
     // endregion
 
+    // region GUI
+    @Override
+    public XpStorage getXpStorage() {
+
+        return xpStorage;
+    }
+    // endregion
+
+    // region NETWORK
+    @Override
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        super.getGuiPacket(buffer);
+
+        xpStorage.writeToBuffer(buffer);
+
+        return buffer;
+    }
+
+    @Override
+    public void handleGuiPacket(PacketBuffer buffer) {
+
+        super.handleGuiPacket(buffer);
+
+        xpStorage.readFromBuffer(buffer);
+    }
+    // endregion
+
+    // region NBT
+    @Override
+    public void read(BlockState state, CompoundNBT nbt) {
+
+        super.read(state, nbt);
+
+        xpStorage.read(nbt);
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT nbt) {
+
+        super.write(nbt);
+
+        xpStorage.write(nbt);
+
+        return nbt;
+    }
+    // endregion
+
     // region AUGMENTS
+    protected boolean xpStorageFeature = defaultXpStorageState();
+
     @Override
     protected void resetAttributes() {
 
         super.resetAttributes();
+
+        xpStorageFeature = defaultXpStorageState();
 
         radius = RADIUS;
     }
@@ -142,7 +213,23 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
         super.setAttributesFromAugment(augmentData);
 
+        xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
+
         radius += getAttributeMod(augmentData, TAG_AUGMENT_AREA_RADIUS);
+    }
+
+    @Override
+    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
+
+        super.finalizeAttributes(enchantmentMap);
+
+        float holdingMod = getHoldingMod(enchantmentMap);
+
+        int storedXp = xpStorage.getStored();
+        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
+        if (xpStorage.getStored() < storedXp) {
+            spawnXpOrbs(storedXp - xpStorage.getStored(), new Vector3d(pos.getX(), pos.getY(), pos.getZ()));
+        }
     }
     // endregion
 }

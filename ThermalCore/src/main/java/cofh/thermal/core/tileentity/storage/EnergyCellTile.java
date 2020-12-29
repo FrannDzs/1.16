@@ -160,9 +160,9 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     @Override
     protected void updateHandlers() {
 
-        LazyOptional<?> oldCap = energyCap;
+        LazyOptional<?> prevCap = energyCap;
         energyCap = LazyOptional.of(() -> energyStorage);
-        oldCap.invalidate();
+        prevCap.invalidate();
     }
 
     @Override

@@ -32,20 +32,18 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
 
 public abstract class MachineTileProcess extends ReconfigurableTile4Way implements ITickableTileEntity, IMachineInventory {
 
-    protected static final int BASE_XP_STORAGE = 2500;
-
     protected IMachineRecipe curRecipe;
     protected IRecipeCatalyst curCatalyst;
     protected List<Integer> itemInputCounts = new ArrayList<>();
     protected List<Integer> fluidInputCounts = new ArrayList<>();
+
+    protected XpStorage xpStorage;
 
     protected int process;
     protected int processMax;
 
     protected int baseProcessTick = getBaseProcessTick();
     protected int processTick = baseProcessTick;
-
-    protected XpStorage xpStorage;
 
     public MachineTileProcess(TileEntityType<?> tileEntityTypeIn) {
 
@@ -86,11 +84,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         }
         updateActiveState(curActive);
         chargeEnergy();
-    }
-
-    protected int getBaseXpStorage() {
-
-        return BASE_XP_STORAGE;
     }
 
     // region PROCESS

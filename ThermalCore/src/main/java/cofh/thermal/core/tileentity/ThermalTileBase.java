@@ -64,9 +64,10 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile, IRedstoneControllableTile, INamedContainerProvider, IThermalInventory {
 
-    protected static final int MIN_PROCESS_TICK = 5;
-    protected static final int BASE_PROCESS_TICK = 20;
     protected static final int BASE_ENERGY = 50000;
+    protected static final int BASE_PROCESS_TICK = 20;
+    protected static final int BASE_XP_STORAGE = 2500;
+    protected static final int MIN_PROCESS_TICK = 5;
 
     protected TimeTracker timeTracker = new TimeTracker();
     protected ManagedItemInv inventory = new ManagedItemInv(this, TAG_ITEM_INV);
@@ -105,6 +106,11 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected int getBaseProcessTick() {
 
         return BASE_PROCESS_TICK;
+    }
+
+    protected int getBaseXpStorage() {
+
+        return BASE_XP_STORAGE;
     }
 
     protected int getMinProcessTick() {

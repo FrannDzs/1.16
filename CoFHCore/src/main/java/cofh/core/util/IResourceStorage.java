@@ -2,15 +2,6 @@ package cofh.core.util;
 
 public interface IResourceStorage {
 
-    default boolean clear() {
-
-        if (isEmpty()) {
-            return false;
-        }
-        modify(-getCapacity());
-        return true;
-    }
-
     default boolean isFull() {
 
         return getSpace() <= 0;
@@ -26,7 +17,11 @@ public interface IResourceStorage {
         return (double) getStored() / getCapacity();
     }
 
+    boolean clear();
+
     void modify(int amount);
+
+    // boolean isCreative();
 
     boolean isEmpty();
 

@@ -126,7 +126,7 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
                     if (effect.getPotion().isInstant()) {
                         effect.getPotion().affectEntity(player, player, entity, effect.getAmplifier(), 0.5D);
                     } else {
-                        EffectInstance potion = new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack) / 2, getEffectAmplifier(effect, stack), effect.isAmbient(), true);
+                        EffectInstance potion = new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack) / 2, getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles());
                         entity.addPotionEffect(potion);
                     }
                 }

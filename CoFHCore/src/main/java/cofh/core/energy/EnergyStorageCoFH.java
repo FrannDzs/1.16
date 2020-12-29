@@ -221,6 +221,16 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
 
     // region IResourceStorage
     @Override
+    public boolean clear() {
+
+        if (isEmpty()) {
+            return false;
+        }
+        energy = 0;
+        return true;
+    }
+
+    @Override
     public void modify(int amount) {
 
         energy += amount;

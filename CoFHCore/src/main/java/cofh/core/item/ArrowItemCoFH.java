@@ -1,10 +1,14 @@
 package cofh.core.item;
 
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -34,6 +38,8 @@ public class ArrowItemCoFH extends ArrowItem implements ICoFHItem {
 
         super(builder);
         this.factory = factory;
+
+        DispenserBlock.registerDispenseBehavior(this, DISPENSER_BEHAVIOR);
     }
 
     public ArrowItemCoFH setDisplayGroup(Supplier<ItemGroup> displayGroup) {
@@ -93,7 +99,22 @@ public class ArrowItemCoFH extends ArrowItem implements ICoFHItem {
 
         T createArrow(World world, LivingEntity living);
 
+        T createArrow(World world, double posX, double posY, double posZ);
+
     }
     // endregion
 
+    // region DISPENSER BEHAVIOR
+    private static final ProjectileDispenseBehavior DISPENSER_BEHAVIOR = new ProjectileDispenseBehavior() {
+
+        @Override
+        protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+
+            ArrowItemCoFH arrowItem = ((ArrowItemCoFH) stackIn.getItem());
+            AbstractArrowEntity arrow = arrowItem.factory.createArrow(worldIn, position.getX(), position.getY(), position.getZ());
+            arrow.pickupStatus = AbstractArrowEntity.PickupStatus.ALLOWED;
+            return arrow;
+        }
+    };
+    // endregion
 }
