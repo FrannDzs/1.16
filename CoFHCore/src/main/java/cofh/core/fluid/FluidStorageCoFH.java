@@ -23,6 +23,9 @@ import static cofh.core.util.constants.NBTTags.TAG_CAPACITY;
 public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IResourceStorage {
 
     protected final int baseCapacity;
+
+    protected boolean creative;
+
     protected BooleanSupplier enabled = TRUE;
     protected Supplier<FluidStack> emptyFluid = EMPTY_FLUID;
     protected Predicate<FluidStack> validator;
@@ -82,6 +85,12 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         if (validator != null) {
             this.validator = validator;
         }
+        return this;
+    }
+
+    public FluidStorageCoFH setCreative(boolean creative) {
+
+        this.creative = creative;
         return this;
     }
 
@@ -200,7 +209,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
             drained = fluid.getAmount();
         }
         FluidStack stack = new FluidStack(fluid, drained);
-        if (action.execute()) {
+        if (action.execute() && !isCreative()) {
             fluid.shrink(drained);
             if (fluid.isEmpty()) {
                 setFluidStack(emptyFluid.get());
@@ -236,10 +245,19 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
     @Override
     public void modify(int amount) {
 
+        if (isCreative()) {
+            amount = Math.max(amount, 0);
+        }
         fluid.setAmount(Math.min(fluid.getAmount() + amount, capacity));
         if (this.fluid.isEmpty()) {
             this.fluid = emptyFluid.get();
         }
+    }
+
+    @Override
+    public boolean isCreative() {
+
+        return creative;
     }
 
     @Override

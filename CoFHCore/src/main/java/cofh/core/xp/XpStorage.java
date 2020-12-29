@@ -19,6 +19,8 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
 
     protected final int baseCapacity;
 
+    protected boolean creative;
+
     protected int xp;
     protected int capacity;
 
@@ -125,7 +127,7 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     public int extractXp(int maxExtract, boolean simulate) {
 
         int energyExtracted = Math.min(xp, maxExtract);
-        if (!simulate) {
+        if (!simulate && !isCreative()) {
             xp -= energyExtracted;
         }
         return energyExtracted;
@@ -158,12 +160,21 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     @Override
     public void modify(int amount) {
 
+        if (isCreative()) {
+            amount = Math.max(amount, 0);
+        }
         xp += amount;
         if (xp > capacity) {
             xp = capacity;
         } else if (xp < 0) {
             xp = 0;
         }
+    }
+
+    @Override
+    public boolean isCreative() {
+
+        return creative;
     }
 
     @Override

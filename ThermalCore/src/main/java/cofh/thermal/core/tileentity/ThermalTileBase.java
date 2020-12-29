@@ -263,14 +263,16 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         if (keepFluids()) {
             getTankInv().write(nbt);
         }
+        // TODO: Keep XP?
+
         if (ThermalConfig.keepRSControl.get() && redstoneControlFeature) {
-            redstoneControl().write(nbt);
+            redstoneControl().writeSettings(nbt);
         }
         if (ThermalConfig.keepSideConfig.get() && this instanceof IReconfigurableTile) {
-            ((IReconfigurableTile) this).reconfigControl().write(nbt);
+            ((IReconfigurableTile) this).reconfigControl().writeSettings(nbt);
         }
         if (ThermalConfig.keepTransferControl.get() && this instanceof ITransferControllableTile) {
-            ((ITransferControllableTile) this).transferControl().write(nbt);
+            ((ITransferControllableTile) this).transferControl().writeSettings(nbt);
         }
         if (hasSecurity()) {
             securityControl().write(nbt);

@@ -21,6 +21,8 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     protected final int baseReceive;
     protected final int baseExtract;
 
+    protected boolean creative;
+
     protected int energy;
     protected int capacity;
     protected int maxReceive;
@@ -77,6 +79,12 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     public EnergyStorageCoFH setMaxExtract(int maxExtract) {
 
         this.maxExtract = MathHelper.clamp(maxExtract, 0, MAX_CAPACITY);
+        return this;
+    }
+
+    public EnergyStorageCoFH setCreative(boolean creative) {
+
+        this.creative = creative;
         return this;
     }
 
@@ -188,7 +196,7 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     public int extractEnergy(int maxExtract, boolean simulate) {
 
         int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
-        if (!simulate) {
+        if (!simulate && !isCreative()) {
             energy -= energyExtracted;
         }
         return energyExtracted;
@@ -233,12 +241,21 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     @Override
     public void modify(int amount) {
 
+        if (isCreative()) {
+            amount = Math.max(amount, 0);
+        }
         energy += amount;
         if (energy > capacity) {
             energy = capacity;
         } else if (energy < 0) {
             energy = 0;
         }
+    }
+
+    @Override
+    public boolean isCreative() {
+
+        return creative;
     }
 
     @Override

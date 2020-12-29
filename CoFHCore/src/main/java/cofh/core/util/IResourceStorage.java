@@ -21,7 +21,7 @@ public interface IResourceStorage {
 
     void modify(int amount);
 
-    // boolean isCreative();
+    boolean isCreative();
 
     boolean isEmpty();
 

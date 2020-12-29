@@ -23,6 +23,8 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
  */
 public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourceStorage {
 
+    protected boolean creative;
+
     protected BooleanSupplier enabled = TRUE;
     protected Supplier<ItemStack> emptyItem = EMPTY_ITEM;
     protected Predicate<ItemStack> validator;
@@ -82,6 +84,12 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
         if (validator != null) {
             this.validator = validator;
         }
+        return this;
+    }
+
+    public ItemStorageCoFH setCreative(boolean creative) {
+
+        this.creative = creative;
         return this;
     }
 
@@ -189,7 +197,7 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
         }
         int retCount = Math.min(item.getCount(), amount);
         ItemStack ret = cloneStack(item, retCount);
-        if (!simulate) {
+        if (!simulate && !isCreative()) {
             item.shrink(retCount);
             if (item.isEmpty()) {
                 setItemStack(emptyItem.get());
@@ -225,10 +233,19 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
     @Override
     public void modify(int quantity) {
 
+        if (isCreative()) {
+            quantity = Math.max(quantity, 0);
+        }
         this.item.grow(quantity);
         if (this.item.isEmpty()) {
             this.item = emptyItem.get();
         }
+    }
+
+    @Override
+    public boolean isCreative() {
+
+        return creative;
     }
 
     @Override
