@@ -43,11 +43,14 @@ public class ThermalFlags {
     public static String FLAG_HAZMAT_ARMOR = "hazmat_armor";
 
     public static String FLAG_AREA_AUGMENTS = "area_augments";
+    public static String FLAG_CREATIVE_AUGMENTS = "creative_augments";
     public static String FLAG_DYNAMO_AUGMENTS = "dynamo_augments";
     public static String FLAG_MACHINE_AUGMENTS = "machine_augments";
     public static String FLAG_POTION_AUGMENTS = "potion_augments";
     public static String FLAG_STORAGE_AUGMENTS = "storage_augments";
     public static String FLAG_UPGRADE_AUGMENTS = "upgrade_augments";
+
+    public static String FLAG_CREATIVE_STORAGE_AUGMENTS = "creative_storage_augments";
 
     public static String FLAG_RS_CONTROL_AUGMENT = "rs_control_augment";
     public static String FLAG_SIDE_CONFIG_AUGMENT = "side_config_augment";
@@ -111,6 +114,8 @@ public class ThermalFlags {
         setFlag(FLAG_RESOURCE_ELECTRUM, getFlag(FLAG_RESOURCE_SILVER));
         setFlag(FLAG_RESOURCE_INVAR, getFlag(FLAG_RESOURCE_NICKEL));
         setFlag(FLAG_RESOURCE_CONSTANTAN, () -> getFlag(FLAG_RESOURCE_COPPER).getAsBoolean() && getFlag(FLAG_RESOURCE_NICKEL).getAsBoolean());
+
+        setFlag(FLAG_CREATIVE_STORAGE_AUGMENTS, () -> getFlag(FLAG_STORAGE_AUGMENTS).getAsBoolean() && getFlag(FLAG_CREATIVE_AUGMENTS).getAsBoolean());
     }
 
 }

@@ -206,9 +206,9 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
 
     private TextureAtlasSprite getLevelTexture(int level) {
 
-        // Creative returned as -1;
-        if (level < 0) {
-            return FLUID_CELL_LEVEL_C;
+        // Creative returned as 9 (Full) or 10 (Empty)
+        if (level > 8) {
+            return level >= 10 ? FLUID_CELL_LEVEL_0_C : FLUID_CELL_LEVEL_8_C;
         }
         return FLUID_CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
     }

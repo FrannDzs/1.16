@@ -102,8 +102,10 @@ public class NBTTags {
     // General
     public static final String TAG_AUGMENT_BASE_MOD = "BaseMod";
 
+    public static final String TAG_AUGMENT_ENERGY_CREATIVE = "RFCreative";
     public static final String TAG_AUGMENT_ENERGY_STORAGE = "RFMax";
     public static final String TAG_AUGMENT_ENERGY_XFER = "RFXfer";
+    public static final String TAG_AUGMENT_FLUID_CREATIVE = "FlCreative";
     public static final String TAG_AUGMENT_FLUID_STORAGE = "FlMax";
 
     public static final String TAG_AUGMENT_AREA_DEPTH = "AEDpt";

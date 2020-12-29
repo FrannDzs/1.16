@@ -41,8 +41,9 @@ public class ThermalTextures {
             event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
             event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_" + i));
         }
-        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
-        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_c"));
+        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_8c"));
+        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_0c"));
+        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_8c"));
     }
 
     @SubscribeEvent
@@ -73,8 +74,9 @@ public class ThermalTextures {
             ENERGY_CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
             FLUID_CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_" + i));
         }
-        ENERGY_CELL_LEVEL_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
-        FLUID_CELL_LEVEL_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_c"));
+        ENERGY_CELL_LEVEL_8_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_8c"));
+        FLUID_CELL_LEVEL_0_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_0c"));
+        FLUID_CELL_LEVEL_8_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_8c"));
     }
 
     // region CONFIG
@@ -103,9 +105,10 @@ public class ThermalTextures {
     public static TextureAtlasSprite CELL_CONFIG_BOTH;
 
     public static TextureAtlasSprite[] ENERGY_CELL_LEVELS = new TextureAtlasSprite[9];
-    public static TextureAtlasSprite ENERGY_CELL_LEVEL_C;
+    public static TextureAtlasSprite ENERGY_CELL_LEVEL_8_C;
 
     public static TextureAtlasSprite[] FLUID_CELL_LEVELS = new TextureAtlasSprite[9];
-    public static TextureAtlasSprite FLUID_CELL_LEVEL_C;
+    public static TextureAtlasSprite FLUID_CELL_LEVEL_0_C;
+    public static TextureAtlasSprite FLUID_CELL_LEVEL_8_C;
     // endregion
 }

@@ -24,8 +24,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
 
     protected final int baseCapacity;
 
-    protected boolean creative;
-
+    protected BooleanSupplier creative = FALSE;
     protected BooleanSupplier enabled = TRUE;
     protected Supplier<FluidStack> emptyFluid = EMPTY_FLUID;
     protected Predicate<FluidStack> validator;
@@ -72,6 +71,15 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         return this;
     }
 
+    public FluidStorageCoFH setCreative(BooleanSupplier creative) {
+
+        this.creative = creative;
+        if (!fluid.isEmpty() && isCreative()) {
+            fluid.setAmount(getCapacity());
+        }
+        return this;
+    }
+
     public FluidStorageCoFH setEnabled(BooleanSupplier enabled) {
 
         if (enabled != null) {
@@ -88,12 +96,6 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         return this;
     }
 
-    public FluidStorageCoFH setCreative(boolean creative) {
-
-        this.creative = creative;
-        return this;
-    }
-
     public boolean isFluidValid(@Nonnull FluidStack stack) {
 
         return enabled.getAsBoolean() && validator.test(stack);
@@ -102,6 +104,9 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
     public void setFluidStack(FluidStack stack) {
 
         this.fluid = stack.isEmpty() ? emptyFluid.get() : stack;
+        if (!fluid.isEmpty() && isCreative()) {
+            stack.setAmount(capacity);
+        }
     }
 
     // region NBT
@@ -170,7 +175,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
             return Math.min(capacity - fluid.getAmount(), resource.getAmount());
         }
         if (fluid.isEmpty()) {
-            fluid = new FluidStack(resource, Math.min(capacity, resource.getAmount()));
+            setFluidStack(new FluidStack(resource, Math.min(capacity, resource.getAmount())));
             return fluid.getAmount();
         }
         if (!fluid.isFluidEqual(resource)) {
@@ -184,6 +189,8 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         } else {
             fluid.setAmount(capacity);
         }
+        System.out.println(fluid.getAmount());
+
         return filled;
     }
 
@@ -257,7 +264,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
     @Override
     public boolean isCreative() {
 
-        return creative;
+        return creative.getAsBoolean();
     }
 
     @Override

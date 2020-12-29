@@ -45,9 +45,23 @@ public class ElementFluidStorage extends ElementResourceStorage {
     }
 
     @Override
+    protected void drawOverlayTexture() {
+
+        if (!drawOverlay.getAsBoolean()) {
+            return;
+        }
+        if (storage.isCreative() && creativeTexture != null) {
+            RenderHelper.bindTexture(creativeTexture);
+            drawTexturedModalRect(posX(), posY(), 0, 0, width, height);
+        } else {
+            super.drawOverlayTexture();
+        }
+    }
+
+    @Override
     public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
 
-        if (tank.getAmount() > 0) {
+        if (storage.getStored() > 0) {
             tooltipList.add(StringHelper.getFluidName(tank.getFluidStack()));
             if (FluidHelper.hasPotionTag(tank.getFluidStack())) {
                 FluidHelper.addPotionTooltip(tank.getFluidStack(), tooltipList);

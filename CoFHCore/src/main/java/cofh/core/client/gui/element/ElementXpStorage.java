@@ -18,32 +18,16 @@ public class ElementXpStorage extends ElementResourceStorage {
         super(gui, posX, posY, storage);
         drawStorage = FALSE;
         minDisplay = 0;
+
+        this.claimable = () -> storage.getStored() > 0;
     }
 
+    @Override
     protected void drawResource() {
 
         RenderHelper.bindTexture(texture);
         int amount = storage.getStored() <= 0 ? 0 : Math.min(getScaled(4) + 1, 4);
         drawTexturedModalRect(posX(), posY(), 0, amount * height, width, height);
-    }
-
-    @Override
-    public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
-
-        super.addTooltip(tooltipList, mouseX, mouseY);
-
-        if (storage.getStored() > 0) {
-            tooltipList.add(new TranslationTextComponent("info.cofh.click_to_claim").mergeStyle(TextFormatting.GRAY));
-        }
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-
-        if (storage.getStored() > 0) {
-            return claimStorage.getAsBoolean();
-        }
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
 }

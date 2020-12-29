@@ -311,6 +311,8 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
     @Override
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
+        creativeEnergy = false;
+
         super.finalizeAttributes(enchantmentMap);
 
         float scaleMin = AUG_SCALE_MIN;

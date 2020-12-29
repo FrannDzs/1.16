@@ -41,15 +41,7 @@ public class TCoreItems {
 
         registerResources();
         registerParts();
-
-        registerUpgradeAugments();
-        registerFeatureAugments();
-        registerStorageAugments();
-        registerMachineAugments();
-        registerDynamoAugments();
-        registerAreaAugments();
-        registerPotionAugments();
-
+        registerAugments();
         registerMaterials();
         registerTools();
         registerArmor();
@@ -307,33 +299,31 @@ public class TCoreItems {
     }
 
     // region AUGMENTS
-    private static void registerAreaAugments() {
+    private static void registerAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
-
-        registerItem("area_radius_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_AREA_EFFECT)
-                        .mod(TAG_AUGMENT_AREA_RADIUS, 1.0F)
-                        .build()).setShowInGroups(getFlag(FLAG_AREA_AUGMENTS)));
+        registerUpgradeAugments();
+        registerFeatureAugments();
+        registerStorageAugments();
+        registerMachineAugments();
+        registerDynamoAugments();
+        registerAreaAugments();
+        registerPotionAugments();
     }
 
-    private static void registerDynamoAugments() {
+    private static void registerUpgradeAugments() {
 
         ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        final float[] upgradeMods = new float[]{1.0F, 2.0F, 3.0F, 4.0F, 6.0F, 8.5F};
+        // final float[] upgradeMods = new float[]{1.0F, 1.5F, 2.0F, 2.5F, 3.0F, 3.5F};
 
-        registerItem("dynamo_output_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_DYNAMO)
-                        .mod(TAG_AUGMENT_DYNAMO_PRODUCTION, 1.0F)
-                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 0.9F)
-                        .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
-
-        registerItem("dynamo_fuel_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_DYNAMO)
-                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 1.10F)
-                        .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
+        for (int i = 1; i <= 3; ++i) {
+            int tier = i;
+            registerItem("upgrade_augment_" + i, () -> new AugmentItem(new Item.Properties().group(group),
+                    AugmentDataHelper.builder()
+                            .type(TAG_AUGMENT_TYPE_UPGRADE)
+                            .mod(TAG_AUGMENT_BASE_MOD, upgradeMods[tier])
+                            .build()).setShowInGroups(getFlag(FLAG_UPGRADE_AUGMENTS)));
+        }
     }
 
     private static void registerFeatureAugments() {
@@ -354,6 +344,53 @@ public class TCoreItems {
                 AugmentDataHelper.builder()
                         .mod(TAG_AUGMENT_FEATURE_XP_STORAGE, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_XP_STORAGE_AUGMENT)));
+    }
+
+    private static void registerStorageAugments() {
+
+        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+
+        registerItem("rf_coil_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_RF)
+                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 4.0F)
+                        .mod(TAG_AUGMENT_ENERGY_XFER, 4.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
+
+        registerItem("rf_coil_storage_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_RF)
+                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 6.0F)
+                        .mod(TAG_AUGMENT_ENERGY_XFER, 2.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
+
+        registerItem("rf_coil_xfer_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_RF)
+                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 2.0F)
+                        .mod(TAG_AUGMENT_ENERGY_XFER, 6.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
+
+        registerItem("rf_coil_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_RF)
+                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 8.0F)
+                        .mod(TAG_AUGMENT_ENERGY_XFER, 8.0F)
+                        .mod(TAG_AUGMENT_ENERGY_CREATIVE, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
+
+        registerItem("fluid_tank_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_FLUID)
+                        .mod(TAG_AUGMENT_FLUID_STORAGE, 4.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
+
+        registerItem("fluid_tank_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_FLUID)
+                        .mod(TAG_AUGMENT_FLUID_STORAGE, 8.0F)
+                        .mod(TAG_AUGMENT_FLUID_CREATIVE, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
     }
 
     private static void registerMachineAugments() {
@@ -388,6 +425,35 @@ public class TCoreItems {
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
     }
 
+    private static void registerDynamoAugments() {
+
+        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+
+        registerItem("dynamo_output_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_DYNAMO)
+                        .mod(TAG_AUGMENT_DYNAMO_PRODUCTION, 1.0F)
+                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 0.9F)
+                        .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
+
+        registerItem("dynamo_fuel_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_DYNAMO)
+                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 1.10F)
+                        .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
+    }
+
+    private static void registerAreaAugments() {
+
+        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+
+        registerItem("area_radius_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_AREA_EFFECT)
+                        .mod(TAG_AUGMENT_AREA_RADIUS, 1.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_AREA_AUGMENTS)));
+    }
+
     private static void registerPotionAugments() {
 
         ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
@@ -404,54 +470,6 @@ public class TCoreItems {
                         .type(TAG_AUGMENT_TYPE_POTION)
                         .mod(TAG_AUGMENT_POTION_DURATION, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_POTION_AUGMENTS)));
-    }
-
-    private static void registerStorageAugments() {
-
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
-
-        registerItem("rf_coil_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 4.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 4.0F)
-                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
-
-        registerItem("rf_coil_storage_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 6.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 2.0F)
-                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
-
-        registerItem("rf_coil_xfer_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 2.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 6.0F)
-                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
-
-        registerItem("fluid_tank_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_FLUID)
-                        .mod(TAG_AUGMENT_FLUID_STORAGE, 4.0F)
-                        .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
-    }
-
-    private static void registerUpgradeAugments() {
-
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
-        final float[] upgradeMods = new float[]{1.0F, 2.0F, 3.0F, 4.0F, 6.0F, 8.5F};
-        // final float[] upgradeMods = new float[]{1.0F, 1.5F, 2.0F, 2.5F, 3.0F, 3.5F};
-
-        for (int i = 1; i <= 3; ++i) {
-            int tier = i;
-            registerItem("upgrade_augment_" + i, () -> new AugmentItem(new Item.Properties().group(group),
-                    AugmentDataHelper.builder()
-                            .type(TAG_AUGMENT_TYPE_UPGRADE)
-                            .mod(TAG_AUGMENT_BASE_MOD, upgradeMods[tier])
-                            .build()).setShowInGroups(getFlag(FLAG_UPGRADE_AUGMENTS)));
-        }
     }
     // endregion
 

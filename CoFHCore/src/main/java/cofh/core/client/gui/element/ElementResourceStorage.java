@@ -24,11 +24,11 @@ import static net.minecraft.client.gui.screen.Screen.hasShiftDown;
 
 public abstract class ElementResourceStorage extends ElementBase {
 
+    protected ResourceLocation creativeTexture;
     protected ResourceLocation underlayTexture;
     protected ResourceLocation overlayTexture;
 
     protected IResourceStorage storage;
-    protected boolean infinite;
     protected int minDisplay = 1;
 
     protected BooleanSupplier drawStorage = TRUE;
@@ -37,11 +37,25 @@ public abstract class ElementResourceStorage extends ElementBase {
 
     protected BooleanSupplier claimStorage = FALSE;
     protected BooleanSupplier clearStorage = FALSE;
+    protected BooleanSupplier claimable = FALSE;
+    protected BooleanSupplier clearable;
 
     public ElementResourceStorage(IGuiAccess gui, int posX, int posY, IResourceStorage storage) {
 
         super(gui, posX, posY);
         this.storage = storage;
+
+        this.clearable = () -> storage.getStored() > 0;
+    }
+
+    public final ElementResourceStorage setCreativeTexture(String texture) {
+
+        if (texture == null) {
+            LOG.warn("Attempted to assign a NULL creative texture.");
+            return this;
+        }
+        this.creativeTexture = new ResourceLocation(texture);
+        return this;
     }
 
     public final ElementResourceStorage setUnderlayTexture(String texture) {
@@ -88,12 +102,6 @@ public abstract class ElementResourceStorage extends ElementBase {
         return this;
     }
 
-    public ElementResourceStorage setInfinite(boolean infinite) {
-
-        this.infinite = infinite;
-        return this;
-    }
-
     public ElementResourceStorage setMinDisplay(int minDisplay) {
 
         this.minDisplay = minDisplay;
@@ -112,30 +120,32 @@ public abstract class ElementResourceStorage extends ElementBase {
     @Override
     public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
 
-        if (infinite) {
-            tooltipList.add(new TranslationTextComponent("info.cofh.infinite"));
+        if (storage.isCreative()) {
+            tooltipList.add(new TranslationTextComponent("info.cofh.infinite").mergeStyle(TextFormatting.LIGHT_PURPLE).mergeStyle(TextFormatting.ITALIC));
         } else {
             tooltipList.add(new StringTextComponent(format(storage.getStored()) + " / " + format(storage.getCapacity()) + " " + storage.getUnit()));
         }
-        if (clearStorage != FALSE && (hasAltDown() || hasShiftDown())) {
+        if (clearable.getAsBoolean() && clearStorage != FALSE && (hasAltDown() || hasShiftDown())) {
             tooltipList.add(new TranslationTextComponent("info.cofh.click_to_clear").mergeStyle(TextFormatting.GRAY));
+        } else if (claimable.getAsBoolean()) {
+            tooltipList.add(new TranslationTextComponent("info.cofh.click_to_claim").mergeStyle(TextFormatting.GRAY));
         }
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
-        if (hasShiftDown() && Screen.hasAltDown()) {
+        if (clearable.getAsBoolean() && hasShiftDown() && Screen.hasAltDown()) {
             return clearStorage.getAsBoolean();
+        }
+        if (claimable.getAsBoolean()) {
+            return claimStorage.getAsBoolean();
         }
         return false;
     }
 
     protected int getScaled(int scale) {
 
-        if (storage.getCapacity() <= 0 || infinite) {
-            return scale;
-        }
         double fraction = (double) storage.getStored() * scale / storage.getCapacity();
         int amount = MathHelper.clamp(MathHelper.round(fraction), 0, scale);
         return fraction > 0 ? Math.max(minDisplay, amount) : amount;

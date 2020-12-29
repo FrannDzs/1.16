@@ -66,7 +66,7 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     @Override
     public int getLightValue() {
 
-        return levelTracker;
+        return Math.min(levelTracker, 8);
     }
 
     protected void transferRF() {
@@ -147,7 +147,11 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
                 markDirty();
             }
         }
-        curScale = energyStorage.getEnergyStored() > 0 ? 1 + Math.min((int) (energyStorage.getRatio() * 8), 7) : 0;
+        if (energyStorage.isCreative()) {
+            curScale = 9;
+        } else {
+            curScale = energyStorage.getEnergyStored() > 0 ? 1 + Math.min((int) (energyStorage.getRatio() * 8), 7) : 0;
+        }
         if (levelTracker != curScale) {
             levelTracker = curScale;
             if (send) {

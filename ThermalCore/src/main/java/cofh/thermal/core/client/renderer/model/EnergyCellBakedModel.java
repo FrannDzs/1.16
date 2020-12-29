@@ -172,9 +172,9 @@ public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> impleme
 
     private TextureAtlasSprite getLevelTexture(int level) {
 
-        // Creative returned as -1;
-        if (level < 0) {
-            return ENERGY_CELL_LEVEL_C;
+        // Creative returned as 9
+        if (level > 8) {
+            return ENERGY_CELL_LEVEL_8_C;
         }
         return ENERGY_CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
     }

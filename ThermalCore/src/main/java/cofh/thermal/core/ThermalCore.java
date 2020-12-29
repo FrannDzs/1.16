@@ -104,6 +104,8 @@ public class ThermalCore {
         setFlag(FLAG_STORAGE_AUGMENTS, true);
         setFlag(FLAG_UPGRADE_AUGMENTS, true);
 
+        setFlag(FLAG_CREATIVE_AUGMENTS, true);
+
         setFlag(ID_TINKER_BENCH, true);
     }
 

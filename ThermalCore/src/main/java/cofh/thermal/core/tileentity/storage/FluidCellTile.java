@@ -156,7 +156,11 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
                 markDirty();
             }
         }
-        curScale = fluidStorage.getAmount() > 0 ? 1 + Math.min((int) (fluidStorage.getRatio() * 8), 7) : 0;
+        if (fluidStorage.isCreative()) {
+            curScale = fluidStorage.isEmpty() ? 10 : 9;
+        } else {
+            curScale = fluidStorage.getAmount() > 0 ? 1 + Math.min((int) (fluidStorage.getRatio() * 8), 7) : 0;
+        }
         if (levelTracker != curScale) {
             levelTracker = curScale;
             if (send) {

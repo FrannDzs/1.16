@@ -190,7 +190,10 @@ public class ThermalGuiHelper {
             String levelTex = levelTexture + level;
             ret.addSprite(textureExists(levelTex) ? levelTex : null, () -> tile.getLevelTracker() == level);
         }
-        // TODO: CREATIVE
+        String creativeTex = levelTexture + "8c";
+        ret.addSprite(textureExists(creativeTex) ? creativeTex : null, () -> tile.getLevelTracker() == 9);
+        creativeTex = levelTexture + "0c";
+        ret.addSprite(textureExists(creativeTex) ? creativeTex : null, () -> tile.getLevelTracker() >= 10);
         return ret;
     }
 

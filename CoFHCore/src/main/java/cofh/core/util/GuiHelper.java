@@ -31,14 +31,15 @@ public class GuiHelper {
     // region ENERGY
     public static ElementEnergyStorage createDefaultEnergyStorage(IGuiAccess gui, int posX, int posY, EnergyStorageCoFH storage) {
 
-        return createDefaultEnergyStorage(gui, posX, posY, storage, 16, 42, PATH_ELEMENTS + "storage_energy.png", 32, 64);
+        return createDefaultEnergyStorage(gui, posX, posY, storage, 16, 42, 32, 64);
     }
 
-    public static ElementEnergyStorage createDefaultEnergyStorage(IGuiAccess gui, int posX, int posY, EnergyStorageCoFH storage, int width, int height, String texture, int texW, int texH) {
+    public static ElementEnergyStorage createDefaultEnergyStorage(IGuiAccess gui, int posX, int posY, EnergyStorageCoFH storage, int width, int height, int texW, int texH) {
 
         return (ElementEnergyStorage) new ElementEnergyStorage(gui, posX, posY, storage)
-                .setSize(width, height)
-                .setTexture(texture, texW, texH);
+                .setCreativeTexture(PATH_ELEMENTS + "storage_energy_c.png")
+                .setTexture(PATH_ELEMENTS + "storage_energy.png", texW, texH)
+                .setSize(width, height);
     }
 
     public static ElementResourceStorage setClearable(ElementEnergyStorage storage, TileCoFH tile, int coil) {

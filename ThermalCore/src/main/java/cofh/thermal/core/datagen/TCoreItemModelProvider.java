@@ -162,6 +162,9 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
         generated(reg.getSup("rf_coil_storage_augment"), AUGMENTS);
         generated(reg.getSup("rf_coil_xfer_augment"), AUGMENTS);
 
+        generated(reg.getSup("fluid_tank_creative_augment", AUGMENTS));
+        generated(reg.getSup("rf_coil_creative_augment", AUGMENTS));
+
         generated(reg.getSup("area_radius_augment"), AUGMENTS);
         generated(reg.getSup("potion_amplifier_augment"), AUGMENTS);
         generated(reg.getSup("potion_duration_augment"), AUGMENTS);

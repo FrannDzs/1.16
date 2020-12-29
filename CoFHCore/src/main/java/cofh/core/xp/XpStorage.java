@@ -6,6 +6,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import java.util.function.BooleanSupplier;
+
+import static cofh.core.util.constants.Constants.FALSE;
 import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.NBTTags.TAG_XP;
 import static cofh.core.util.constants.NBTTags.TAG_XP_MAX;
@@ -19,7 +22,7 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
 
     protected final int baseCapacity;
 
-    protected boolean creative;
+    protected BooleanSupplier creative = FALSE;
 
     protected int xp;
     protected int capacity;
@@ -47,6 +50,15 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
 
         this.capacity = MathHelper.clamp(capacity, 0, MAX_CAPACITY);
         this.xp = Math.max(0, Math.min(capacity, xp));
+        return this;
+    }
+
+    public XpStorage setCreative(BooleanSupplier creative) {
+
+        this.creative = creative;
+        if (isCreative()) {
+            xp = getCapacity();
+        }
         return this;
     }
 
@@ -127,7 +139,7 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     public int extractXp(int maxExtract, boolean simulate) {
 
         int energyExtracted = Math.min(xp, maxExtract);
-        if (!simulate && !isCreative()) {
+        if (!simulate) {
             xp -= energyExtracted;
         }
         return energyExtracted;
@@ -160,9 +172,6 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     @Override
     public void modify(int amount) {
 
-        if (isCreative()) {
-            amount = Math.max(amount, 0);
-        }
         xp += amount;
         if (xp > capacity) {
             xp = capacity;
@@ -174,7 +183,7 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     @Override
     public boolean isCreative() {
 
-        return creative;
+        return false;
     }
 
     @Override

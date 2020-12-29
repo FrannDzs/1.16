@@ -550,6 +550,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     // region AUGMENTS
     protected boolean redstoneControlFeature = defaultRedstoneControlState();
 
+    protected boolean creativeEnergy = false;
+    protected boolean creativeFluid = false;
+
     protected float baseMod = 1.0F;
     protected float energyStorageMod = 1.0F;
     protected float energyXferMod = 1.0F;
@@ -594,6 +597,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         energyStorageMod = 1.0F;
         energyXferMod = 1.0F;
         fluidStorageMod = 1.0F;
+
+        creativeEnergy = false;
+        creativeFluid = false;
     }
 
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
@@ -604,6 +610,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_STORAGE), energyStorageMod);
         energyXferMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_XFER), energyXferMod);
         fluidStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_FLUID_STORAGE), fluidStorageMod);
+
+        creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_CREATIVE) > 0;
+        creativeFluid |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
     }
 
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
@@ -617,9 +626,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
         fluidStorageMod = holdingMod * MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
 
-        energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod());
+        energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod()).setCreative(() -> creativeEnergy);
         for (int i = 0; i < tankInv.getTanks(); ++i) {
-            tankInv.getTank(i).applyModifiers(getFluidStorageMod());
+            tankInv.getTank(i).applyModifiers(getFluidStorageMod()).setCreative(() -> creativeFluid);
         }
     }
 

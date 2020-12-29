@@ -7,6 +7,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import java.util.function.BooleanSupplier;
+
+import static cofh.core.util.constants.Constants.FALSE;
 import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.NBTTags.*;
 
@@ -21,7 +24,7 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     protected final int baseReceive;
     protected final int baseExtract;
 
-    protected boolean creative;
+    protected BooleanSupplier creative = FALSE;
 
     protected int energy;
     protected int capacity;
@@ -82,9 +85,12 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
         return this;
     }
 
-    public EnergyStorageCoFH setCreative(boolean creative) {
+    public EnergyStorageCoFH setCreative(BooleanSupplier creative) {
 
         this.creative = creative;
+        if (isCreative()) {
+            energy = getCapacity();
+        }
         return this;
     }
 
@@ -255,7 +261,7 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
     @Override
     public boolean isCreative() {
 
-        return creative;
+        return creative.getAsBoolean();
     }
 
     @Override
