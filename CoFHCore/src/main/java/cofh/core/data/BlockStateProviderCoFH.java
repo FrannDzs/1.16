@@ -1,4 +1,4 @@
-package cofh.core.datagen;
+package cofh.core.data;
 
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;

@@ -1,6 +1,6 @@
 package cofh.thermal.core.datagen;
 
-import cofh.core.datagen.ItemModelProviderCoFH;
+import cofh.core.data.ItemModelProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -162,8 +162,8 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
         generated(reg.getSup("rf_coil_storage_augment"), AUGMENTS);
         generated(reg.getSup("rf_coil_xfer_augment"), AUGMENTS);
 
-        generated(reg.getSup("fluid_tank_creative_augment", AUGMENTS));
-        generated(reg.getSup("rf_coil_creative_augment", AUGMENTS));
+        generated(reg.getSup("fluid_tank_creative_augment"), AUGMENTS);
+        generated(reg.getSup("rf_coil_creative_augment"), AUGMENTS);
 
         generated(reg.getSup("area_radius_augment"), AUGMENTS);
         generated(reg.getSup("potion_amplifier_augment"), AUGMENTS);

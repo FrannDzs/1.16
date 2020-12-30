@@ -1,6 +1,6 @@
 package cofh.thermal.core.datagen;
 
-import cofh.core.datagen.BlockStateProviderCoFH;
+import cofh.core.data.BlockStateProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;

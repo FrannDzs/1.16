@@ -1,6 +1,6 @@
 package cofh.archersparadox.datagen;
 
-import cofh.core.datagen.ItemModelProviderCoFH;
+import cofh.core.data.ItemModelProviderCoFH;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 

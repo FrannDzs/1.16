@@ -1,8 +1,13 @@
-package cofh.core.datagen;
+package cofh.core.data;
 
+import cofh.core.CoFHCore;
+import cofh.core.init.CoreFlags;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.FlagManager;
 import cofh.core.util.FlagRecipeCondition;
+import com.google.common.collect.Sets;
+import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
@@ -17,8 +22,11 @@ import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static cofh.core.util.constants.Constants.ID_FORGE;
@@ -26,12 +34,43 @@ import static cofh.core.util.constants.Constants.ID_FORGE;
 public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuilder {
 
     protected final String modid;
-    // private FeatureManager manager;
+    protected FlagManager manager = CoreFlags.manager();
+
+    protected Map<ResourceLocation, ICondition> recipeConditions = new Object2ObjectOpenHashMap<>();
 
     public RecipeProviderCoFH(DataGenerator generatorIn, String modid) {
 
         super(generatorIn);
         this.modid = modid;
+    }
+
+    @Override
+    public void act(DirectoryCache cache) {
+
+        Path path = this.generator.getOutputFolder();
+        Set<ResourceLocation> set = Sets.newHashSet();
+        registerRecipes((recipe) -> {
+            if (!set.add(recipe.getID())) {
+                CoFHCore.LOG.error("Duplicate recipe " + recipe.getID());
+            } else {
+                saveRecipe(cache, createRecipeJson(recipe), path.resolve("data/" + recipe.getID().getNamespace() + "/recipes/" + recipe.getID().getPath() + ".json"));
+            }
+            // We do not generate advancements - they add a LOT of time to server connection.
+
+            // JsonObject jsonobject = recipe.getAdvancementJson();
+            // if (jsonobject != null) {
+            //     saveRecipeAdvancement(cache, jsonobject, path.resolve("data/" + recipe.getID().getNamespace() + "/advancements/" + recipe.getAdvancementID().getPath() + ".json"));
+            // }
+        });
+    }
+
+    protected JsonObject createRecipeJson(IFinishedRecipe recipe) {
+
+        ResourceLocation recipeId = recipe.getID();
+        if (recipeConditions.containsKey(recipeId)) {
+            return new ConditionalRecipeWrapper(recipe).condition(recipeConditions.get(recipeId)).getRecipeJson();
+        }
+        return recipe.getRecipeJson();
     }
 
     // TODO: Finish adding this to fully support modular features.

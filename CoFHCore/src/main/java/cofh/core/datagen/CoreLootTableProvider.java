@@ -1,5 +1,6 @@
 package cofh.core.datagen;
 
+import cofh.core.data.LootTableProviderCoFH;
 import net.minecraft.data.DataGenerator;
 
 import static cofh.core.util.references.CoreReferences.GLOSSED_MAGMA;

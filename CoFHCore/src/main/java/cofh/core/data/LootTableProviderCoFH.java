@@ -1,4 +1,4 @@
-package cofh.core.datagen;
+package cofh.core.data;
 
 import cofh.core.util.loot.TileNBTSync;
 import com.google.gson.Gson;

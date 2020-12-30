@@ -1,6 +1,6 @@
 package cofh.thermal.locomotion.datagen;
 
-import cofh.core.datagen.BlockStateProviderCoFH;
+import cofh.core.data.BlockStateProviderCoFH;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 

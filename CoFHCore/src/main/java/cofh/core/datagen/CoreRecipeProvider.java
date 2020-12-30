@@ -1,5 +1,6 @@
 package cofh.core.datagen;
 
+import cofh.core.data.RecipeProviderCoFH;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapelessRecipeBuilder;
