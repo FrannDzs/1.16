@@ -49,7 +49,7 @@ public class DeviceSoilInfuserScreen extends ThermalScreenBase<DeviceSoilInfuser
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 
-        String radius = format(1 + 2 * tile.radius);
+        String radius = format(1 + 2 * tile.getRadius());
 
         getFontRenderer().drawString(matrixStack, localize("info.cofh.area") + ": " + radius + " x " + radius, 70, 39, 0x404040);
 

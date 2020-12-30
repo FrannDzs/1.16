@@ -8,35 +8,37 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 import static cofh.thermal.core.ThermalCore.RECIPE_SERIALIZERS;
-import static cofh.thermal.core.init.TCoreRecipeTypes.ID_BOOST_TREE_EXTRACTOR;
+import static cofh.thermal.core.init.TCoreRecipeTypes.ID_BOOST_POTION_DIFFUSER;
 
-public class TreeExtractorBoost extends SerializableRecipe {
+public class PotionDiffuserBoost extends SerializableRecipe {
 
     protected final Ingredient ingredient;
 
-    protected float outputMod;
+    protected int amplifier;
+    protected float durationMod;
     protected int cycles;
 
-    protected TreeExtractorBoost(ResourceLocation recipeId, Ingredient inputItem, float outputMod, int cycles) {
+    protected PotionDiffuserBoost(ResourceLocation recipeId, Ingredient inputItem, int amplifier, float durationMod, int cycles) {
 
         super(recipeId);
 
         this.ingredient = inputItem;
 
-        this.outputMod = outputMod;
+        this.amplifier = amplifier;
+        this.durationMod = durationMod;
         this.cycles = cycles;
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
 
-        return RECIPE_SERIALIZERS.get(ID_BOOST_TREE_EXTRACTOR);
+        return RECIPE_SERIALIZERS.get(ID_BOOST_POTION_DIFFUSER);
     }
 
     @Override
     public IRecipeType<?> getType() {
 
-        return TCoreRecipeTypes.BOOST_TREE_EXTRACTOR;
+        return TCoreRecipeTypes.BOOST_POTION_DIFFUSER;
     }
 
     // region GETTERS
@@ -45,9 +47,14 @@ public class TreeExtractorBoost extends SerializableRecipe {
         return ingredient;
     }
 
-    public float getOutputMod() {
+    public int getAmplifier() {
 
-        return outputMod;
+        return amplifier;
+    }
+
+    public float getDurationMod() {
+
+        return durationMod;
     }
 
     public int getCycles() {

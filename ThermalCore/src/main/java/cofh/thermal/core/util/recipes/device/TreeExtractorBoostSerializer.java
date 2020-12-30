@@ -1,5 +1,6 @@
 package cofh.thermal.core.util.recipes.device;
 
+import cofh.thermal.core.util.managers.device.TreeExtractorManager;
 import com.google.gson.JsonObject;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -17,19 +18,21 @@ public class TreeExtractorBoostSerializer extends ForgeRegistryEntry<IRecipeSeri
     public TreeExtractorBoost read(ResourceLocation recipeId, JsonObject json) {
 
         Ingredient ingredient;
-        float boostMult = 1.0F;
-        int boostCycles = 8;
+        float outputMod = 1.0F;
+        int cycles = TreeExtractorManager.instance().getDefaultEnergy();
 
         /* INPUT */
         ingredient = parseIngredient(json.get(INGREDIENT));
 
-        if (json.has(BOOST_MOD)) {
-            boostMult = json.get(BOOST_MOD).getAsFloat();
+        if (json.has(OUTPUT)) {
+            outputMod = json.get(OUTPUT).getAsFloat();
+        } else if (json.has(OUTPUT_MOD)) {
+            outputMod = json.get(OUTPUT_MOD).getAsFloat();
         }
         if (json.has(CYCLES)) {
-            boostCycles = json.get(CYCLES).getAsInt();
+            cycles = json.get(CYCLES).getAsInt();
         }
-        return new TreeExtractorBoost(recipeId, ingredient, boostMult, boostCycles);
+        return new TreeExtractorBoost(recipeId, ingredient, outputMod, cycles);
     }
 
     @Nullable
@@ -38,10 +41,10 @@ public class TreeExtractorBoostSerializer extends ForgeRegistryEntry<IRecipeSeri
 
         Ingredient ingredient = Ingredient.read(buffer);
 
-        float boostMult = buffer.readFloat();
-        int boostCycles = buffer.readInt();
+        float outputMod = buffer.readFloat();
+        int cycles = buffer.readInt();
 
-        return new TreeExtractorBoost(recipeId, ingredient, boostMult, boostCycles);
+        return new TreeExtractorBoost(recipeId, ingredient, outputMod, cycles);
     }
 
     @Override
@@ -49,8 +52,8 @@ public class TreeExtractorBoostSerializer extends ForgeRegistryEntry<IRecipeSeri
 
         recipe.ingredient.write(buffer);
 
-        buffer.writeFloat(recipe.boostMult);
-        buffer.writeInt(recipe.boostCycles);
+        buffer.writeFloat(recipe.outputMod);
+        buffer.writeInt(recipe.cycles);
     }
 
 }

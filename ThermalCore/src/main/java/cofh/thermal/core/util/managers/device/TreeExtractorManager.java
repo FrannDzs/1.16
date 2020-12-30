@@ -26,7 +26,7 @@ public class TreeExtractorManager extends AbstractManager {
     private static final TreeExtractorManager INSTANCE = new TreeExtractorManager();
 
     protected Map<ComparableItemStack, FluidStack> itemMap = new Object2ObjectOpenHashMap<>();
-    protected Map<ComparableItemStack, Pair<Float, Integer>> boostMap = new Object2ObjectOpenHashMap<>();
+    protected Map<ComparableItemStack, Pair<Integer, Float>> boostMap = new Object2ObjectOpenHashMap<>();
 
     protected IdentityHashMap<BlockState, FluidStack> trunkMap = new IdentityHashMap<>();
     protected SetMultimap<BlockState, BlockState> leafMap = HashMultimap.create();
@@ -99,18 +99,18 @@ public class TreeExtractorManager extends AbstractManager {
     public void addBoost(TreeExtractorBoost boost) {
 
         for (ItemStack ingredient : boost.getIngredient().getMatchingStacks()) {
-            boostMap.put(convert(ingredient), Pair.of(boost.getBoostMult(), boost.getBoostCycles()));
+            boostMap.put(convert(ingredient), Pair.of(boost.getCycles(), boost.getOutputMod()));
         }
-    }
-
-    public float getBoostMultiplier(ItemStack item) {
-
-        return validBoost(item) ? boostMap.get(convert(item)).getLeft() : 1.0F;
     }
 
     public int getBoostCycles(ItemStack item) {
 
-        return validBoost(item) ? boostMap.get(convert(item)).getRight() : 0;
+        return validBoost(item) ? boostMap.get(convert(item)).getLeft() : 0;
+    }
+
+    public float getBoostOutputMod(ItemStack item) {
+
+        return validBoost(item) ? boostMap.get(convert(item)).getRight() : 1.0F;
     }
     // endregion
 

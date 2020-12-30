@@ -241,13 +241,14 @@ public abstract class RecipeJsonUtils {
 
     // region STRING CONSTANTS
     public static final String AMOUNT = "amount";
-    public static final String BOOST_MOD = "boost_mod";
+    public static final String AMPLIFIER = "amplifier";
     public static final String CHANCE = "chance";
     public static final String COMMENT = "//";
     public static final String CONSTANT = "constant";
     public static final String COUNT = "count";
     public static final String CYCLES = "cycles";
     public static final String DEPENDENCY = "dependency";
+    public static final String DURATION_MOD = "duration_mod";
     public static final String ENABLE = "enable";
     public static final String ENERGY = "energy";
     public static final String ENERGY_MOD = "energy_mod";
@@ -264,6 +265,7 @@ public abstract class RecipeJsonUtils {
     public static final String MOD_LOADED = "mod";
     public static final String NBT = "nbt";
     public static final String OUTPUT = "output";
+    public static final String OUTPUT_MOD = "output_mod";
     public static final String OUTPUTS = "outputs";
     public static final String ORE = "ore";
     public static final String PRIMARY_MOD = "primary_mod";

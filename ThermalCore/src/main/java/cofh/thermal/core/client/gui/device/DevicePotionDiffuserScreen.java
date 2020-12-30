@@ -29,7 +29,7 @@ public class DevicePotionDiffuserScreen extends ThermalScreenBase<DevicePotionDi
         super.init();
 
         addElement(setClearable(createMediumFluidStorage(this, 116, 22, tile.getTank(0)), tile, 0));
-        addElement(ThermalGuiHelper.createDefaultDuration(this, 80, 35, SCALE_FLAME_GREEN, tile));
+        addElement(ThermalGuiHelper.createDefaultDuration(this, 80, 35, SCALE_ALCHEMY, tile));
     }
 
 }

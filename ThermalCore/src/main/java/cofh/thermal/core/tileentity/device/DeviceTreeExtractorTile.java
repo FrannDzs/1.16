@@ -58,8 +58,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected int timeConstant = TILE_TIME_CONSTANT;
     protected int timeOffset;
 
-    protected float boostMult;
     protected int boostCycles;
+    protected float boostMult;
 
     public DeviceTreeExtractorTile() {
 
@@ -195,12 +195,12 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
                 if (boostCycles > 0) {
                     --boostCycles;
                 } else if (!inputSlot.isEmpty()) {
-                    boostMult = TreeExtractorManager.instance().getBoostMultiplier(inputSlot.getItemStack());
                     boostCycles = TreeExtractorManager.instance().getBoostCycles(inputSlot.getItemStack());
+                    boostMult = TreeExtractorManager.instance().getBoostOutputMod(inputSlot.getItemStack());
                     inputSlot.consume(1);
                 } else {
-                    boostMult = 1.0F;
                     boostCycles = 0;
+                    boostMult = 1.0F;
                 }
                 outputTank.fill(new FluidStack(renderFluid, (int) (renderFluid.getAmount() * baseMod * boostMult)), EXECUTE);
                 updateValidity();
@@ -310,8 +310,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
         super.read(state, nbt);
 
-        boostMult = nbt.getFloat(TAG_BOOST_MULT);
         boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
+        boostMult = nbt.getFloat(TAG_BOOST_MULT);
         timeConstant = nbt.getInt(TAG_TIME_CONSTANT);
 
         if (timeConstant <= 0) {
@@ -328,8 +328,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
         super.write(nbt);
 
-        nbt.putFloat(TAG_BOOST_MULT, boostMult);
         nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
+        nbt.putFloat(TAG_BOOST_MULT, boostMult);
         nbt.putInt(TAG_TIME_CONSTANT, timeConstant);
 
         for (int i = 0; i < NUM_LEAVES; ++i) {

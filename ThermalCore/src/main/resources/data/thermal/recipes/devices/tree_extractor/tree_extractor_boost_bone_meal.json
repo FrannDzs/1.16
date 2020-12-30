@@ -1,8 +1,8 @@
 {
   "type": "thermal:tree_extractor_boost",
   "ingredient": {
-    "item": "thermal:phytogro"
+    "item": "minecraft:bone_meal"
   },
-  "boost_mod": 2.0,
-  "cycles": 16
+  "output": 1.5,
+  "cycles": 8
 }

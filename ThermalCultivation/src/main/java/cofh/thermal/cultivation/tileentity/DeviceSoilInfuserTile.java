@@ -31,7 +31,7 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
 
     protected ItemStorageCoFH chargeSlot = new ItemStorageCoFH(1, EnergyHelper::hasEnergyHandlerCap);
 
-    public int radius = 1;
+    protected int radius = 1;
 
     protected int process;
     protected int processMax = BASE_PROCESS_MAX * radius * radius;
@@ -69,33 +69,6 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
         }
         updateActiveState(curActive);
         chargeEnergy();
-    }
-
-    protected void chargeSoil(BlockPos blockPos) {
-
-        BlockState state = world.getBlockState(blockPos);
-        if (state.getBlock() instanceof SoilBlock) {
-            SoilBlock.charge(state, world, blockPos);
-        }
-    }
-
-    protected void chargeEnergy() {
-
-        if (!chargeSlot.isEmpty()) {
-            chargeSlot.getItemStack()
-                    .getCapability(CapabilityEnergy.ENERGY, null)
-                    .ifPresent(c -> energyStorage.receiveEnergy(c.extractEnergy(Math.min(energyStorage.getMaxReceive(), energyStorage.getSpace()), false), false));
-        }
-    }
-
-    protected void processOff() {
-
-        // This intentionally does not clear the process value.
-        isActive = false;
-        wasActive = true;
-        if (world != null) {
-            timeTracker.markTime(world);
-        }
     }
 
     @Nullable
@@ -167,6 +140,40 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
         nbt.putInt(TAG_PROCESS_TICK, processTick);
 
         return nbt;
+    }
+    // endregion
+
+    // region HELPERS
+    protected void chargeSoil(BlockPos blockPos) {
+
+        BlockState state = world.getBlockState(blockPos);
+        if (state.getBlock() instanceof SoilBlock) {
+            SoilBlock.charge(state, world, blockPos);
+        }
+    }
+
+    protected void chargeEnergy() {
+
+        if (!chargeSlot.isEmpty()) {
+            chargeSlot.getItemStack()
+                    .getCapability(CapabilityEnergy.ENERGY, null)
+                    .ifPresent(c -> energyStorage.receiveEnergy(c.extractEnergy(Math.min(energyStorage.getMaxReceive(), energyStorage.getSpace()), false), false));
+        }
+    }
+
+    protected void processOff() {
+
+        // This intentionally does not clear the process value.
+        isActive = false;
+        wasActive = true;
+        if (world != null) {
+            timeTracker.markTime(world);
+        }
+    }
+
+    public int getRadius() {
+
+        return radius;
     }
     // endregion
 

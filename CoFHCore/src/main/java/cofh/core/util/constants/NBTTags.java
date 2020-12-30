@@ -18,6 +18,7 @@ public class NBTTags {
     public static final String TAG_AUGMENT_DATA = "AugmentData";
     public static final String TAG_BLOCK_ENTITY = "BlockEntityTag";
     public static final String TAG_BLOCK_STATE = "BlockStateTag";
+    public static final String TAG_BOOST_AMP = "BoostAmp";
     public static final String TAG_BOOST_CYCLES = "BoostCycles";
     public static final String TAG_BOOST_DUR = "BoostDur";
     public static final String TAG_BOOST_MULT = "BoostMult";

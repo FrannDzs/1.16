@@ -9,8 +9,8 @@ import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.inventory.container.device.DevicePotionDiffuserContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.core.util.managers.device.PotionDiffuserManager;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -33,7 +33,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INPUT;
@@ -44,7 +43,7 @@ import static cofh.thermal.core.init.TCoreReferences.DEVICE_POTION_DIFFUSER_TILE
 
 public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickableTileEntity {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH();
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PotionDiffuserManager.instance()::validBoost);
     protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, FluidHelper::hasPotionTag);
 
     protected static final int FLUID_AMOUNT = 25;
@@ -200,7 +199,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.read(state, nbt);
 
         boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
-        boostAmplifier = nbt.getInt(TAG_BOOST_MULT);
+        boostAmplifier = nbt.getInt(TAG_BOOST_AMP);
         boostDuration = nbt.getFloat(TAG_BOOST_DUR);
 
         instant = nbt.getBoolean(TAG_INSTANT);
@@ -215,7 +214,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.write(nbt);
 
         nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
-        nbt.putInt(TAG_BOOST_MULT, boostAmplifier);
+        nbt.putInt(TAG_BOOST_AMP, boostAmplifier);
         nbt.putFloat(TAG_BOOST_DUR, boostDuration);
 
         nbt.putBoolean(TAG_INSTANT, instant);
@@ -264,16 +263,15 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         }
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
         List<LivingEntity> targets = world.getEntitiesWithinAABB(LivingEntity.class, area, EntityPredicates.IS_ALIVE);
-        if (targets.isEmpty()) {
+        if (targets.isEmpty()) { // TODO: Proximity sensor aug?
             return;
         }
         if (boostCycles > 0) {
             --boostCycles;
         } else if (!inputSlot.isEmpty()) {
-            // TODO: Get these values
-            boostCycles = 16;
-            boostAmplifier = 1;
-            boostDuration = 1.0F;
+            boostCycles = PotionDiffuserManager.instance().getBoostCycles(inputSlot.getItemStack());
+            boostAmplifier = PotionDiffuserManager.instance().getBoostAmplifier(inputSlot.getItemStack());
+            boostDuration = PotionDiffuserManager.instance().getBoostDurationMod(inputSlot.getItemStack());
             inputSlot.consume(1);
         } else {
             boostCycles = 0;
