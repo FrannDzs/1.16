@@ -112,6 +112,8 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
     @Override
     public void tick() {
 
+        updateActiveState();
+
         if (isActive) {
             tank.modify((int) (GENERATION_RATE * baseMod));
             fillFluid();

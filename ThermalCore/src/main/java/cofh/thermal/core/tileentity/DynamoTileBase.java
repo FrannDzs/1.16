@@ -211,6 +211,24 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
     // region NETWORK
     @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+
+        super.onDataPacket(net, pkt);
+
+        ModelDataManager.requestModelDataRefresh(this);
+    }
+
+    // CONTROL
+    @Override
+    public void handleControlPacket(PacketBuffer buffer) {
+
+        super.handleControlPacket(buffer);
+
+        ModelDataManager.requestModelDataRefresh(this);
+    }
+
+    // GUI
+    @Override
     public PacketBuffer getGuiPacket(PacketBuffer buffer) {
 
         super.getGuiPacket(buffer);
@@ -230,22 +248,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         fuel = buffer.readInt();
     }
 
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-
-        super.onDataPacket(net, pkt);
-
-        ModelDataManager.requestModelDataRefresh(this);
-    }
-
-    @Override
-    public void handleControlPacket(PacketBuffer buffer) {
-
-        super.handleControlPacket(buffer);
-
-        ModelDataManager.requestModelDataRefresh(this);
-    }
-
+    // STATE
     @Override
     public void handleStatePacket(PacketBuffer buffer) {
 

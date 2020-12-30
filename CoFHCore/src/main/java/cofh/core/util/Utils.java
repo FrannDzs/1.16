@@ -191,7 +191,7 @@ public class Utils {
 
     public static boolean dropItemStackIntoWorldWithRandomness(ItemStack stack, World world, BlockPos pos) {
 
-        return dropItemStackIntoWorld(stack, world, new Vector3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D), true);
+        return dropItemStackIntoWorld(stack, world, Vector3d.copyCentered(pos), true);
     }
 
     public static boolean dropItemStackIntoWorldWithRandomness(ItemStack stack, World world, Vector3d pos) {

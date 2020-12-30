@@ -190,6 +190,9 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
 
     // region TIME CHECKS
     public static final int TIME_CONSTANT = 32;
+
+    public static final int TIME_CONSTANT_2X = TIME_CONSTANT * 2;
+
     public static final int TIME_CONSTANT_HALF = TIME_CONSTANT / 2;
     public static final int TIME_CONSTANT_QUARTER = TIME_CONSTANT / 4;
     public static final int TIME_CONSTANT_EIGHTH = TIME_CONSTANT / 8;
@@ -224,38 +227,19 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-
-        read(this.cachedBlockState, pkt.getNbtCompound());
-    }
-
-    @Override
     public CompoundNBT getUpdateTag() {
 
         return this.write(new CompoundNBT());
     }
 
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+
+        read(this.cachedBlockState, pkt.getNbtCompound());
+    }
+
+    // CONFIG
     public PacketBuffer getConfigPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public PacketBuffer getControlPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public PacketBuffer getRedstonePacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public PacketBuffer getStatePacket(PacketBuffer buffer) {
 
         return buffer;
     }
@@ -264,16 +248,40 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
 
     }
 
+    // CONTROL
+    public PacketBuffer getControlPacket(PacketBuffer buffer) {
+
+        return buffer;
+    }
+
     public void handleControlPacket(PacketBuffer buffer) {
 
+    }
+
+    // GUI
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        return buffer;
     }
 
     public void handleGuiPacket(PacketBuffer buffer) {
 
     }
 
+    // REDSTONE
     public void handleRedstonePacket(PacketBuffer buffer) {
 
+    }
+
+    public PacketBuffer getRedstonePacket(PacketBuffer buffer) {
+
+        return buffer;
+    }
+
+    // STATE
+    public PacketBuffer getStatePacket(PacketBuffer buffer) {
+
+        return buffer;
     }
 
     public void handleStatePacket(PacketBuffer buffer) {

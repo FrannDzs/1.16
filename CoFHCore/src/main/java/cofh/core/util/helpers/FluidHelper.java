@@ -4,8 +4,6 @@ import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.util.references.CoreReferences;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -49,27 +47,28 @@ public class FluidHelper {
     public static final Predicate<FluidStack> IS_LAVA = e -> e.getFluid().equals(Fluids.LAVA);
     public static final Predicate<FluidStack> IS_XP = e -> e.getFluid().equals(CoreReferences.FLUID_XP);
 
-    public static final Object2IntMap<Fluid> COLOR_CACHE = new Object2IntOpenHashMap<>();
-
-    public static int getFluidColor(FluidStack stack) {
-
-        int color = -1;
-        if (stack != null && stack.getFluid() != null) {
-            color = COLOR_CACHE.getOrDefault(stack.getFluid(), stack.getFluid().getAttributes().getColor(stack) != 0xFFFFFFFF ? stack.getFluid().getAttributes().getColor(stack) : ColorHelper.getColorFrom(stack.getFluid().getAttributes().getStillTexture(stack)));
-            if (!COLOR_CACHE.containsKey(stack.getFluid())) COLOR_CACHE.put(stack.getFluid(), color);
-        }
-        return color;
-    }
-
-    public static int getFluidColor(Fluid fluid) {
-
-        int color = -1;
-        if (fluid != null) {
-            color = COLOR_CACHE.getOrDefault(fluid, fluid.getAttributes().getColor() != 0xFFFFFFFF ? fluid.getAttributes().getColor() : ColorHelper.getColorFrom(fluid.getAttributes().getStillTexture()));
-            if (!COLOR_CACHE.containsKey(fluid)) COLOR_CACHE.put(fluid, color);
-        }
-        return color;
-    }
+    // TODO: Revisit
+    //    public static final Object2IntMap<Fluid> COLOR_CACHE = new Object2IntOpenHashMap<>();
+    //
+    //    public static int getFluidColor(FluidStack stack) {
+    //
+    //        int color = -1;
+    //        if (stack != null && stack.getFluid() != null) {
+    //            color = COLOR_CACHE.getOrDefault(stack.getFluid(), stack.getFluid().getAttributes().getColor(stack) != 0xFFFFFFFF ? stack.getFluid().getAttributes().getColor(stack) : ColorHelper.getColorFrom(stack.getFluid().getAttributes().getStillTexture(stack)));
+    //            if (!COLOR_CACHE.containsKey(stack.getFluid())) COLOR_CACHE.put(stack.getFluid(), color);
+    //        }
+    //        return color;
+    //    }
+    //
+    //    public static int getFluidColor(Fluid fluid) {
+    //
+    //        int color = -1;
+    //        if (fluid != null) {
+    //            color = COLOR_CACHE.getOrDefault(fluid, fluid.getAttributes().getColor() != 0xFFFFFFFF ? fluid.getAttributes().getColor() : ColorHelper.getColorFrom(fluid.getAttributes().getStillTexture()));
+    //            if (!COLOR_CACHE.containsKey(fluid)) COLOR_CACHE.put(fluid, color);
+    //        }
+    //        return color;
+    //    }
 
     public static int fluidHashcodeNoTag(FluidStack stack) {
 
@@ -333,6 +332,11 @@ public class FluidHelper {
     // endregion
 
     // region PROPERTY HELPERS
+    public static int color(FluidStack stack) {
+
+        return !stack.isEmpty() && stack.getFluid() != null ? stack.getFluid().getAttributes().getColor(stack) : 0;
+    }
+
     public static int luminosity(FluidStack stack) {
 
         return !stack.isEmpty() && stack.getFluid() != null ? stack.getFluid().getAttributes().getLuminosity(stack) : 0;

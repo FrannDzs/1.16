@@ -42,6 +42,7 @@ public class NBTTags {
     public static final String TAG_FLUID = "Fluid";
     public static final String TAG_FLUID_NAME = "FluidName";
     public static final String TAG_INDEX = "Index";
+    public static final String TAG_INSTANT = "Instant";
     public static final String TAG_ITEM_INV = "ItemInv";
     public static final String TAG_MODE = "Mode";
     public static final String TAG_NAME = "Name";
@@ -61,6 +62,7 @@ public class NBTTags {
     public static final String TAG_TANK_INV = "TankInv";
     public static final String TAG_TIMER = "Timer";
     public static final String TAG_TIME_CONSTANT = "TimeConstant";
+    public static final String TAG_TIME_OFFSET = "TimeOffset";
     public static final String TAG_TRACK_IN = "TrackIn";
     public static final String TAG_TRACK_OUT = "TrackOut";
     public static final String TAG_TYPE = "Type";

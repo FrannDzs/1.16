@@ -189,8 +189,6 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         } else {
             fluid.setAmount(capacity);
         }
-        System.out.println(fluid.getAmount());
-
         return filled;
     }
 

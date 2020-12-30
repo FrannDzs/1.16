@@ -402,6 +402,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     // endregion
 
     // region NETWORK
+
+    // CONTROL
     @Override
     public PacketBuffer getControlPacket(PacketBuffer buffer) {
 
@@ -415,6 +417,18 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         return buffer;
     }
 
+    @Override
+    public void handleControlPacket(PacketBuffer buffer) {
+
+        super.handleControlPacket(buffer);
+
+        securityControl.readFromBuffer(buffer);
+        redstoneControl.readFromBuffer(buffer);
+
+        renderFluid = buffer.readFluidStack();
+    }
+
+    // GUI
     @Override
     public PacketBuffer getGuiPacket(PacketBuffer buffer) {
 
@@ -432,38 +446,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     }
 
     @Override
-    public PacketBuffer getRedstonePacket(PacketBuffer buffer) {
-
-        super.getRedstonePacket(buffer);
-
-        buffer.writeInt(redstoneControl.getPower());
-
-        return buffer;
-    }
-
-    @Override
-    public PacketBuffer getStatePacket(PacketBuffer buffer) {
-
-        super.getStatePacket(buffer);
-
-        buffer.writeBoolean(isActive);
-        buffer.writeFluidStack(renderFluid);
-
-        return buffer;
-    }
-
-    @Override
-    public void handleControlPacket(PacketBuffer buffer) {
-
-        super.handleControlPacket(buffer);
-
-        securityControl.readFromBuffer(buffer);
-        redstoneControl.readFromBuffer(buffer);
-
-        renderFluid = buffer.readFluidStack();
-    }
-
-    @Override
     public void handleGuiPacket(PacketBuffer buffer) {
 
         super.handleGuiPacket(buffer);
@@ -478,12 +460,35 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         }
     }
 
+    // REDSTONE
+    @Override
+    public PacketBuffer getRedstonePacket(PacketBuffer buffer) {
+
+        super.getRedstonePacket(buffer);
+
+        buffer.writeInt(redstoneControl.getPower());
+
+        return buffer;
+    }
+
     @Override
     public void handleRedstonePacket(PacketBuffer buffer) {
 
         super.handleRedstonePacket(buffer);
 
         redstoneControl.setPower(buffer.readInt());
+    }
+
+    // STATE
+    @Override
+    public PacketBuffer getStatePacket(PacketBuffer buffer) {
+
+        super.getStatePacket(buffer);
+
+        buffer.writeBoolean(isActive);
+        buffer.writeFluidStack(renderFluid);
+
+        return buffer;
     }
 
     @Override

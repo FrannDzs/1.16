@@ -131,21 +131,12 @@ public class DeviceItemBufferTile extends ReconfigurableTile4Way implements ITic
     }
 
     // region NETWORK
+
+    // CONFIG
     @Override
     public PacketBuffer getConfigPacket(PacketBuffer buffer) {
 
         super.getConfigPacket(buffer);
-
-        buffer.writeByte(amountInput);
-        buffer.writeByte(amountOutput);
-
-        return buffer;
-    }
-
-    @Override
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        super.getGuiPacket(buffer);
 
         buffer.writeByte(amountInput);
         buffer.writeByte(amountOutput);
@@ -160,6 +151,18 @@ public class DeviceItemBufferTile extends ReconfigurableTile4Way implements ITic
 
         amountInput = MathHelper.clamp(buffer.readByte(), 0, XFER_MAX);
         amountOutput = MathHelper.clamp(buffer.readByte(), 0, XFER_MAX);
+    }
+
+    // GUI
+    @Override
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        super.getGuiPacket(buffer);
+
+        buffer.writeByte(amountInput);
+        buffer.writeByte(amountOutput);
+
+        return buffer;
     }
 
     @Override

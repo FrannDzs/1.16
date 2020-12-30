@@ -44,7 +44,7 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXE
 public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickableTileEntity {
 
     protected static final int NUM_LEAVES = 3;
-    protected static final int TIME_CONSTANT = 500;
+    protected static final int TILE_TIME_CONSTANT = 500;
 
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(TreeExtractorManager.instance()::validBoost);
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
@@ -55,8 +55,8 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected BlockPos trunkPos;
     protected final BlockPos[] leafPos = new BlockPos[NUM_LEAVES];
 
-    protected int timeConstant = TIME_CONSTANT;
-    protected final int timeOffset;
+    protected int timeConstant = TILE_TIME_CONSTANT;
+    protected int timeOffset;
 
     protected float boostMult;
     protected int boostCycles;
@@ -64,7 +64,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     public DeviceTreeExtractorTile() {
 
         super(DEVICE_TREE_EXTRACTOR_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT);
+        timeOffset = MathHelper.RANDOM.nextInt(TILE_TIME_CONSTANT);
 
         inventory.addSlot(inputSlot, INPUT);
 
@@ -183,6 +183,11 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         if (!timeCheckOffset()) {
             return;
         }
+        if (!cached) {
+            updateValidity();
+        }
+        updateActiveState();
+
         Fluid curFluid = renderFluid.getFluid();
 
         if (isActive) {
@@ -201,13 +206,9 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
                 updateValidity();
             }
         }
-        if (!cached) {
-            updateValidity();
-        }
         if (curFluid != renderFluid.getFluid()) {
             TileStatePacket.sendToClient(this);
         }
-        updateActiveState();
     }
 
     @Override
@@ -251,6 +252,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         ModelDataManager.requestModelDataRefresh(this);
     }
 
+    // CONTROL
     @Override
     public void handleControlPacket(PacketBuffer buffer) {
 
@@ -259,14 +261,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         ModelDataManager.requestModelDataRefresh(this);
     }
 
-    @Override
-    public void handleStatePacket(PacketBuffer buffer) {
-
-        super.handleStatePacket(buffer);
-
-        ModelDataManager.requestModelDataRefresh(this);
-    }
-
+    // GUI
     @Override
     public PacketBuffer getGuiPacket(PacketBuffer buffer) {
 
@@ -286,6 +281,27 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         boostCycles = buffer.readInt();
         boostMult = buffer.readFloat();
     }
+
+    // STATE
+    @Override
+    public PacketBuffer getStatePacket(PacketBuffer buffer) {
+
+        super.getStatePacket(buffer);
+
+        buffer.writeInt(timeOffset);
+
+        return buffer;
+    }
+
+    @Override
+    public void handleStatePacket(PacketBuffer buffer) {
+
+        super.handleStatePacket(buffer);
+
+        timeOffset = buffer.readInt();
+
+        ModelDataManager.requestModelDataRefresh(this);
+    }
     // endregion
 
     // region NBT
@@ -299,7 +315,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         timeConstant = nbt.getInt(TAG_TIME_CONSTANT);
 
         if (timeConstant <= 0) {
-            timeConstant = TIME_CONSTANT;
+            timeConstant = TILE_TIME_CONSTANT;
         }
         for (int i = 0; i < NUM_LEAVES; ++i) {
             leafPos[i] = NBTUtil.readBlockPos(nbt.getCompound("Leaf" + i));
@@ -332,14 +348,14 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
     protected int getTimeConstant() {
 
-        int constant = TIME_CONSTANT / 2;
+        int constant = TILE_TIME_CONSTANT / 2;
         Iterable<BlockPos> area = BlockPos.getAllInBoxMutable(trunkPos.add(-1, 0, -1), trunkPos.add(1, 0, 1));
         for (BlockPos scan : area) {
             if (isTreeExtractor(world.getBlockState(scan))) {
-                constant += TIME_CONSTANT / 2;
+                constant += TILE_TIME_CONSTANT / 2;
             }
         }
-        return MathHelper.clamp(constant, TIME_CONSTANT, TIME_CONSTANT * 2);
+        return MathHelper.clamp(constant, TILE_TIME_CONSTANT, TILE_TIME_CONSTANT * 2);
     }
 
     protected boolean isTrunkBase(BlockPos checkPos) {
@@ -357,6 +373,15 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected boolean isTreeExtractor(BlockState state) {
 
         return state.getBlock() == this.getBlockState().getBlock();
+    }
+    // endregion
+
+    // region ITileCallback
+    @Override
+    public void onControlUpdate() {
+
+        updateActiveState();
+        super.onControlUpdate();
     }
     // endregion
 }

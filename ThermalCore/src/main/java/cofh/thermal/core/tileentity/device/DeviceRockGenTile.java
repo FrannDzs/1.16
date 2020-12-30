@@ -215,7 +215,7 @@ public class DeviceRockGenTile extends ThermalTileBase {
     public void onControlUpdate() {
 
         updateActiveState();
-        TileControlPacket.sendToClient(this);
+        super.onControlUpdate();
     }
     // endregion
 }

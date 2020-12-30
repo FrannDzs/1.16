@@ -182,6 +182,8 @@ public class MachineCrafterTile extends MachineTileProcess {
     }
 
     // region NETWORK
+
+    // CONFIG
     @Override
     public PacketBuffer getConfigPacket(PacketBuffer buffer) {
 
@@ -189,19 +191,6 @@ public class MachineCrafterTile extends MachineTileProcess {
 
         for (int i = SLOT_CRAFTING_START; i < SLOT_CRAFTING_START + 9; ++i) {
             buffer.writeItemStack(inventory.getStackInSlot(i));
-        }
-        return buffer;
-    }
-
-    @Override
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        super.getGuiPacket(buffer);
-
-        boolean hasRecipe = craftResult.getRecipeUsed() != null;
-        buffer.writeBoolean(hasRecipe);
-        if (hasRecipe) {
-            buffer.writeResourceLocation(craftResult.getRecipeUsed().getId());
         }
         return buffer;
     }
@@ -215,6 +204,20 @@ public class MachineCrafterTile extends MachineTileProcess {
             inventory.set(i, buffer.readItemStack());
         }
         setRecipe();
+    }
+
+    // GUI
+    @Override
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        super.getGuiPacket(buffer);
+
+        boolean hasRecipe = craftResult.getRecipeUsed() != null;
+        buffer.writeBoolean(hasRecipe);
+        if (hasRecipe) {
+            buffer.writeResourceLocation(craftResult.getRecipeUsed().getId());
+        }
+        return buffer;
     }
 
     @Override

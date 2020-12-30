@@ -85,12 +85,13 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
 
         super.neighborChanged(blockIn, fromPos);
 
+        updateActiveState();
+
         if (fromPos.equals(pos.up())) {
-            if (redstoneControl.getState()) {
+            if (isActive) {
                 extractProducts(pos.up());
             }
         }
-        updateActiveState();
     }
 
     @Override
@@ -115,10 +116,12 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 
         super.onPlacedBy(worldIn, pos, state, placer, stack);
-        if (redstoneControl.getState()) {
+
+        updateActiveState();
+
+        if (isActive) {
             extractProducts(pos.up());
         }
-        updateActiveState();
     }
 
     @Nullable

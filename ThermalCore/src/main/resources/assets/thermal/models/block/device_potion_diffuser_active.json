@@ -1,9 +1,6 @@
 {
-  "parent": "thermal:block/device_collector",
+  "parent": "thermal:block/device_potion_diffuser",
   "textures": {
-    "east": "thermal:block/devices/device_rock_gen_side_active",
-    "west": "thermal:block/devices/device_rock_gen_side_active",
-    "north": "thermal:block/devices/device_rock_gen_active",
-    "south": "thermal:block/devices/device_rock_gen_side_active"
+    "north": "thermal:block/devices/device_potion_diffuser_active"
   }
 }

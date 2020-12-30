@@ -133,21 +133,12 @@ public class DeviceFluidBufferTile extends ReconfigurableTile4Way implements ITi
     }
 
     // region NETWORK
+
+    // CONFIG
     @Override
     public PacketBuffer getConfigPacket(PacketBuffer buffer) {
 
         super.getConfigPacket(buffer);
-
-        buffer.writeInt(amountInput);
-        buffer.writeInt(amountOutput);
-
-        return buffer;
-    }
-
-    @Override
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        super.getGuiPacket(buffer);
 
         buffer.writeInt(amountInput);
         buffer.writeInt(amountOutput);
@@ -162,6 +153,18 @@ public class DeviceFluidBufferTile extends ReconfigurableTile4Way implements ITi
 
         amountInput = MathHelper.clamp(buffer.readInt(), 0, XFER_MAX);
         amountOutput = MathHelper.clamp(buffer.readInt(), 0, XFER_MAX);
+    }
+
+    // GUI
+    @Override
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        super.getGuiPacket(buffer);
+
+        buffer.writeInt(amountInput);
+        buffer.writeInt(amountOutput);
+
+        return buffer;
     }
 
     @Override

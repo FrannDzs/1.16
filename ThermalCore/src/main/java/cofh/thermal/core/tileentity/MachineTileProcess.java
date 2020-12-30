@@ -489,7 +489,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         int storedXp = xpStorage.getStored();
         xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
         if (xpStorage.getStored() < storedXp) {
-            spawnXpOrbs(storedXp - xpStorage.getStored(), new Vector3d(pos.getX(), pos.getY(), pos.getZ()));
+            spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
 
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);

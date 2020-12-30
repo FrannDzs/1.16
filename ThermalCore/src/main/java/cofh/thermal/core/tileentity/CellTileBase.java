@@ -128,6 +128,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         ModelDataManager.requestModelDataRefresh(this);
     }
 
+    // CONFIG
     @Override
     public PacketBuffer getConfigPacket(PacketBuffer buffer) {
 
@@ -140,6 +141,16 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     }
 
     @Override
+    public void handleConfigPacket(PacketBuffer buffer) {
+
+        super.handleConfigPacket(buffer);
+
+        amountInput = MathHelper.clamp(buffer.readInt(), 0, getMaxInput());
+        amountOutput = MathHelper.clamp(buffer.readInt(), 0, getMaxOutput());
+    }
+
+    // CONTROL
+    @Override
     public PacketBuffer getControlPacket(PacketBuffer buffer) {
 
         super.getControlPacket(buffer);
@@ -150,38 +161,6 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         buffer.writeInt(levelTracker);
 
         return buffer;
-    }
-
-    @Override
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        super.getGuiPacket(buffer);
-
-        buffer.writeInt(amountInput);
-        buffer.writeInt(amountOutput);
-
-        return buffer;
-    }
-
-    @Override
-    public PacketBuffer getStatePacket(PacketBuffer buffer) {
-
-        super.getStatePacket(buffer);
-
-        buffer.writeInt(compareTracker);
-        buffer.writeInt(levelTracker);
-        buffer.writeInt(prevLight);
-
-        return buffer;
-    }
-
-    @Override
-    public void handleConfigPacket(PacketBuffer buffer) {
-
-        super.handleConfigPacket(buffer);
-
-        amountInput = MathHelper.clamp(buffer.readInt(), 0, getMaxInput());
-        amountOutput = MathHelper.clamp(buffer.readInt(), 0, getMaxOutput());
     }
 
     @Override
@@ -197,6 +176,18 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         ModelDataManager.requestModelDataRefresh(this);
     }
 
+    // GUI
+    @Override
+    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
+
+        super.getGuiPacket(buffer);
+
+        buffer.writeInt(amountInput);
+        buffer.writeInt(amountOutput);
+
+        return buffer;
+    }
+
     @Override
     public void handleGuiPacket(PacketBuffer buffer) {
 
@@ -204,6 +195,19 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         amountInput = buffer.readInt();
         amountOutput = buffer.readInt();
+    }
+
+    // STATE
+    @Override
+    public PacketBuffer getStatePacket(PacketBuffer buffer) {
+
+        super.getStatePacket(buffer);
+
+        buffer.writeInt(compareTracker);
+        buffer.writeInt(levelTracker);
+        buffer.writeInt(prevLight);
+
+        return buffer;
     }
 
     @Override

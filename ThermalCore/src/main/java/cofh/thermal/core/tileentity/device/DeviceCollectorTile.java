@@ -47,13 +47,12 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     protected static final int RADIUS = 5;
     public int radius = RADIUS;
 
-    protected int timeConstant = TIME_CONSTANT / 2;
     protected final int timeOffset;
 
     public DeviceCollectorTile() {
 
         super(DEVICE_COLLECTOR_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT);
+        timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT_HALF);
 
         inventory.addSlots(ACCESSIBLE, 15);
 
@@ -76,10 +75,11 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
         if (!timeCheckOffset()) {
             return;
         }
+        updateActiveState();
+
         if (isActive) {
             collectItemsAndXp();
         }
-        updateActiveState();
     }
 
     @Nullable
@@ -99,7 +99,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     // region HELPERS
     protected void collectItemsAndXp() {
 
-        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1, 1 + radius));
+        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 2, 1 + radius));
 
         if (true) { // TODO: Item Config
             collectItems(area);
@@ -143,7 +143,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
     protected boolean timeCheckOffset() {
 
-        return (world.getGameTime() + timeOffset) % timeConstant == 0;
+        return (world.getGameTime() + timeOffset) % TIME_CONSTANT_HALF == 0;
     }
     // endregion
 
@@ -228,8 +228,17 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
         int storedXp = xpStorage.getStored();
         xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
         if (xpStorage.getStored() < storedXp) {
-            spawnXpOrbs(storedXp - xpStorage.getStored(), new Vector3d(pos.getX(), pos.getY(), pos.getZ()));
+            spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
+    }
+    // endregion
+
+    // region ITileCallback
+    @Override
+    public void onControlUpdate() {
+
+        updateActiveState();
+        super.onControlUpdate();
     }
     // endregion
 }

@@ -232,6 +232,7 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
         ModelDataManager.requestModelDataRefresh(this);
     }
 
+    // CONTROL
     @Override
     public PacketBuffer getControlPacket(PacketBuffer buffer) {
 
@@ -254,6 +255,7 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
         ModelDataManager.requestModelDataRefresh(this);
     }
 
+    // STATE
     @Override
     public void handleStatePacket(PacketBuffer buffer) {
 
