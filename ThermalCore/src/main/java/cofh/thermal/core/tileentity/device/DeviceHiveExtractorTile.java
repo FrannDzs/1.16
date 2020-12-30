@@ -14,14 +14,9 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 
@@ -92,24 +87,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
                 extractProducts(pos.up());
             }
         }
-    }
-
-    @Override
-    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-
-        ItemStack stack = player.getHeldItem(hand);
-        if (stack.getItem() == Items.GLASS_BOTTLE && outputTank.getAmount() >= HONEY_AMOUNT) {
-            outputTank.drain(HONEY_AMOUNT, IFluidHandler.FluidAction.EXECUTE);
-            stack.shrink(1);
-            world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            if (stack.isEmpty()) {
-                player.setHeldItem(hand, new ItemStack(Items.HONEY_BOTTLE));
-            } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.HONEY_BOTTLE))) {
-                player.dropItem(new ItemStack(Items.HONEY_BOTTLE), false);
-            }
-            return true;
-        }
-        return super.onActivatedDelegate(world, pos, state, player, hand, result);
     }
 
     @Override

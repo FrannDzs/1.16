@@ -99,7 +99,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     // region HELPERS
     protected void collectItemsAndXp() {
 
-        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 2, 1 + radius));
+        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
 
         if (true) { // TODO: Item Config
             collectItems(area);

@@ -1,6 +1,7 @@
 package cofh.core.fluid;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fluids.FluidAttributes;
 
 import static cofh.core.CoFHCore.FLUIDS;
@@ -15,7 +16,11 @@ public class HoneyFluid extends FluidCoFH {
 
     protected HoneyFluid(String key, String stillTexture, String flowTexture) {
 
-        super(FLUIDS, key, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture)).density(1500).viscosity(10000000));
+        super(FLUIDS, key, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .density(1500)
+                .viscosity(10000000)
+                .sound(SoundEvents.ITEM_BOTTLE_FILL, SoundEvents.ITEM_BOTTLE_EMPTY)
+        );
     }
 
 }

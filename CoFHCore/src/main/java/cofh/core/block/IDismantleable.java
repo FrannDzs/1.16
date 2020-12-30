@@ -24,10 +24,8 @@ public interface IDismantleable extends IForgeBlock {
 
         ItemStack dropBlock = this.getPickBlock(state, target, world, pos, player);
         world.setBlockState(pos, Blocks.AIR.getDefaultState());
-        if (!returnDrops || player == null) {
+        if (!returnDrops || player == null || !player.addItemStackToInventory(dropBlock)) {
             Utils.dropDismantleStackIntoWorld(dropBlock, world, pos);
-        } else {
-            player.addItemStackToInventory(dropBlock);
         }
     }
 

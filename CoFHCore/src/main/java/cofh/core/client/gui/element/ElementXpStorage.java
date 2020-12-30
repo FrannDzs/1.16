@@ -3,11 +3,6 @@ package cofh.core.client.gui.element;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.core.xp.XpStorage;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-
-import java.util.List;
 
 import static cofh.core.util.constants.Constants.FALSE;
 

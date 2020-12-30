@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
@@ -33,7 +34,13 @@ public class GlowstoneFluid extends FluidCoFH {
         block = BLOCKS.register(key, () -> new GlowstoneFluidBlock(stillFluid, AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
         bucket = ITEMS.register(bucket(key), () -> new BucketItem(stillFluid, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ThermalItemGroups.THERMAL_TOOLS).rarity(Rarity.UNCOMMON)));
 
-        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture)).luminosity(15).density(-500).viscosity(100).rarity(Rarity.UNCOMMON)).bucket(bucket).block(block).levelDecreasePerBlock(4);
+        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .luminosity(15)
+                .density(-500)
+                .viscosity(100)
+                .rarity(Rarity.UNCOMMON)
+                .sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
+        ).bucket(bucket).block(block).levelDecreasePerBlock(4);
     }
 
     public static class GlowstoneFluidBlock extends FlowingFluidBlock {

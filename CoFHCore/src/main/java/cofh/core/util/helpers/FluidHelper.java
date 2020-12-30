@@ -1,6 +1,7 @@
 package cofh.core.util.helpers;
 
 import cofh.core.fluid.FluidStorageCoFH;
+import cofh.core.fluid.PotionFluid;
 import cofh.core.util.references.CoreReferences;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
@@ -12,13 +13,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectUtils;
-import net.minecraft.potion.PotionUtils;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.*;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,13 +31,18 @@ import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static cofh.core.util.constants.Constants.BOTTLE_VOLUME;
 import static cofh.core.util.constants.NBTTags.TAG_POTION;
+import static cofh.core.util.references.CoreReferences.FLUID_HONEY;
+import static cofh.core.util.references.CoreReferences.FLUID_XP;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
+import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
 public class FluidHelper {
 
@@ -123,7 +130,7 @@ public class FluidHelper {
         if (handler == EmptyFluidHandler.INSTANCE) {
             return false;
         }
-        FluidStack drainStack = handler.drain(amount, IFluidHandler.FluidAction.SIMULATE);
+        FluidStack drainStack = handler.drain(amount, SIMULATE);
         int drainAmount = tank.fill(drainStack, EXECUTE);
         if (drainAmount > 0) {
             handler.drain(drainAmount, EXECUTE);
@@ -141,7 +148,7 @@ public class FluidHelper {
         if (handler == EmptyFluidHandler.INSTANCE) {
             return false;
         }
-        FluidStack drainStack = handler.drain(resource, IFluidHandler.FluidAction.SIMULATE);
+        FluidStack drainStack = handler.drain(resource, SIMULATE);
         int drainAmount = tank.fill(drainStack, EXECUTE);
         if (drainAmount > 0) {
             handler.drain(new FluidStack(resource, drainAmount), EXECUTE);
@@ -191,6 +198,89 @@ public class FluidHelper {
     }
 
     /**
+     * Attempts to drain the item to an IFluidHandler. These are special-cased.
+     *
+     * @param stack   The stack (bottle) to drain from.
+     * @param handler The IFluidHandler to fill.
+     * @param player  The player using the item.
+     * @param hand    The hand the player is holding the item in.
+     * @return If the interaction was successful.
+     */
+    public static boolean drainBottleToHandler(ItemStack stack, IFluidHandler handler, PlayerEntity player, Hand hand) {
+
+        FluidStack fluid = FluidStack.EMPTY;
+
+        if (stack.getItem() == Items.POTION) {
+            fluid = PotionFluid.getPotionFluidFromItem(BOTTLE_VOLUME, stack);
+        } else if (stack.getItem() == Items.HONEY_BOTTLE) {
+            fluid = new FluidStack(FLUID_HONEY, BOTTLE_VOLUME);
+        } else if (stack.getItem() == Items.EXPERIENCE_BOTTLE) {
+            fluid = new FluidStack(FLUID_XP, BOTTLE_VOLUME);
+        }
+        return !fluid.isEmpty() && addEmptyBottleToPlayer(stack, fluid, handler, player, hand);
+    }
+
+    private static boolean addEmptyBottleToPlayer(ItemStack stack, FluidStack fluid, IFluidHandler handler, PlayerEntity player, Hand hand) {
+
+        if (handler.fill(fluid, SIMULATE) == BOTTLE_VOLUME) {
+            handler.fill(fluid, EXECUTE);
+            if (!player.abilities.isCreativeMode) {
+                ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
+                player.setHeldItem(hand, ItemHelper.consumeItem(stack, 1));
+                if (!player.addItemStackToInventory(bottle)) {
+                    player.dropItem(bottle, false);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Attempts to fill the item from an IFluidHandler.
+     *
+     * @param stack   The stack to fill.
+     * @param handler The IFluidHandler to drain from.
+     * @param player  The player using the item.
+     * @param hand    The hand the player is holding the item in.
+     * @return If the interaction was successful.
+     */
+    public static boolean fillBottleFromHandler(ItemStack stack, IFluidHandler handler, PlayerEntity player, Hand hand) {
+
+        if (stack.getItem() != Items.GLASS_BOTTLE) {
+            return false;
+        }
+        FluidStack fluid = handler.drain(BOTTLE_VOLUME, SIMULATE);
+        if (fluid.getAmount() != BOTTLE_VOLUME) {
+            return false;
+        }
+        ItemStack bottle = ItemStack.EMPTY;
+
+        if (fluid.getFluid() == Fluids.WATER || hasPotionTag(fluid)) {
+            bottle = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), getPotionFromFluid(fluid));
+        } else if (fluid.getFluid() == FLUID_HONEY) { // TODO: Tags
+            bottle = new ItemStack(Items.HONEY_BOTTLE);
+        } else if (fluid.getFluid() == FLUID_XP) {
+            bottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
+        }
+        return !bottle.isEmpty() && addFilledBottleToPlayer(stack, bottle, handler, player, hand);
+    }
+
+    private static boolean addFilledBottleToPlayer(ItemStack stack, ItemStack bottle, IFluidHandler handler, PlayerEntity player, Hand hand) {
+
+        if (handler.drain(BOTTLE_VOLUME, EXECUTE).getAmount() == BOTTLE_VOLUME) {
+            if (!player.abilities.isCreativeMode) {
+                player.setHeldItem(hand, ItemHelper.consumeItem(stack, 1));
+                if (!player.addItemStackToInventory(bottle)) {
+                    player.dropItem(bottle, false);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Attempts to drain the item to an IFluidHandler.
      *
      * @param stack   The stack to drain from.
@@ -203,6 +293,10 @@ public class FluidHelper {
 
         if (stack.isEmpty() || handler == null || player == null) {
             return false;
+        }
+        if (drainBottleToHandler(stack, handler, player, hand)) {
+            player.world.playSound(null, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            return true;
         }
         IItemHandler playerInv = new InvWrapper(player.inventory);
         FluidActionResult result = FluidUtil.tryEmptyContainerAndStow(stack, handler, playerInv, Integer.MAX_VALUE, player, true);
@@ -227,6 +321,10 @@ public class FluidHelper {
         if (stack.isEmpty() || handler == null || player == null) {
             return false;
         }
+        if (fillBottleFromHandler(stack, handler, player, hand)) {
+            player.world.playSound(null, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            return true;
+        }
         IItemHandler playerInv = new InvWrapper(player.inventory);
         FluidActionResult result = FluidUtil.tryFillContainerAndStow(stack, handler, playerInv, Integer.MAX_VALUE, player, true);
         if (result.isSuccess()) {
@@ -250,13 +348,22 @@ public class FluidHelper {
 
         return fillItemFromHandler(stack, handler, player, hand) || drainItemToHandler(stack, handler, player, hand);
     }
-
     // endregion
 
     // region POTION HELPERS
     public static boolean hasPotionTag(FluidStack stack) {
 
         return !stack.isEmpty() && stack.getTag() != null && stack.getTag().contains(TAG_POTION);
+    }
+
+    public static Potion getPotionFromFluid(FluidStack fluid) {
+
+        return fluid.getFluid() == Fluids.WATER ? Potions.WATER : getPotionFromFluidTag(fluid.getTag());
+    }
+
+    public static Potion getPotionFromFluidTag(@Nullable CompoundNBT tag) {
+
+        return tag == null || !tag.contains(TAG_POTION) ? Potions.EMPTY : Potion.getPotionTypeForName(tag.getString(TAG_POTION));
     }
 
     public static void addPotionTooltipStrings(FluidStack stack, List<ITextComponent> list) {

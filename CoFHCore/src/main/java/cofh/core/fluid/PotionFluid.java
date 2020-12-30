@@ -1,5 +1,6 @@
 package cofh.core.fluid;
 
+import cofh.core.util.helpers.FluidHelper;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -11,13 +12,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-
-import javax.annotation.Nullable;
 
 import static cofh.core.CoFHCore.FLUIDS;
 import static cofh.core.util.constants.NBTTags.TAG_POTION;
@@ -41,7 +41,8 @@ public class PotionFluid extends FluidCoFH {
         // This is only used for testing.
         // bucket = ITEMS.register(bucket(key), () -> new BucketItem(stillFluid, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.BREWING)));
 
-        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, PotionFluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))).bucket(bucket);
+        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, PotionFluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .sound(SoundEvents.ITEM_BOTTLE_FILL, SoundEvents.ITEM_BOTTLE_EMPTY));
     }
 
     public static int getPotionColor(FluidStack stack) {
@@ -49,13 +50,8 @@ public class PotionFluid extends FluidCoFH {
         if (stack.getTag() != null && stack.getTag().contains("CustomPotionColor", 99)) {
             return stack.getTag().getInt("CustomPotionColor");
         } else {
-            return getPotionFromFluid(stack.getTag()) == Potions.EMPTY ? DEFAULT_COLOR : PotionUtils.getPotionColorFromEffectList(PotionUtils.getEffectsFromTag(stack.getTag()));
+            return FluidHelper.getPotionFromFluidTag(stack.getTag()) == Potions.EMPTY ? DEFAULT_COLOR : PotionUtils.getPotionColorFromEffectList(PotionUtils.getEffectsFromTag(stack.getTag()));
         }
-    }
-
-    public static Potion getPotionFromFluid(@Nullable CompoundNBT tag) {
-
-        return tag == null || !tag.contains(TAG_POTION) ? Potions.EMPTY : Potion.getPotionTypeForName(tag.getString(TAG_POTION));
     }
 
     public static FluidStack getPotionAsFluid(int amount, Potion type) {
@@ -121,7 +117,7 @@ public class PotionFluid extends FluidCoFH {
 
         public Rarity getRarity(FluidStack stack) {
 
-            return getPotionFromFluid(stack.getTag()).getEffects().isEmpty() ? Rarity.COMMON : Rarity.UNCOMMON;
+            return FluidHelper.getPotionFromFluidTag(stack.getTag()).getEffects().isEmpty() ? Rarity.COMMON : Rarity.UNCOMMON;
         }
 
         @Override

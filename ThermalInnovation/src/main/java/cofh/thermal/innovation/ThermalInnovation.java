@@ -10,6 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.core.util.constants.Constants.ID_THERMAL_INNOVATION;
 import static cofh.thermal.core.common.ThermalFlags.*;
+import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_POTION_DIFFUSER;
 
 @Mod(ID_THERMAL_INNOVATION)
 public class ThermalInnovation {
@@ -33,6 +34,8 @@ public class ThermalInnovation {
         setFlag(FLAG_HAZMAT_ARMOR, true);
 
         setFlag(FLAG_POTION_AUGMENTS, true);
+
+        setFlag(ID_DEVICE_POTION_DIFFUSER, true);
 
         setFlag(FLAG_TOOL_COMPONENTS, true);
 

@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -40,7 +41,13 @@ public class RedstoneFluid extends FluidCoFH {
         block = BLOCKS.register(key, () -> new RedstoneFluidBlock(stillFluid, AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
         bucket = ITEMS.register(bucket(key), () -> new BucketItem(stillFluid, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ThermalItemGroups.THERMAL_TOOLS).rarity(Rarity.UNCOMMON)));
 
-        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture)).luminosity(7).density(1200).viscosity(1500).rarity(Rarity.UNCOMMON)).bucket(bucket).block(block);
+        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .luminosity(7)
+                .density(1200)
+                .viscosity(1500)
+                .rarity(Rarity.UNCOMMON)
+                .sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
+        ).bucket(bucket).block(block);
     }
 
     public static class RedstoneFluidBlock extends FlowingFluidBlock {

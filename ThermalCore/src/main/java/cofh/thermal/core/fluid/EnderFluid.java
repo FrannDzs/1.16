@@ -47,7 +47,13 @@ public class EnderFluid extends FluidCoFH {
         block = BLOCKS.register(key, () -> new EnderFluidBlock(stillFluid, AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
         bucket = ITEMS.register(bucket(key), () -> new BucketItem(stillFluid, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ThermalItemGroups.THERMAL_TOOLS).rarity(Rarity.UNCOMMON)));
 
-        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture)).luminosity(3).density(4000).viscosity(2500).rarity(Rarity.UNCOMMON)).bucket(bucket).block(block).levelDecreasePerBlock(2);
+        properties = new ForgeFlowingFluid.Properties(stillFluid, flowingFluid, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .luminosity(3)
+                .density(4000)
+                .viscosity(2500)
+                .rarity(Rarity.UNCOMMON)
+                .sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
+        ).bucket(bucket).block(block).levelDecreasePerBlock(2);
     }
 
     public static class EnderFluidBlock extends FlowingFluidBlock {

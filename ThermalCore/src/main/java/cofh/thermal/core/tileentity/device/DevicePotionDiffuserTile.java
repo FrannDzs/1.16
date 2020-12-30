@@ -10,6 +10,7 @@ import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.inventory.container.device.DevicePotionDiffuserContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,6 +33,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INPUT;
@@ -45,8 +47,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH();
     protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, FluidHelper::hasPotionTag);
 
-    private static final int FLUID_AMOUNT = 25;
-
+    protected static final int FLUID_AMOUNT = 25;
     protected static final int RADIUS = 4;
     protected int radius = RADIUS;
 
@@ -261,8 +262,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         if (effects.isEmpty()) {
             return;
         }
-        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 2, 1 + radius));
-
+        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
         List<LivingEntity> targets = world.getEntitiesWithinAABB(LivingEntity.class, area, EntityPredicates.IS_ALIVE);
         if (targets.isEmpty()) {
             return;
@@ -301,12 +301,11 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         if (renderFluid.getAmount() < FLUID_AMOUNT) {
             return;
         }
-        //        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1, 1 + radius));
-        //
-        //        List<LivingEntity> targets = world.getEntitiesWithinAABB(LivingEntity.class, area, EntityPredicates.IS_ALIVE);
-        //        if (targets.isEmpty()) {
-        //            return;
-        //        }
+        AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
+        List<LivingEntity> targets = world.getEntitiesWithinAABB(LivingEntity.class, area, EntityPredicates.IS_ALIVE);
+        if (targets.isEmpty()) {
+            return;
+        }
         ThermalCore.PROXY.spawnDiffuserParticles(this);
     }
 

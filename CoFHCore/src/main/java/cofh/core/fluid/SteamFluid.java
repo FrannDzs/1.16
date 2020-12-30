@@ -1,6 +1,7 @@
 package cofh.core.fluid;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fluids.FluidAttributes;
 
 import static cofh.core.CoFHCore.FLUIDS;
@@ -15,7 +16,13 @@ public class SteamFluid extends FluidCoFH {
 
     protected SteamFluid(String key, String stillTexture, String flowTexture) {
 
-        super(FLUIDS, key, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture)).density(-60).temperature(750).viscosity(200).gaseous());
+        super(FLUIDS, key, FluidAttributes.builder(new ResourceLocation(stillTexture), new ResourceLocation(flowTexture))
+                .density(-60)
+                .temperature(750)
+                .viscosity(200)
+                .gaseous()
+                .sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
+        );
     }
 
 }

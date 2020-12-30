@@ -242,6 +242,23 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
                 .build(consumer, this.modid + ":parts/" + name(gear));
     }
 
+    protected void generateSmeltingRecipe(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp) {
+
+        generateSmeltingRecipe(reg, consumer, input, output, xp, "", "");
+    }
+
+    protected void generateSmeltingRecipe(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp, String folder) {
+
+        generateSmeltingRecipe(reg, consumer, input, output, xp, folder, "");
+    }
+
+    protected void generateSmeltingRecipe(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp, String folder, String suffix) {
+
+        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(input), output, xp, 200)
+                .addCriterion("has_" + name(input), hasItem(input))
+                .build(consumer, this.modid + ":" + folder + "/" + name(output) + "_from" + suffix + "_smelting");
+    }
+
     protected void generateSmeltingAndBlastingRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, String material, float xp) {
 
         generateSmeltingAndBlastingRecipes(reg, consumer, material, xp, "smelting");

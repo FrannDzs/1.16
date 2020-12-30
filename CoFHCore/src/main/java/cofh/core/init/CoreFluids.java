@@ -1,8 +1,8 @@
 package cofh.core.init;
 
-import cofh.core.fluid.ExperienceFluid;
 import cofh.core.fluid.HoneyFluid;
 import cofh.core.fluid.PotionFluid;
+import cofh.core.fluid.XPFluid;
 
 public class CoreFluids {
 
@@ -12,10 +12,10 @@ public class CoreFluids {
 
     public static void register() {
 
-        ExperienceFluid.create();
         HoneyFluid.create();
         // MilkFluid.create();
         PotionFluid.create();
+        XPFluid.create();
     }
 
 }
