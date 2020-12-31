@@ -17,8 +17,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "elemental_explosives"
+      "flag": "elemental_explosives",
+      "type": "thermal:flag"
     }
   ]
 }

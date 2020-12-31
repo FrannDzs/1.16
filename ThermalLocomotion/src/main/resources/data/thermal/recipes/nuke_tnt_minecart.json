@@ -14,5 +14,11 @@
   },
   "result": {
     "item": "thermal:nuke_tnt_minecart"
-  }
+  },
+  "conditions": [
+    {
+      "flag": "nuclear_explosives",
+      "type": "thermal:flag"
+    }
+  ]
 }

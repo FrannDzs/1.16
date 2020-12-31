@@ -1,14 +1,12 @@
 package cofh.thermal.locomotion.datagen;
 
 import cofh.core.data.RecipeProviderCoFH;
-import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.references.ItemTagsCoFH;
 import cofh.thermal.core.common.ThermalFlags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;
 
@@ -38,88 +36,9 @@ public class TLocRecipeProvider extends RecipeProviderCoFH {
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
 
-        setRecipeFlags();
-        DeferredRegisterCoFH<Item> reg = ITEMS;
-
         registerRailRecipes(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_UNDERWATER_CART))
-                .key('C', Items.MINECART)
-                .key('G', Tags.Items.GLASS)
-                .key('P', Items.PRISMARINE)
-                .patternLine("GGG")
-                .patternLine("GCG")
-                .patternLine("PPP")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_PHYTO_TNT_CART))
-                .key('A', ITEMS.get(ID_PHYTO_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_FIRE_TNT_CART))
-                .key('A', ITEMS.get(ID_FIRE_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_EARTH_TNT_CART))
-                .key('A', ITEMS.get(ID_EARTH_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_ICE_TNT_CART))
-                .key('A', ITEMS.get(ID_ICE_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_LIGHTNING_TNT_CART))
-                .key('A', ITEMS.get(ID_LIGHTNING_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
-
-        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_NUKE_TNT_CART))
-                .key('A', ITEMS.get(ID_NUKE_TNT))
-                .key('B', Items.MINECART)
-                .patternLine("A")
-                .patternLine("B")
-                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
-                .build(consumer);
+        registerCartRecipes(consumer);
     }
-
-    // region FLAGS
-    private void setRecipeFlag(String id, String flag) {
-
-        Item item = ITEMS.get(id);
-        setRecipeFlag(item, flag);
-    }
-    private void setRecipeFlags() {
-
-        setRecipeFlag(ID_PHYTO_TNT_CART, FLAG_PHYTOGRO_EXPLOSIVES);
-
-        setRecipeFlag(ID_FIRE_TNT_CART, FLAG_ELEMENTAL_EXPLOSIVES);
-        setRecipeFlag(ID_EARTH_TNT_CART, FLAG_ELEMENTAL_EXPLOSIVES);
-        setRecipeFlag(ID_ICE_TNT_CART, FLAG_ELEMENTAL_EXPLOSIVES);
-        setRecipeFlag(ID_LIGHTNING_TNT_CART, FLAG_ELEMENTAL_EXPLOSIVES);
-
-        setRecipeFlag(ID_NUKE_TNT_CART, FLAG_NUCLEAR_EXPLOSIVES);
-    }
-    // endregion
 
     // region HELPERS
     private void registerRailRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -228,6 +147,67 @@ public class TLocRecipeProvider extends RecipeProviderCoFH {
                 .patternLine("XIX")
                 .addCriterion("has_" + poweredRail, hasItem(Items.POWERED_RAIL))
                 .build(consumer);
+    }
+
+    private void registerCartRecipes(Consumer<IFinishedRecipe> consumer) {
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_UNDERWATER_CART))
+                .key('C', Items.MINECART)
+                .key('G', Tags.Items.GLASS)
+                .key('P', Items.PRISMARINE)
+                .patternLine("GGG")
+                .patternLine("GCG")
+                .patternLine("PPP")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_PHYTO_TNT_CART))
+                .key('A', ITEMS.get(ID_PHYTO_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_PHYTOGRO_EXPLOSIVES));
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_FIRE_TNT_CART))
+                .key('A', ITEMS.get(ID_FIRE_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_ELEMENTAL_EXPLOSIVES));
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_EARTH_TNT_CART))
+                .key('A', ITEMS.get(ID_EARTH_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_ELEMENTAL_EXPLOSIVES));
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_ICE_TNT_CART))
+                .key('A', ITEMS.get(ID_ICE_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_ELEMENTAL_EXPLOSIVES));
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_LIGHTNING_TNT_CART))
+                .key('A', ITEMS.get(ID_LIGHTNING_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_ELEMENTAL_EXPLOSIVES));
+
+        ShapedRecipeBuilder.shapedRecipe(ITEMS.get(ID_NUKE_TNT_CART))
+                .key('A', ITEMS.get(ID_NUKE_TNT))
+                .key('B', Items.MINECART)
+                .patternLine("A")
+                .patternLine("B")
+                .addCriterion("has_" + name(Items.MINECART), hasItem(Items.MINECART))
+                .build(withConditions(consumer).flag(FLAG_NUCLEAR_EXPLOSIVES));
     }
     // endregion
 }

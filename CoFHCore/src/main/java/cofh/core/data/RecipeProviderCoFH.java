@@ -6,26 +6,29 @@ import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.FlagManager;
 import cofh.core.util.FlagRecipeCondition;
 import com.google.common.collect.Sets;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
+import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -35,8 +38,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
 
     protected final String modid;
     protected FlagManager manager = CoreFlags.manager();
-
-    protected Map<ResourceLocation, ICondition> recipeConditions = new Object2ObjectOpenHashMap<>();
 
     public RecipeProviderCoFH(DataGenerator generatorIn, String modid) {
 
@@ -53,7 +54,7 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
             if (!set.add(recipe.getID())) {
                 CoFHCore.LOG.error("Duplicate recipe " + recipe.getID());
             } else {
-                saveRecipe(cache, createRecipeJson(recipe), path.resolve("data/" + recipe.getID().getNamespace() + "/recipes/" + recipe.getID().getPath() + ".json"));
+                saveRecipe(cache, recipe.getRecipeJson(), path.resolve("data/" + recipe.getID().getNamespace() + "/recipes/" + recipe.getID().getPath() + ".json"));
             }
             // We do not generate advancements - they add a LOT of time to server connection.
 
@@ -64,14 +65,14 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         });
     }
 
-    protected JsonObject createRecipeJson(IFinishedRecipe recipe) {
-
-        ResourceLocation recipeId = recipe.getID();
-        if (recipeConditions.containsKey(recipeId)) {
-            return new ConditionalRecipeWrapper(recipe).condition(recipeConditions.get(recipeId)).getRecipeJson();
-        }
-        return recipe.getRecipeJson();
-    }
+    //    protected JsonObject createRecipeJson(IFinishedRecipe recipe) {
+    //
+    //        ResourceLocation recipeId = recipe.getID();
+    //        if (recipeConditions.containsKey(recipeId)) {
+    //            return new ConditionalRecipeWrapper(recipe).condition(recipeConditions.get(recipeId)).getRecipeJson();
+    //        }
+    //        return recipe.getRecipeJson();
+    //    }
 
     @SafeVarargs
     protected final Ingredient fromTags(ITag.INamedTag<Item>... tagsIn) {
@@ -80,7 +81,7 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         for (ITag.INamedTag<Item> tag : tagsIn) {
             ingredients.add(Ingredient.fromTag(tag));
         }
-        return new CompoundIngredientCoFH(ingredients);
+        return new CompoundIngredientWrapper(ingredients);
     }
 
     // region HELPERS
@@ -267,11 +268,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         }
     }
 
-    protected void generateSmeltingAndBlastingRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp) {
-
-        generateSmeltingAndBlastingRecipes(reg, consumer, input, output, xp, "", "");
-    }
-
     protected void generateSmeltingAndBlastingRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp, String folder) {
 
         generateSmeltingAndBlastingRecipes(reg, consumer, input, output, xp, folder, "");
@@ -310,30 +306,131 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
     }
     // endregion
 
-    // region CONDITIONS
-    protected ICondition flag(String flag) {
+    protected static class CompoundIngredientWrapper extends CompoundIngredient {
 
-        return new FlagRecipeCondition(manager, flag);
-    }
-
-    protected void setRecipeFlag(IItemProvider item, String flag) {
-
-        recipeConditions.put(item.asItem().getRegistryName(), flag(flag));
-    }
-
-    protected void setRecipeFlag(ResourceLocation recipe, String flag) {
-
-        recipeConditions.put(recipe, flag(flag));
-    }
-    // endregion
-
-    protected static class CompoundIngredientCoFH extends CompoundIngredient {
-
-        public CompoundIngredientCoFH(List<Ingredient> children) {
+        public CompoundIngredientWrapper(List<Ingredient> children) {
 
             super(children);
         }
 
     }
 
+    // region CONDITIONAL RECIPES
+    protected static class ConditionalRecipeWrapper implements IFinishedRecipe {
+
+        protected IFinishedRecipe recipe;
+        protected List<ICondition> conditions = new ArrayList<>();
+
+        public ConditionalRecipeWrapper(IFinishedRecipe recipe) {
+
+            this.recipe = recipe;
+        }
+
+        public ConditionalRecipeWrapper addCondition(ICondition condition) {
+
+            this.conditions.add(condition);
+            return this;
+        }
+
+        public ConditionalRecipeWrapper addConditions(List<ICondition> conditions) {
+
+            this.conditions.addAll(conditions);
+            return this;
+        }
+
+        @Override
+        public void serialize(JsonObject json) {
+
+            recipe.serialize(json);
+        }
+
+        @Override
+        public JsonObject getRecipeJson() {
+
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.getSerializer()).toString());
+            this.serialize(jsonobject);
+            if (!conditions.isEmpty()) {
+                JsonArray conditionArray = new JsonArray();
+                for (ICondition condition : conditions) {
+                    conditionArray.add(CraftingHelper.serialize(condition));
+                }
+                jsonobject.add("conditions", conditionArray);
+            }
+            return jsonobject;
+        }
+
+        @Override
+        public ResourceLocation getID() {
+
+            return recipe.getID();
+        }
+
+        @Override
+        public IRecipeSerializer<?> getSerializer() {
+
+            return recipe.getSerializer();
+        }
+
+        @Nullable
+        @Override
+        public JsonObject getAdvancementJson() {
+
+            return recipe.getAdvancementJson();
+        }
+
+        @Nullable
+        @Override
+        public ResourceLocation getAdvancementID() {
+
+            return recipe.getAdvancementID();
+        }
+
+    }
+
+    protected ConditionalRecipeConsumer withConditions(Consumer<IFinishedRecipe> consumer) {
+
+        return new ConditionalRecipeConsumer(consumer);
+    }
+
+    protected class ConditionalRecipeConsumer implements Consumer<IFinishedRecipe> {
+
+        protected final Consumer<IFinishedRecipe> consumer;
+        protected List<ICondition> conditions = new ArrayList<>();
+
+        public ConditionalRecipeConsumer(Consumer<IFinishedRecipe> consumer) {
+
+            this.consumer = consumer;
+        }
+
+        public ConditionalRecipeConsumer addCondition(ICondition condition) {
+
+            this.conditions.add(condition);
+            return this;
+        }
+
+        public ConditionalRecipeConsumer addConditions(List<ICondition> conditions) {
+
+            this.conditions.addAll(conditions);
+            return this;
+        }
+
+        public ConditionalRecipeConsumer flag(String flag) {
+
+            this.conditions.add(new FlagRecipeCondition(manager, flag));
+            return this;
+        }
+
+        @Override
+        public void accept(IFinishedRecipe recipe) {
+
+            if (!conditions.isEmpty()) {
+                consumer.accept(new ConditionalRecipeWrapper(recipe).addConditions(conditions));
+            } else {
+                consumer.accept(recipe);
+            }
+        }
+
+    }
+    // endregion
 }
