@@ -11,8 +11,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "vanilla_blocks"
+      "flag": "vanilla_blocks",
+      "type": "thermal:flag"
     }
   ]
 }

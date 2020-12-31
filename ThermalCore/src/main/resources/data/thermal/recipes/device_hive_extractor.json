@@ -27,8 +27,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "device_hive_extractor"
+      "flag": "device_hive_extractor",
+      "type": "thermal:flag"
     }
   ]
 }

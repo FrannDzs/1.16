@@ -18,8 +18,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "side_config_augment"
+      "flag": "side_config_augment",
+      "type": "thermal:flag"
     }
   ]
 }

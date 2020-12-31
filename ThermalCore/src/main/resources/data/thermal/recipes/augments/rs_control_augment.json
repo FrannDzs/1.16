@@ -18,8 +18,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "rs_control_augment"
+      "flag": "rs_control_augment",
+      "type": "thermal:flag"
     }
   ]
 }

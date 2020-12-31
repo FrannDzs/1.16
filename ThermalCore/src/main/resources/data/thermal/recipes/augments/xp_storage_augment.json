@@ -18,8 +18,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "xp_storage_augment"
+      "flag": "xp_storage_augment",
+      "type": "thermal:flag"
     }
   ]
 }

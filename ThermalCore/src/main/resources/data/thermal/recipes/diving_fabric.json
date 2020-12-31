@@ -18,8 +18,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "diving_armor"
+      "flag": "diving_armor",
+      "type": "thermal:flag"
     }
   ]
 }

@@ -22,8 +22,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "phytogro_explosives"
+      "flag": "phytogro_explosives",
+      "type": "thermal:flag"
     }
   ]
 }

@@ -65,15 +65,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         });
     }
 
-    //    protected JsonObject createRecipeJson(IFinishedRecipe recipe) {
-    //
-    //        ResourceLocation recipeId = recipe.getID();
-    //        if (recipeConditions.containsKey(recipeId)) {
-    //            return new ConditionalRecipeWrapper(recipe).condition(recipeConditions.get(recipeId)).getRecipeJson();
-    //        }
-    //        return recipe.getRecipeJson();
-    //    }
-
     @SafeVarargs
     protected final Ingredient fromTags(ITag.INamedTag<Item>... tagsIn) {
 

@@ -15,5 +15,11 @@
   },
   "result": {
     "item": "thermal:drill_head"
-  }
+  },
+  "conditions": [
+    {
+      "flag": "tool_components",
+      "type": "thermal:flag"
+    }
+  ]
 }

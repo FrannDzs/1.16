@@ -21,8 +21,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "storage_augments"
+      "flag": "storage_augments",
+      "type": "thermal:flag"
     }
   ]
 }

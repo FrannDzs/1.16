@@ -24,8 +24,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "upgrade_augments"
+      "flag": "upgrade_augments",
+      "type": "thermal:flag"
     }
   ]
 }

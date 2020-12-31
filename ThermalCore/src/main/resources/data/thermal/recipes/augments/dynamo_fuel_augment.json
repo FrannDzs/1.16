@@ -21,8 +21,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "dynamo_augments"
+      "flag": "dynamo_augments",
+      "type": "thermal:flag"
     }
   ]
 }

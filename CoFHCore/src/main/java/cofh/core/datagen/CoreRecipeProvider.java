@@ -33,7 +33,7 @@ public class CoreRecipeProvider extends RecipeProviderCoFH {
                 .addIngredient(Items.GHAST_TEAR)
                 .addIngredient(Tags.Items.SLIMEBALLS)
                 .addCriterion("has_ghast_tear", hasItem(Items.GHAST_TEAR))
-                .build(consumer);
+                .build(withConditions(consumer).flag(ID_ECTOPLASM));
     }
 
 }

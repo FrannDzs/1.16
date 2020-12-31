@@ -24,8 +24,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "machine_augments"
+      "flag": "machine_augments",
+      "type": "thermal:flag"
     }
   ]
 }

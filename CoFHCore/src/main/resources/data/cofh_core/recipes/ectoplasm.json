@@ -13,8 +13,8 @@
   },
   "conditions": [
     {
-      "type": "cofh_core:flag",
-      "flag": "ectoplasm"
+      "flag": "ectoplasm",
+      "type": "cofh_core:flag"
     }
   ]
 }

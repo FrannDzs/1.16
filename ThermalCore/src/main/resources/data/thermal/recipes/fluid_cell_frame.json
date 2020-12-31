@@ -21,8 +21,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "fluid_cell_frame"
+      "flag": "fluid_cell_frame",
+      "type": "thermal:flag"
     }
   ]
 }

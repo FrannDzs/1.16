@@ -13,8 +13,8 @@
   },
   "conditions": [
     {
-      "type": "thermal:flag",
-      "flag": "rockwool"
+      "flag": "rockwool",
+      "type": "thermal:flag"
     }
   ]
 }
