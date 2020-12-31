@@ -73,63 +73,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         return recipe.getRecipeJson();
     }
 
-    // TODO: Finish adding this to fully support modular features.
-    //    protected void generateFlaggedRecipe(ResourceLocation id, Consumer<Consumer<IFinishedRecipe>> callable, String flag, Consumer<IFinishedRecipe> consumer) {
-    //
-    //        ConditionalRecipe.builder()
-    //                .addCondition(
-    //                        flagEnabled(manager, flag)
-    //                )
-    //                .addRecipe(callable)
-    //                .build(consumer, id);
-    //    }
-    //
-    //    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-    //
-    //        ResourceLocation ID = new ResourceLocation("data_gen_test", "conditional");
-    //
-    //        ConditionalRecipe.builder()
-    //                .addCondition(
-    //                        and(
-    //                                not(modLoaded("minecraft")),
-    //                                itemExists("minecraft", "dirt"),
-    //                                FALSE()
-    //                        )
-    //                )
-    //                .addRecipe(
-    //                        ShapedRecipeBuilder.shapedRecipe(Blocks.DIAMOND_BLOCK, 64)
-    //                                .patternLine("XXX")
-    //                                .patternLine("XXX")
-    //                                .patternLine("XXX")
-    //                                .key('X', Blocks.DIRT)
-    //                                .setGroup("")
-    //                                .addCriterion("has_dirt", hasItem(Blocks.DIRT)) //Doesn't actually print... TODO: nested/conditional advancements?
-    //                                ::build
-    //                )
-    //                .setAdvancement(ID,
-    //                        ConditionalAdvancement.builder()
-    //                                .addCondition(
-    //                                        and(
-    //                                                not(modLoaded("minecraft")),
-    //                                                itemExists("minecraft", "dirt"),
-    //                                                FALSE()
-    //                                        )
-    //                                )
-    //                                .addAdvancement(
-    //                                        Advancement.Builder.builder()
-    //                                                .withParentId(new ResourceLocation("minecraft", "root"))
-    //                                                .withDisplay(Blocks.DIAMOND_BLOCK,
-    //                                                        new StringTextComponent("Dirt2Diamonds"),
-    //                                                        new StringTextComponent("The BEST crafting recipe in the game!"),
-    //                                                        null, FrameType.TASK, false, false, false
-    //                                                )
-    //                                                .withRewards(AdvancementRewards.Builder.recipe(ID))
-    //                                                .withCriterion("has_dirt", hasItem(Blocks.DIRT))
-    //                                )
-    //                )
-    //                .build(consumer, ID);
-    //    }
-
     @SafeVarargs
     protected final Ingredient fromTags(ITag.INamedTag<Item>... tagsIn) {
 
@@ -368,9 +311,19 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
     // endregion
 
     // region CONDITIONS
-    protected ICondition flagEnabled(FlagManager manager, String flag) {
+    protected ICondition flag(String flag) {
 
         return new FlagRecipeCondition(manager, flag);
+    }
+
+    protected void setRecipeFlag(IItemProvider item, String flag) {
+
+        recipeConditions.put(item.asItem().getRegistryName(), flag(flag));
+    }
+
+    protected void setRecipeFlag(ResourceLocation recipe, String flag) {
+
+        recipeConditions.put(recipe, flag(flag));
     }
     // endregion
 

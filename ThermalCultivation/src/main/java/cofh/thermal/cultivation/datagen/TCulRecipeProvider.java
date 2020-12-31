@@ -3,6 +3,7 @@ package cofh.thermal.cultivation.datagen;
 import cofh.core.data.RecipeProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.references.ItemTagsCoFH;
+import cofh.thermal.core.common.ThermalFlags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -26,7 +27,7 @@ public class TCulRecipeProvider extends RecipeProviderCoFH {
     public TCulRecipeProvider(DataGenerator generatorIn) {
 
         super(generatorIn, ID_THERMAL);
-    }
+        manager = ThermalFlags.manager();}
 
     @Override
     public String getName() {

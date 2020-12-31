@@ -3,6 +3,7 @@ package cofh.thermal.innovation.datagen;
 import cofh.core.data.RecipeProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.references.ItemTagsCoFH;
+import cofh.thermal.core.common.ThermalFlags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
@@ -20,7 +21,7 @@ public class TInoRecipeProvider extends RecipeProviderCoFH {
     public TInoRecipeProvider(DataGenerator generatorIn) {
 
         super(generatorIn, ID_THERMAL);
-    }
+        manager = ThermalFlags.manager();}
 
     @Override
     public String getName() {

@@ -10,8 +10,6 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
  */
 public class FlagRecipeCondition implements ICondition {
 
-    private static final ResourceLocation NAME = new ResourceLocation("cofh", "flag");
-
     private final FlagManager manager;
     private final String flag;
 
@@ -24,7 +22,7 @@ public class FlagRecipeCondition implements ICondition {
     @Override
     public ResourceLocation getID() {
 
-        return NAME;
+        return manager.id;
     }
 
     @Override

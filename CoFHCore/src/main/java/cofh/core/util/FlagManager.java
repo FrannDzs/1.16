@@ -15,13 +15,20 @@ public class FlagManager {
 
     private static final Object2ObjectOpenHashMap<String, BooleanSupplier> FLAGS = new Object2ObjectOpenHashMap<>(64);
 
+    public final ResourceLocation id;
     public LootConditionType flagConditionType;
 
     public FlagManager(String modId) {
 
-        CraftingHelper.register(new FlagRecipeCondition.Serializer(this, new ResourceLocation(modId, "flag")));
+        this(modId, "flag");
+    }
+
+    public FlagManager(String modId, String path) {
+
+        id = new ResourceLocation(modId, path);
+        CraftingHelper.register(new FlagRecipeCondition.Serializer(this, id));
         flagConditionType = new LootConditionType(new FlagLootCondition.Serializer(this));
-        Registry.register(Registry.LOOT_CONDITION_TYPE, new ResourceLocation(modId, "flag"), flagConditionType);
+        Registry.register(Registry.LOOT_CONDITION_TYPE, id, flagConditionType);
     }
 
     private BooleanSupplier getOrCreateFlag(String flag) {
