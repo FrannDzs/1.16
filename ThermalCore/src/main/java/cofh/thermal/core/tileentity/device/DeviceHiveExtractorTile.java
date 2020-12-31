@@ -3,19 +3,15 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
@@ -27,7 +23,7 @@ import static cofh.core.util.references.CoreReferences.FLUID_HONEY;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_HIVE_EXTRACTOR_TILE;
 
-public class DeviceHiveExtractorTile extends ThermalTileBase {
+public class DeviceHiveExtractorTile extends DeviceTileBase {
 
     private static final int COMB_AMOUNT = 2;
     private static final int HONEY_AMOUNT = 250;
@@ -45,6 +41,22 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
 
         addAugmentSlots(deviceAugments);
         initHandlers();
+    }
+
+    @Override
+    protected void updateActiveState() {
+
+        super.updateActiveState();
+
+        if (isActive) {
+            extractProducts(pos.up());
+        }
+    }
+
+    @Override
+    protected boolean isValid() {
+
+        return world != null && world.getBlockState(pos.up()).hasProperty(BeehiveBlock.HONEY_LEVEL);
     }
 
     protected void extractProducts(BlockPos above) {
@@ -68,39 +80,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
         }
     }
 
-    protected void updateActiveState() {
-
-        boolean curActive = isActive;
-        isActive = redstoneControl().getState() && world.getBlockState(pos.up()).hasProperty(BeehiveBlock.HONEY_LEVEL);
-        updateActiveState(curActive);
-    }
-
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-
-        updateActiveState();
-
-        if (fromPos.equals(pos.up())) {
-            if (isActive) {
-                extractProducts(pos.up());
-            }
-        }
-    }
-
-    @Override
-    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-
-        super.onPlacedBy(worldIn, pos, state, placer, stack);
-
-        updateActiveState();
-
-        if (isActive) {
-            extractProducts(pos.up());
-        }
-    }
-
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
@@ -108,12 +87,4 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
         return new DeviceHiveExtractorContainer(i, world, pos, inventory, player);
     }
 
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
-    }
-    // endregion
 }

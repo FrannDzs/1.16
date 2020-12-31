@@ -1315,6 +1315,18 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addCriterion("has_redstone_servo", hasItem(redstoneServo))
                 .build(withConditions(consumer).flag(ID_DEVICE_WATER_GEN));
 
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DEVICE_POTION_DIFFUSER))
+                .key('S', ItemTagsCoFH.INGOTS_SILVER)
+                .key('G', Tags.Items.GLASS)
+                .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)
+                .key('P', redstoneServo)
+                .key('X', Items.GLASS_BOTTLE)
+                .patternLine("SIS")
+                .patternLine("GXG")
+                .patternLine("SPS")
+                .addCriterion("has_redstone_servo", hasItem(redstoneServo))
+                .build(withConditions(consumer).flag(ID_DEVICE_POTION_DIFFUSER));
+
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_ENERGY_CELL))
                 .key('C', energyCellFrame)
                 .key('I', Tags.Items.INGOTS_IRON)

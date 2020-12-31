@@ -4,19 +4,14 @@ import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.fluids.FluidStack;
@@ -35,7 +30,7 @@ import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_WATER_GEN_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
-public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTileEntity {
+public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileEntity {
 
     protected static final int GENERATION_RATE = 250;
     protected static final Supplier<FluidStack> WATER = () -> new FluidStack(Fluids.WATER, 0);
@@ -60,6 +55,7 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
         renderFluid = new FluidStack(Fluids.WATER, BUCKET_VOLUME);
     }
 
+    @Override
     protected void updateValidity() {
 
         if (world == null || !world.isAreaLoaded(pos, 1)) {
@@ -87,14 +83,20 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
         }
     }
 
+    @Override
     protected void updateActiveState() {
 
-        boolean curActive = isActive;
-        isActive = redstoneControl().getState() && valid;
+        super.updateActiveState();
+
         if (!isActive) {
             tank.clear();
         }
-        updateActiveState(curActive);
+    }
+
+    @Override
+    protected boolean isValid() {
+
+        return valid;
     }
 
     protected void fillFluid() {
@@ -118,22 +120,6 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
             tank.modify((int) (GENERATION_RATE * baseMod));
             fillFluid();
         }
-    }
-
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-        updateValidity();
-        updateActiveState();
-    }
-
-    @Override
-    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-
-        super.onPlacedBy(worldIn, pos, state, placer, stack);
-        updateValidity();
-        updateActiveState();
     }
 
     @Nonnull
@@ -178,13 +164,4 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
     //        ModelDataManager.requestModelDataRefresh(this);
     //    }
     //    // endregion
-
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
-    }
-    // endregion
 }

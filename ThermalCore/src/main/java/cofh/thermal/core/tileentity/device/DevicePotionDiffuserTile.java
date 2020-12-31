@@ -8,7 +8,7 @@ import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.inventory.container.device.DevicePotionDiffuserContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import cofh.thermal.core.util.managers.device.PotionDiffuserManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -41,7 +41,7 @@ import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_POTION_DIFFUSER_TILE;
 
-public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickableTileEntity {
+public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickableTileEntity {
 
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PotionDiffuserManager.instance()::validBoost);
     protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, FluidHelper::hasPotionTag);
@@ -57,13 +57,14 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
     protected int timeOffset;
 
     protected int boostCycles;
+    protected int boostMax = PotionDiffuserManager.instance().getDefaultEnergy();
     protected int boostAmplifier;
     protected float boostDuration;
 
     public DevicePotionDiffuserTile() {
 
         super(DEVICE_POTION_DIFFUSER_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT_2X);
+        timeOffset = MathHelper.RANDOM.nextInt(getTimeConstant());
 
         inventory.addSlot(inputSlot, INPUT);
 
@@ -73,11 +74,14 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         initHandlers();
     }
 
-    protected void updateActiveState() {
+    @Override
+    protected void updateActiveState(boolean curActive) {
 
-        boolean curActive = isActive;
-        isActive = redstoneControl.getState();
-        updateActiveState(curActive);
+        if (!curActive && isActive) {
+            int noOffset = TIME_CONSTANT_2X - (int) (world.getGameTime()) % getTimeConstant();
+            timeOffset = noOffset - 1;
+        }
+        super.updateActiveState(curActive);
     }
 
     @Override
@@ -123,7 +127,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
     @Override
     public int getScaledDuration(int scale) {
 
-        return !isActive || boostCycles <= 0 ? 0 : scale;
+        return !isActive || boostCycles <= 0 || boostMax <= 0 ? 0 : scale * boostCycles / boostMax;
     }
     // endregion
 
@@ -152,6 +156,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.getGuiPacket(buffer);
 
         buffer.writeInt(boostCycles);
+        buffer.writeInt(boostMax);
         buffer.writeInt(boostAmplifier);
         buffer.writeFloat(boostDuration);
 
@@ -164,6 +169,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.handleGuiPacket(buffer);
 
         boostCycles = buffer.readInt();
+        boostMax = buffer.readInt();
         boostAmplifier = buffer.readInt();
         boostDuration = buffer.readFloat();
     }
@@ -199,6 +205,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.read(state, nbt);
 
         boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
+        boostMax = nbt.getInt(TAG_BOOST_MAX);
         boostAmplifier = nbt.getInt(TAG_BOOST_AMP);
         boostDuration = nbt.getFloat(TAG_BOOST_DUR);
 
@@ -214,6 +221,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         super.write(nbt);
 
         nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
+        nbt.putInt(TAG_BOOST_MAX, boostMax);
         nbt.putInt(TAG_BOOST_AMP, boostAmplifier);
         nbt.putFloat(TAG_BOOST_DUR, boostDuration);
 
@@ -231,9 +239,24 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
         return true;
     }
 
+    public int getRadius() {
+
+        return radius;
+    }
+
+    public int getTimeConstant() {
+
+        return TIME_CONSTANT_2X;
+    }
+
+    public boolean isInstant() {
+
+        return instant;
+    }
+
     protected boolean timeCheckOffset() {
 
-        return (world.getGameTime() + timeOffset) % TIME_CONSTANT_2X == 0;
+        return (world.getGameTime() + timeOffset) % getTimeConstant() == 0;
     }
 
     protected void cacheEffects() {
@@ -270,6 +293,7 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
             --boostCycles;
         } else if (!inputSlot.isEmpty()) {
             boostCycles = PotionDiffuserManager.instance().getBoostCycles(inputSlot.getItemStack());
+            boostMax = boostCycles;
             boostAmplifier = PotionDiffuserManager.instance().getBoostAmplifier(inputSlot.getItemStack());
             boostDuration = PotionDiffuserManager.instance().getBoostDurationMod(inputSlot.getItemStack());
             inputSlot.consume(1);
@@ -316,16 +340,6 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
 
         return Math.min(MAX_POTION_DURATION, Math.round(effect.getDuration() * (1 + potionDurMod + boostDuration))) / 4;
     }
-
-    public int getRadius() {
-
-        return radius;
-    }
-
-    public boolean isInstant() {
-
-        return instant;
-    }
     // endregion
 
     // region AUGMENTS
@@ -352,15 +366,6 @@ public class DevicePotionDiffuserTile extends ThermalTileBase implements ITickab
 
         potionAmpMod += getAttributeMod(augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
         potionDurMod += getAttributeMod(augmentData, TAG_AUGMENT_POTION_DURATION);
-    }
-    // endregion
-
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
     }
     // endregion
 }

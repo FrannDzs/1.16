@@ -4,7 +4,7 @@ import cofh.core.util.helpers.InventoryHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.xp.XpStorage;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -31,7 +31,7 @@ import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
 
-public class DeviceCollectorTile extends ThermalTileBase implements ITickableTileEntity {
+public class DeviceCollectorTile extends DeviceTileBase implements ITickableTileEntity {
 
     protected static final Predicate<ItemEntity> VALID_ITEM_ENTITY = item -> {
         if (!item.isAlive() || item.cannotPickup()) {
@@ -47,26 +47,29 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     protected static final int RADIUS = 5;
     public int radius = RADIUS;
 
-    protected final int timeOffset;
+    protected int timeOffset;
 
     public DeviceCollectorTile() {
 
         super(DEVICE_COLLECTOR_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(TIME_CONSTANT_HALF);
+        timeOffset = MathHelper.RANDOM.nextInt(getTimeConstant());
 
         inventory.addSlots(ACCESSIBLE, 15);
 
-        xpStorage = new XpStorage(2500);
+        xpStorage = new XpStorage(getBaseXpStorage());
 
         addAugmentSlots(deviceAugments);
         initHandlers();
     }
 
-    protected void updateActiveState() {
+    @Override
+    protected void updateActiveState(boolean curActive) {
 
-        boolean curActive = isActive;
-        isActive = redstoneControl.getState();
-        updateActiveState(curActive);
+        if (!curActive && isActive) {
+            int noOffset = TIME_CONSTANT_2X - (int) (world.getGameTime()) % getTimeConstant();
+            timeOffset = noOffset - 1;
+        }
+        super.updateActiveState(curActive);
     }
 
     @Override
@@ -97,6 +100,16 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
     }
 
     // region HELPERS
+    public int getRadius() {
+
+        return radius;
+    }
+
+    public int getTimeConstant() {
+
+        return TIME_CONSTANT_HALF;
+    }
+
     protected void collectItemsAndXp() {
 
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
@@ -143,7 +156,7 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
 
     protected boolean timeCheckOffset() {
 
-        return (world.getGameTime() + timeOffset) % TIME_CONSTANT_HALF == 0;
+        return (world.getGameTime() + timeOffset) % getTimeConstant() == 0;
     }
     // endregion
 
@@ -230,15 +243,6 @@ public class DeviceCollectorTile extends ThermalTileBase implements ITickableTil
         if (xpStorage.getStored() < storedXp) {
             spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
-    }
-    // endregion
-
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
     }
     // endregion
 }

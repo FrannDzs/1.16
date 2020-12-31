@@ -6,9 +6,8 @@ import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import cofh.thermal.core.util.managers.device.TreeExtractorManager;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,7 +40,7 @@ import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_TREE_EXTRACTOR_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
-public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickableTileEntity {
+public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickableTileEntity {
 
     protected static final int NUM_LEAVES = 3;
     protected static final int TILE_TIME_CONSTANT = 500;
@@ -59,6 +58,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected int timeOffset;
 
     protected int boostCycles;
+    protected int boostMax = TreeExtractorManager.instance().getDefaultEnergy();
     protected float boostMult;
 
     public DeviceTreeExtractorTile() {
@@ -79,6 +79,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         }
     }
 
+    @Override
     protected void updateValidity() {
 
         if (world == null || !world.isAreaLoaded(pos, 1) || Utils.isClientWorld(world)) {
@@ -170,11 +171,10 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         cached = true;
     }
 
-    protected void updateActiveState() {
+    @Override
+    protected boolean isValid() {
 
-        boolean curActive = isActive;
-        isActive = redstoneControl.getState() && valid;
-        updateActiveState(curActive);
+        return valid;
     }
 
     @Override
@@ -196,6 +196,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
                     --boostCycles;
                 } else if (!inputSlot.isEmpty()) {
                     boostCycles = TreeExtractorManager.instance().getBoostCycles(inputSlot.getItemStack());
+                    boostMax = boostCycles;
                     boostMult = TreeExtractorManager.instance().getBoostOutputMod(inputSlot.getItemStack());
                     inputSlot.consume(1);
                 } else {
@@ -209,14 +210,6 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         if (curFluid != renderFluid.getFluid()) {
             TileStatePacket.sendToClient(this);
         }
-    }
-
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-        updateValidity();
-        updateActiveState();
     }
 
     @Nonnull
@@ -239,7 +232,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     @Override
     public int getScaledDuration(int scale) {
 
-        return !isActive || boostCycles <= 0 ? 0 : scale;
+        return !isActive || boostCycles <= 0 || boostMax <= 0 ? 0 : scale * boostCycles / boostMax;
     }
     // endregion
 
@@ -268,6 +261,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         super.getGuiPacket(buffer);
 
         buffer.writeInt(boostCycles);
+        buffer.writeInt(boostMax);
         buffer.writeFloat(boostMult);
 
         return buffer;
@@ -279,6 +273,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         super.handleGuiPacket(buffer);
 
         boostCycles = buffer.readInt();
+        boostMax = buffer.readInt();
         boostMult = buffer.readFloat();
     }
 
@@ -311,6 +306,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         super.read(state, nbt);
 
         boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
+        boostMax = nbt.getInt(TAG_BOOST_MAX);
         boostMult = nbt.getFloat(TAG_BOOST_MULT);
         timeConstant = nbt.getInt(TAG_TIME_CONSTANT);
 
@@ -329,6 +325,7 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         super.write(nbt);
 
         nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
+        nbt.putInt(TAG_BOOST_MAX, boostMax);
         nbt.putFloat(TAG_BOOST_MULT, boostMult);
         nbt.putInt(TAG_TIME_CONSTANT, timeConstant);
 
@@ -373,15 +370,6 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected boolean isTreeExtractor(BlockState state) {
 
         return state.getBlock() == this.getBlockState().getBlock();
-    }
-    // endregion
-
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
     }
     // endregion
 }

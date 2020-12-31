@@ -21,6 +21,7 @@ public class NBTTags {
     public static final String TAG_BOOST_AMP = "BoostAmp";
     public static final String TAG_BOOST_CYCLES = "BoostCycles";
     public static final String TAG_BOOST_DUR = "BoostDur";
+    public static final String TAG_BOOST_MAX = "BoostMax";
     public static final String TAG_BOOST_MULT = "BoostMult";
     public static final String TAG_CART_DATA = "CartData";
     public static final String TAG_CAPACITY = "Capacity";

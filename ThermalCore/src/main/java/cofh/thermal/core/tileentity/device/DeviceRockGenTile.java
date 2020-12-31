@@ -3,12 +3,10 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.inventory.ItemStorageInfinite;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
-import cofh.thermal.core.tileentity.ThermalTileBase;
-import net.minecraft.block.Block;
+import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
@@ -17,7 +15,6 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.LazyOptional;
@@ -35,7 +32,7 @@ import static cofh.core.util.helpers.ItemHelper.cloneStack;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;
 
-public class DeviceRockGenTile extends ThermalTileBase {
+public class DeviceRockGenTile extends DeviceTileBase {
 
     private static final int AMOUNT = 16;
 
@@ -64,6 +61,7 @@ public class DeviceRockGenTile extends ThermalTileBase {
         renderFluid = new FluidStack(Fluids.LAVA, BUCKET_VOLUME);
     }
 
+    @Override
     protected void updateValidity() {
 
         if (world == null || !world.isAreaLoaded(pos, 1)) {
@@ -111,37 +109,11 @@ public class DeviceRockGenTile extends ThermalTileBase {
         }
     }
 
-    protected void updateActiveState() {
-
-        boolean curActive = isActive;
-        isActive = redstoneControl().getState() && valid;
-        if (curActive != isActive) {
-            itemCap.invalidate();
-        }
-        updateActiveState(curActive);
-    }
-
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-        updateValidity();
-        updateActiveState();
-    }
-
     //    @Override
     //    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
     //
     //        return player.inventory.addItemStackToInventory(cloneStack(slot.getItemStack()));
     //    }
-
-    @Override
-    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-
-        super.onPlacedBy(worldIn, pos, state, placer, stack);
-        updateValidity();
-        updateActiveState();
-    }
 
     @Nonnull
     @Override
@@ -206,15 +178,6 @@ public class DeviceRockGenTile extends ThermalTileBase {
             itemCap = LazyOptional.of(() -> isActive ? inventory.getHandler(OUTPUT) : EmptyHandler.INSTANCE);
         }
         return itemCap.cast();
-    }
-    // endregion
-
-    // region ITileCallback
-    @Override
-    public void onControlUpdate() {
-
-        updateActiveState();
-        super.onControlUpdate();
     }
     // endregion
 }

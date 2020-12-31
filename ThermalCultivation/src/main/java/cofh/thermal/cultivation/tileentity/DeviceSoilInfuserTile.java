@@ -31,7 +31,8 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
 
     protected ItemStorageCoFH chargeSlot = new ItemStorageCoFH(1, EnergyHelper::hasEnergyHandlerCap);
 
-    protected int radius = 1;
+    protected static final int RADIUS = 2;
+    protected int radius = RADIUS;
 
     protected int process;
     protected int processMax = BASE_PROCESS_MAX * radius * radius;
@@ -144,6 +145,11 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
     // endregion
 
     // region HELPERS
+    public int getRadius() {
+
+        return radius;
+    }
+
     protected void chargeSoil(BlockPos blockPos) {
 
         BlockState state = world.getBlockState(blockPos);
@@ -170,11 +176,6 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
             timeTracker.markTime(world);
         }
     }
-
-    public int getRadius() {
-
-        return radius;
-    }
     // endregion
 
     // region AUGMENTS
@@ -183,7 +184,7 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
 
         super.resetAttributes();
 
-        radius = 1;
+        radius = RADIUS;
     }
 
     @Override

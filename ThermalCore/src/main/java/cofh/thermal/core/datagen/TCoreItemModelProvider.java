@@ -150,9 +150,9 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
 
     private void registerAugments(DeferredRegisterCoFH<Item> reg) {
 
-        for (int i = 1; i <= 3; ++i) {
-            generated(reg.getSup("upgrade_augment_" + i), AUGMENTS);
-        }
+        //        for (int i = 1; i <= 3; ++i) {
+        //            generated(reg.getSup("upgrade_augment_" + i), AUGMENTS);
+        //        }
         generated(reg.getSup("rs_control_augment"), AUGMENTS);
         generated(reg.getSup("side_config_augment"), AUGMENTS);
         generated(reg.getSup("xp_storage_augment"), AUGMENTS);
