@@ -22,6 +22,8 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqualWithTags;
  */
 public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourceStorage {
 
+    protected final int baseCapacity;
+
     protected BooleanSupplier creative = FALSE;
     protected BooleanSupplier enabled = TRUE;
     protected Supplier<ItemStack> emptyItem = EMPTY_ITEM;
@@ -29,7 +31,7 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
 
     @Nonnull
     protected ItemStack item = ItemStack.EMPTY;
-    protected int capacity = -1;
+    protected int capacity;
 
     public ItemStorageCoFH() {
 
@@ -43,13 +45,22 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
 
     public ItemStorageCoFH(Predicate<ItemStack> validator) {
 
-        this.validator = validator;
+        this(0, validator);
     }
 
     public ItemStorageCoFH(int capacity, Predicate<ItemStack> validator) {
 
+        this.baseCapacity = capacity;
         this.capacity = capacity;
         this.validator = validator;
+    }
+
+    public ItemStorageCoFH applyModifiers(float storageMod) {
+
+        if (baseCapacity > 0) {
+            setCapacity(Math.round(baseCapacity * storageMod));
+        }
+        return this;
     }
 
     public ItemStorageCoFH setCapacity(int capacity) {
@@ -237,7 +248,7 @@ public class ItemStorageCoFH implements IItemHandler, IItemStackAccess, IResourc
         if (isCreative()) {
             quantity = Math.max(quantity, 0);
         }
-        this.item.grow(quantity);
+        this.item.setCount(Math.min(item.getCount() + quantity, getCapacity()));
         if (this.item.isEmpty()) {
             this.item = emptyItem.get();
         }

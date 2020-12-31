@@ -1,53 +1,48 @@
 package cofh.thermal.core.tileentity.device;
 
 import cofh.core.inventory.ItemStorageCoFH;
-import cofh.core.inventory.ItemStorageInfinite;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Map;
+import java.util.function.Supplier;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.OUTPUT;
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.helpers.ItemHelper.cloneStack;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;
 
-public class DeviceRockGenTile extends DeviceTileBase {
+public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEntity {
 
-    private static final int AMOUNT = 16;
+    protected static final int GENERATION_RATE = 2;
+    protected static final Supplier<ItemStack> COBBLESTONE = () -> new ItemStack(Blocks.COBBLESTONE, 0);
+    protected static final Supplier<ItemStack> BASALT = () -> new ItemStack(Blocks.BASALT, 0);
 
-    protected static ItemStack COBBLESTONE = new ItemStack(Blocks.COBBLESTONE);
-    protected static ItemStack BASALT = new ItemStack(Blocks.BASALT);
+    protected ItemStorageCoFH slot = new ItemStorageCoFH(e -> false).setEmptyItem(COBBLESTONE).setEnabled(() -> isActive);
+
+    protected boolean cached;
+    protected boolean valid;
 
     protected byte adjLavaSource;
     protected byte adjWaterSource;
 
     protected byte adjBlueIce;
     protected byte adjSoulSand;
-
-    protected boolean valid;
-
-    protected ItemStorageCoFH slot = new ItemStorageInfinite(e -> false);
 
     public DeviceRockGenTile() {
 
@@ -98,22 +93,47 @@ public class DeviceRockGenTile extends DeviceTileBase {
             ++adjSoulSand;
         }
         if (adjSoulSand > 0 && adjLavaSource > 0 && adjBlueIce > 0) {
-            slot.setItemStack(cloneStack(BASALT, (int) (AMOUNT * baseMod)));
+            slot.setEmptyItem(BASALT);
             valid = true;
         } else if (adjLavaSource > 0 && adjWaterSource > 0) {
-            slot.setItemStack(cloneStack(COBBLESTONE, (int) (AMOUNT * baseMod)));
+            slot.setEmptyItem(COBBLESTONE);
             valid = true;
         } else {
             slot.clear();
-            itemCap.invalidate();
         }
     }
 
-    //    @Override
-    //    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-    //
-    //        return player.inventory.addItemStackToInventory(cloneStack(slot.getItemStack()));
-    //    }
+    @Override
+    protected void updateActiveState() {
+
+        if (!cached) {
+            updateValidity();
+        }
+        super.updateActiveState();
+
+        if (!isActive) {
+            slot.clear();
+        }
+    }
+
+    @Override
+    protected boolean isValid() {
+
+        return valid;
+    }
+
+    @Override
+    public void tick() {
+
+        if (!cached) {
+            updateValidity();
+        }
+        updateActiveState();
+
+        if (isActive) {
+            slot.modify((int) (GENERATION_RATE * baseMod));
+        }
+    }
 
     @Nonnull
     @Override
@@ -157,27 +177,4 @@ public class DeviceRockGenTile extends DeviceTileBase {
     //        ModelDataManager.requestModelDataRefresh(this);
     //    }
     //    // endregion
-
-    // region AUGMENTS
-    @Override
-    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
-
-        super.finalizeAttributes(enchantmentMap);
-
-        if (!slot.isEmpty()) {
-            slot.setItemStack(cloneStack(slot.getItemStack(), (int) Math.min((AMOUNT * baseMod), slot.getCapacity())));
-        }
-    }
-    // endregion
-
-    // region CAPABILITIES
-    @Override
-    protected <T> LazyOptional<T> getItemHandlerCapability(@Nullable Direction side) {
-
-        if (!itemCap.isPresent()) {
-            itemCap = LazyOptional.of(() -> isActive ? inventory.getHandler(OUTPUT) : EmptyHandler.INSTANCE);
-        }
-        return itemCap.cast();
-    }
-    // endregion
 }

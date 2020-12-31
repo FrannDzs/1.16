@@ -139,7 +139,7 @@ public class ThermalCore {
         ScreenManager.registerFactory(DEVICE_HIVE_EXTRACTOR_CONTAINER, DeviceHiveExtractorScreen::new);
         ScreenManager.registerFactory(DEVICE_TREE_EXTRACTOR_CONTAINER, DeviceTreeExtractorScreen::new);
         ScreenManager.registerFactory(DEVICE_WATER_GEN_CONTAINER, DeviceWaterGenScreen::new);
-        // ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
+        ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
         ScreenManager.registerFactory(DEVICE_COLLECTOR_CONTAINER, DeviceCollectorScreen::new);
         ScreenManager.registerFactory(DEVICE_POTION_DIFFUSER_CONTAINER, DevicePotionDiffuserScreen::new);
 
@@ -162,7 +162,7 @@ public class ThermalCore {
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_WATER_GEN), cutout);
-        // RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_ROCK_GEN), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_ROCK_GEN), cutout);
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL_FRAME), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL), cutout);

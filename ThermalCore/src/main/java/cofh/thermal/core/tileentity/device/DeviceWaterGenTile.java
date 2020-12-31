@@ -34,12 +34,14 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
 
     protected static final int GENERATION_RATE = 250;
     protected static final Supplier<FluidStack> WATER = () -> new FluidStack(Fluids.WATER, 0);
-    protected ItemStorageCoFH fillSlot = new ItemStorageCoFH(1, FluidHelper::hasFluidHandlerCap);
 
-    protected byte adjWaterSource;
+    protected ItemStorageCoFH fillSlot = new ItemStorageCoFH(1, FluidHelper::hasFluidHandlerCap);
+    protected FluidStorageCoFH tank = new FluidStorageCoFH(TANK_SMALL, e -> false).setEmptyFluid(WATER).setEnabled(() -> isActive);
+
+    protected boolean cached;
     protected boolean valid;
 
-    protected FluidStorageCoFH tank = new FluidStorageCoFH(TANK_SMALL, e -> false).setEmptyFluid(WATER).setEnabled(() -> isActive);
+    protected byte adjWaterSource;
 
     public DeviceWaterGenTile() {
 
@@ -114,6 +116,9 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
     @Override
     public void tick() {
 
+        if (!cached) {
+            updateValidity();
+        }
         updateActiveState();
 
         if (isActive) {

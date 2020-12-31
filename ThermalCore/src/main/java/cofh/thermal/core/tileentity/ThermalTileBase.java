@@ -561,6 +561,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected float baseMod = 1.0F;
     protected float energyStorageMod = 1.0F;
     protected float energyXferMod = 1.0F;
+    protected float itemStorageMod = 1.0F;
     protected float fluidStorageMod = 1.0F;
 
     /**
@@ -629,9 +630,13 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         energyStorageMod = holdingMod * MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
         energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
+        itemStorageMod = holdingMod * MathHelper.clamp(itemStorageMod, scaleMin, scaleMax);
         fluidStorageMod = holdingMod * MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
 
         energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod()).setCreative(() -> creativeEnergy);
+        for (int i = 0; i < inventory.getSlots(); ++i) {
+            inventory.getSlot(i).applyModifiers(getItemStorageMod());
+        }
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             tankInv.getTank(i).applyModifiers(getFluidStorageMod()).setCreative(() -> creativeFluid);
         }
@@ -666,6 +671,11 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected float getEnergyXferMod() {
 
         return energyXferMod * baseMod;
+    }
+
+    protected float getItemStorageMod() {
+
+        return itemStorageMod * baseMod;
     }
 
     protected float getFluidStorageMod() {
