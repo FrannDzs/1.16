@@ -240,8 +240,11 @@ public abstract class RecipeJsonUtils {
     // endregion
 
     // region STRING CONSTANTS
+    public static final String ADJACENT = "adjacent";
     public static final String AMOUNT = "amount";
     public static final String AMPLIFIER = "amplifier";
+    public static final String BASE = "base";
+    public static final String BELOW = "below";
     public static final String CHANCE = "chance";
     public static final String COMMENT = "//";
     public static final String CONSTANT = "constant";

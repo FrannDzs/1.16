@@ -3,6 +3,7 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.util.helpers.InventoryHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.xp.XpStorage;
+import cofh.thermal.core.client.gui.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.block.BlockState;
@@ -19,19 +20,27 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static cofh.core.client.renderer.model.ModelUtils.UNDERLAY;
 import static cofh.core.util.StorageGroup.ACCESSIBLE;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
 
 public class DeviceCollectorTile extends DeviceTileBase implements ITickableTileEntity {
+
+    protected static final IModelData MODEL_DATA = new ModelDataMap.Builder()
+            .withInitial(UNDERLAY, ThermalTextures.DEVICE_COLLECTOR_UNDERLAY_LOC)
+            .build();
 
     protected static final Predicate<ItemEntity> VALID_ITEM_ENTITY = item -> {
         if (!item.isAlive() || item.cannotPickup()) {
@@ -83,6 +92,13 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         if (isActive) {
             collectItemsAndXp();
         }
+    }
+
+    @Nonnull
+    @Override
+    public IModelData getModelData() {
+
+        return MODEL_DATA;
     }
 
     @Nullable

@@ -26,6 +26,8 @@ public class ThermalTextures {
         if (!event.getMap().getTextureLocation().toString().equals(BLOCK_ATLAS)) {
             return;
         }
+        event.addSprite(DEVICE_COLLECTOR_UNDERLAY_LOC);
+
         event.addSprite(MACHINE_CONFIG_NONE_LOC);
         event.addSprite(MACHINE_CONFIG_INPUT_LOC);
         event.addSprite(MACHINE_CONFIG_OUTPUT_LOC);
@@ -92,6 +94,8 @@ public class ThermalTextures {
     public static ResourceLocation CELL_CONFIG_INPUT_LOC = new ResourceLocation(CONFIG_ + "cell_config_input");
     public static ResourceLocation CELL_CONFIG_OUTPUT_LOC = new ResourceLocation(CONFIG_ + "cell_config_output");
     public static ResourceLocation CELL_CONFIG_BOTH_LOC = new ResourceLocation(CONFIG_ + "cell_config_both");
+
+    public static ResourceLocation DEVICE_COLLECTOR_UNDERLAY_LOC = new ResourceLocation(ID_THERMAL + ":block/devices/device_collector_underlay");
 
     public static TextureAtlasSprite MACHINE_CONFIG_NONE;
     public static TextureAtlasSprite MACHINE_CONFIG_INPUT;
