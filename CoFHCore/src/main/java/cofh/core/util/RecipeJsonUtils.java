@@ -277,6 +277,8 @@ public abstract class RecipeJsonUtils {
     public static final String RESULTS = "results";
     public static final String SECONDARY_MOD = "secondary_mod";
     public static final String TAG = "tag";
+    public static final String TICKS = "ticks";
+    public static final String TIME = "time";
     public static final String TYPE = "type";
     public static final String USE_CHANCE = "use_chance";
     public static final String VALUE = "value";

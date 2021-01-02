@@ -227,10 +227,10 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
 
-        getAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
     }
 
     protected boolean hasActiveTag(ItemStack stack) {

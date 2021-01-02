@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
+import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.thermal.core.tileentity.storage.EnergyCellTile.*;
@@ -47,9 +47,16 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
+    }
+
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
     }
 
     //    @Override

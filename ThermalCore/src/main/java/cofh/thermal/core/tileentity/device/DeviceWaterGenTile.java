@@ -41,8 +41,6 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
     protected boolean cached;
     protected boolean valid;
 
-    protected byte adjWaterSource;
-
     public DeviceWaterGenTile() {
 
         super(DEVICE_WATER_GEN_TILE);
@@ -63,7 +61,7 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
         if (world == null || !world.isAreaLoaded(pos, 1)) {
             return;
         }
-        adjWaterSource = 0;
+        int adjWaterSource = 0;
         valid = false;
 
         BlockPos[] cardinals = new BlockPos[]{
@@ -83,16 +81,16 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
         } else {
             tank.clear();
         }
+        cached = true;
     }
 
     @Override
     protected void updateActiveState() {
 
-        super.updateActiveState();
-
-        if (!isActive) {
-            tank.clear();
+        if (!cached) {
+            updateValidity();
         }
+        super.updateActiveState();
     }
 
     @Override
@@ -116,9 +114,6 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
     @Override
     public void tick() {
 
-        if (!cached) {
-            updateValidity();
-        }
         updateActiveState();
 
         if (isActive) {

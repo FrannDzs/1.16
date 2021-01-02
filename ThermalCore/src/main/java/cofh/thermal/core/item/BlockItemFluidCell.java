@@ -22,7 +22,7 @@ import java.util.List;
 
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
+import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.core.util.helpers.FluidHelper.addPotionTooltip;
 import static cofh.core.util.helpers.StringHelper.*;
@@ -62,8 +62,15 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_CREATIVE);
+    }
+
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_FLUID_CREATIVE, 0.0F) > 0;
     }
 
     //    @Override

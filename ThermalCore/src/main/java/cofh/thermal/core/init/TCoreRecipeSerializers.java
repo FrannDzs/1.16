@@ -1,6 +1,9 @@
 package cofh.thermal.core.init;
 
-import cofh.thermal.core.util.recipes.device.*;
+import cofh.thermal.core.util.recipes.device.PotionDiffuserBoostSerializer;
+import cofh.thermal.core.util.recipes.device.RockGenMappingSerializer;
+import cofh.thermal.core.util.recipes.device.TreeExtractorBoostSerializer;
+import cofh.thermal.core.util.recipes.device.TreeExtractorMappingSerializer;
 
 import static cofh.thermal.core.ThermalCore.RECIPE_SERIALIZERS;
 import static cofh.thermal.core.init.TCoreRecipeTypes.*;

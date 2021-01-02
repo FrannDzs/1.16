@@ -29,8 +29,8 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
 public class RFCapacitorItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
@@ -122,6 +122,12 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
         }
     }
 
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
+    }
+
     // region HELPERS
     protected boolean useDelegate(ItemStack stack, PlayerEntity player) {
 
@@ -152,9 +158,10 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
     }
     // endregion
 

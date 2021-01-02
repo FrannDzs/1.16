@@ -155,6 +155,12 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         }
     }
 
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
+    }
+
     // region HELPERS
     // TODO: Filter
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -219,11 +225,12 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
 
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
     }
     // endregion
 

@@ -3,9 +3,9 @@
   "_comment": "CoFH General / Lib",
   "_comment": "========================================================================================================",
 
-  "attribute.name.cofh.fallDistance": "Falldistanz",
-  "attribute.name.cofh.hazardResistance": "Strahlenresistenz",
-  "attribute.name.cofh.stingResistance": "Stechresistenz",
+  "attribute.name.cofh.fall_distance": "Falldistanz",
+  "attribute.name.cofh.hazard_resistance": "Strahlenresistenz",
+  "attribute.name.cofh.sting_resistance": "Stechresistenz",
 
   "forge.swimSpeed": "Schwimmgeschwindigkeit",
 
@@ -31,13 +31,8 @@
   "info.cofh.arrows": "Pfeile",
   "info.cofh.chance": "Chance",
   "info.cofh.chance_additional": "Zusätzliche Chance",
-  "info.cofh.clear_storage": "Alt + Shift + Click zum entleeren.",
-  "info.cofh.clear_storage": "Alt + Shift + Click zum entleeren.",
-<<<<<<< .mine
-  "info.cofh.click_to_clear": "Alt + Shift + Click zum entleeren.",
-=======
-  "info.cofh.clear_storage": "§e§oAlt+Shift+Click§r§7 zum entleeren.",
->>>>>>> .theirs
+  "info.cofh.click_to_claim": "§e§oClick§r§7 to zur entnahme.",
+  "info.cofh.click_to_clear": "§e§oAlt+Shift+Click§r§7 zum entleeren.",
   "info.cofh.effects": "Effekte",
   "info.cofh.efficiency": "Effizienz",
   "info.cofh.empty": "Leer",

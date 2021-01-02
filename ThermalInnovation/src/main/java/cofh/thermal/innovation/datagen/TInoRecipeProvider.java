@@ -21,7 +21,8 @@ public class TInoRecipeProvider extends RecipeProviderCoFH {
     public TInoRecipeProvider(DataGenerator generatorIn) {
 
         super(generatorIn, ID_THERMAL);
-        manager = ThermalFlags.manager();}
+        manager = ThermalFlags.manager();
+    }
 
     @Override
     public String getName() {

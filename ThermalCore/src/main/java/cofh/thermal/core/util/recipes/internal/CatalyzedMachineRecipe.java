@@ -16,7 +16,7 @@ import static cofh.core.util.helpers.ItemHelper.itemsEqual;
 
 public abstract class CatalyzedMachineRecipe extends BaseMachineRecipe {
 
-    protected int catalystSlot;
+    protected final int catalystSlot;
     protected boolean catalyzable;
 
     protected CatalyzedMachineRecipe(int catalystSlot, int energy, float experience, @Nullable List<ItemStack> inputItems, @Nullable List<FluidStack> inputFluids, @Nullable List<ItemStack> outputItems, @Nullable List<Float> chance, @Nullable List<FluidStack> outputFluids) {

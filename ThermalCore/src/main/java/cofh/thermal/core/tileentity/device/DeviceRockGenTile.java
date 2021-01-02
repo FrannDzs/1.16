@@ -3,7 +3,8 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
-import net.minecraft.block.BlockState;
+import cofh.thermal.core.util.managers.device.RockGenManager;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,6 +14,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,7 +31,6 @@ import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;
 
 public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEntity {
 
-    protected static final int GENERATION_RATE = 2;
     protected static final Supplier<ItemStack> COBBLESTONE = () -> new ItemStack(Blocks.COBBLESTONE, 0);
     protected static final Supplier<ItemStack> BASALT = () -> new ItemStack(Blocks.BASALT, 0);
 
@@ -38,11 +39,9 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
     protected boolean cached;
     protected boolean valid;
 
-    protected byte adjLavaSource;
-    protected byte adjWaterSource;
-
-    protected byte adjBlueIce;
-    protected byte adjSoulSand;
+    protected int process;
+    protected int processMax = RockGenManager.instance().getDefaultEnergy();
+    protected int genAmount = 1;
 
     public DeviceRockGenTile() {
 
@@ -62,45 +61,40 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
         if (world == null || !world.isAreaLoaded(pos, 1)) {
             return;
         }
-        adjLavaSource = 0;
-        adjWaterSource = 0;
-        adjBlueIce = 0;
-        adjSoulSand = 0;
+        int adjLavaSource = 0;
         valid = false;
 
+        Block[] adjBlocks = new Block[4];
         BlockPos[] cardinals = new BlockPos[]{
                 pos.north(),
                 pos.south(),
                 pos.west(),
                 pos.east(),
         };
-        for (BlockPos adj : cardinals) {
-            BlockState blockState = world.getBlockState(adj);
+        for (int i = 0; i < 4; ++i) {
+            BlockPos adj = cardinals[i];
             FluidState fluidState = world.getFluidState(adj);
             if (fluidState.getFluid().equals(Fluids.LAVA)) {
                 ++adjLavaSource;
             }
-            if (fluidState.getFluid().equals(Fluids.WATER)) {
-                ++adjWaterSource;
+            adjBlocks[i] = fluidState.isEmpty() || fluidState.isSource() ? world.getBlockState(adj).getBlock() : Blocks.AIR;
+        }
+        if (adjLavaSource > 0) {
+            Block below = world.getBlockState(pos.down()).getBlock();
+            RockGenManager.RockGenRecipe recipe = RockGenManager.instance().getResult(below, adjBlocks);
+            ItemStack result = recipe.getResult();
+            if (!result.isEmpty()) {
+                slot.setEmptyItem(() -> new ItemStack(result.getItem(), 0));
+                processMax = recipe.getTime();
+                genAmount = Math.max(1, result.getCount());
+                if (world.getBiome(pos).getCategory() == Biome.Category.NETHER) {
+                    processMax = Math.max(1, processMax / 2);
+                }
+                process = processMax;
+                valid = true;
             }
-            if (blockState.getBlock().equals(Blocks.BLUE_ICE)) {
-                ++adjBlueIce;
-            }
         }
-        BlockPos below = pos.down();
-        BlockState blockState = world.getBlockState(below);
-        if (blockState.getBlock().equals(Blocks.SOUL_SAND)) {
-            ++adjSoulSand;
-        }
-        if (adjSoulSand > 0 && adjLavaSource > 0 && adjBlueIce > 0) {
-            slot.setEmptyItem(BASALT);
-            valid = true;
-        } else if (adjLavaSource > 0 && adjWaterSource > 0) {
-            slot.setEmptyItem(COBBLESTONE);
-            valid = true;
-        } else {
-            slot.clear();
-        }
+        cached = true;
     }
 
     @Override
@@ -110,10 +104,6 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
             updateValidity();
         }
         super.updateActiveState();
-
-        if (!isActive) {
-            slot.clear();
-        }
     }
 
     @Override
@@ -125,13 +115,14 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
     @Override
     public void tick() {
 
-        if (!cached) {
-            updateValidity();
-        }
         updateActiveState();
 
         if (isActive) {
-            slot.modify((int) (GENERATION_RATE * baseMod));
+            --process;
+            if (process <= 0) {
+                slot.modify((int) (genAmount * baseMod));
+                process = processMax;
+            }
         }
     }
 

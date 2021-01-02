@@ -18,8 +18,8 @@
   "block.thermal.sapphire_ore": "Zaffiro grezzo",
 
   "block.thermal.oil_sand": "Sabbia bituminosa",
-  "block.thermal.oil_red_sand": "Sabbia rossa bituminosa", 
-  
+  "block.thermal.oil_red_sand": "Sabbia rossa bituminosa",
+
   "block.thermal.apatite_block": "Blocco di apatite",
   "block.thermal.cinnabar_block": "Blocco di cinabro",
   "block.thermal.niter_block": "Blocco di niter",
@@ -93,9 +93,9 @@
   "fluid.thermal.biofuel": "Biocarburante",
   "fluid.thermal.creosote": "Olio creosoto",
   "fluid.thermal.crude_oil": "Olio crudo",
-  "fluid.thermal.heavy_oil": "Olio pesante", 
+  "fluid.thermal.heavy_oil": "Olio pesante",
   "fluid.thermal.latex": "Lattice",
-  "fluid.thermal.light_oil": "Olio leggero", 
+  "fluid.thermal.light_oil": "Olio leggero",
   "fluid.thermal.refined_fuel": "Carburante raffinato",
   "fluid.thermal.resin": "Resina",
   "fluid.thermal.sap": "Linfa",
@@ -137,9 +137,9 @@
   "item.thermal.biofuel_bucket": "Secchio di biocarburante",
   "item.thermal.creosote_bucket": "Secchio di olio creosoto",
   "item.thermal.crude_oil_bucket": "Secchio di olio crudo",
-  "item.thermal.heavy_oil_bucket": "Secchio di olio pesante", 
+  "item.thermal.heavy_oil_bucket": "Secchio di olio pesante",
   "item.thermal.latex_bucket": "Secchio di lattice",
-  "item.thermal.light_oil_bucket": "Secchio di olio leggero", 
+  "item.thermal.light_oil_bucket": "Secchio di olio leggero",
   "item.thermal.refined_fuel_bucket": "Secchio di carburante raffinato",
   "item.thermal.resin_bucket": "Secchio di resina",
   "item.thermal.sap_bucket": "Secchio di linfa",
@@ -347,9 +347,9 @@
 
   "item.thermal.fluid_tank_augment": "Costruzione di serbatoio espanso",
 
-   "item.thermal.fluid_tank_creative_augment": "Costruzione di serbatoio creativo",
+  "item.thermal.fluid_tank_creative_augment": "Costruzione di serbatoio creativo",
   "item.thermal.fluid_tank_creative_augment.desc": "Fluidi funzionalmente illimitati.",
-  
+
   "item.thermal.machine_catalyst_augment": "Camera di reclamazione catalitica",
   "item.thermal.machine_cycle_augment": "Elaborazione ciclica",
   "item.thermal.machine_cycle_augment.desc": "I prodotti potrebbero essere trasferiti all'input alla fine del processo.",
@@ -360,13 +360,13 @@
   "item.thermal.potion_duration_augment": "Estensore alchemico",
 
   "item.thermal.rf_coil_augment": "Bobina RF espansa",
-  
+
   "item.thermal.rf_coil_creative_augment": "Bobina RF creativa",
   "item.thermal.rf_coil_creative_augment.desc": "RF funzionalmente illimitato.",
-  
+
   "item.thermal.rf_coil_storage_augment": "Bobina RF stabilizzata",
   "item.thermal.rf_coil_xfer_augment": "Bobina RF alto-flux",
-  
+
   "item.thermal.rs_control_augment": "Meccanismo di risposta in redstone",
   "item.thermal.rs_control_augment.desc": "Permette il controllo via segnali di redstone.",
 
@@ -410,11 +410,11 @@
   "info.thermal.device_collector.0": "Raccoglie cose nella zona vicina.",
   "info.thermal.device_collector.1": "La configurazione del filtro verrà applicata a questo comportamento.",
   "info.thermal.device_collector.2": "Mantieni quei pavimenti puliti!",
-  
+
   "info.thermal.device_hive_extractor.0": "Estrae attentamente prodotti dagli alveari.",
   "info.thermal.device_hive_extractor.1": "Buono per le api e per gli apicoltori!",
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
-  
+
   "info.thermal.device_potion_diffuser.0": "Diffonde pozioni nella zona vicina.",
   "info.thermal.device_potion_diffuser.1": "Usa reagenti per aumentare l'efficacia.",
   "info.thermal.device_potion_diffuser.2": "Respira profondamente.",
@@ -626,8 +626,8 @@
   "item.thermal.tea_seeds": "Semi di tè",
   "item.thermal.tomato": "Pomodoro",
   "item.thermal.tomato_seeds": "Semi di pomodoro",
-  "item.thermal.xp_stew": "Stufato perspicace", 
-   
+  "item.thermal.xp_stew": "Stufato perspicace",
+
   "item.thermal.watering_can": "Innaffiatoio",
   "item.thermal.watering_can.desc": "Migliora la crescita delle piante utilizzando l'acqua.",
 

@@ -388,7 +388,7 @@ public class FluidHelper {
 
     public static void addPotionTooltip(List<EffectInstance> list, List<ITextComponent> lores, float durationFactor) {
 
-        List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
+        List<Pair<Attribute, AttributeModifier>> list1 = new ArrayList<>();
         if (list.isEmpty()) {
             lores.add(EMPTY_POTION);
         } else {

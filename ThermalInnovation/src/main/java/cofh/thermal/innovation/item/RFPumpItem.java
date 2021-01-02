@@ -107,6 +107,12 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
         }
     }
 
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
+    }
+
     // region HELPERS
     protected void setActive(ItemStack stack, LivingEntity entity) {
 
@@ -119,11 +125,12 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
 
-        getAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
     }
 
     protected boolean hasActiveTag(ItemStack stack) {

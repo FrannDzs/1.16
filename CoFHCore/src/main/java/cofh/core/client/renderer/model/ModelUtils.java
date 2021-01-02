@@ -33,9 +33,9 @@ public class ModelUtils {
     @OnlyIn(Dist.CLIENT)
     public static class WrappedBakedModelBuilder {
 
-        private final List<BakedQuad> builderGeneralQuads = Lists.newArrayList();
-        private final Map<Direction, List<BakedQuad>> builderUnderlayQuads = Maps.newEnumMap(Direction.class);
-        private final Map<Direction, List<BakedQuad>> builderFaceQuads = Maps.newEnumMap(Direction.class);
+        private final List<BakedQuad> builderGeneralQuads = new ArrayList<>();
+        private final Map<Direction, List<BakedQuad>> builderUnderlayQuads = new EnumMap<>(Direction.class);
+        private final Map<Direction, List<BakedQuad>> builderFaceQuads = new EnumMap<>(Direction.class);
         private final ItemOverrideList builderItemOverrideList;
         private final boolean builderAmbientOcclusion;
         private TextureAtlasSprite builderTexture;

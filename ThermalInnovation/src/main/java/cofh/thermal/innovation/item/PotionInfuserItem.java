@@ -185,6 +185,12 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
         }
     }
 
+    @Override
+    public boolean isCreative(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_FLUID_CREATIVE, 0.0F) > 0;
+    }
+
     // region HELPERS
     protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
 
@@ -192,11 +198,12 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
         if (subTag == null) {
             return;
         }
-        getAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
-        getAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_DURATION);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_DURATION);
 
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_CREATIVE);
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {

@@ -172,6 +172,15 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     }
 
     @Override
+    protected void updateActiveState() {
+
+        if (!cached) {
+            updateValidity();
+        }
+        super.updateActiveState();
+    }
+
+    @Override
     protected boolean isValid() {
 
         return valid;
@@ -182,9 +191,6 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
 
         if (!timeCheckOffset()) {
             return;
-        }
-        if (!cached) {
-            updateValidity();
         }
         updateActiveState();
 

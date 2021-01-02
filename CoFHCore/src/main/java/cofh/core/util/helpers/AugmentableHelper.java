@@ -65,7 +65,7 @@ public class AugmentableHelper {
     // endregion
 
     // region ATTRIBUTES
-    public static void getAttributeFromAugmentMax(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
+    public static void setAttributeFromAugmentMax(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
 
         float mod = Math.max(getAttributeMod(augmentData, attribute), getAttributeMod(subTag, attribute));
         if (mod > 0.0F) {
@@ -73,7 +73,7 @@ public class AugmentableHelper {
         }
     }
 
-    public static void getAttributeFromAugmentAdd(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
+    public static void setAttributeFromAugmentAdd(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
 
         float mod = getAttributeMod(augmentData, attribute) + getAttributeMod(subTag, attribute);
         subTag.putFloat(attribute, mod);

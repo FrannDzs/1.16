@@ -13,17 +13,19 @@ import static cofh.thermal.core.init.TCoreRecipeTypes.ID_MAPPING_ROCK_GEN;
 
 public class RockGenMapping extends SerializableRecipe {
 
+    protected final int time;
     protected final Block below;
     protected final Block adjacent;
-    protected final ItemStack item;
+    protected final ItemStack result;
 
-    protected RockGenMapping(ResourceLocation recipeId, Block below, Block adjacent, ItemStack item) {
+    protected RockGenMapping(ResourceLocation recipeId, int time, Block below, Block adjacent, ItemStack result) {
 
         super(recipeId);
 
+        this.time = time;
         this.below = below;
         this.adjacent = adjacent;
-        this.item = item;
+        this.result = result;
     }
 
     @Override
@@ -39,6 +41,11 @@ public class RockGenMapping extends SerializableRecipe {
     }
 
     // region GETTERS
+    public int getTime() {
+
+        return time;
+    }
+
     public Block getBelow() {
 
         return below;
@@ -49,9 +56,9 @@ public class RockGenMapping extends SerializableRecipe {
         return adjacent;
     }
 
-    public ItemStack getItem() {
+    public ItemStack getResult() {
 
-        return item;
+        return result;
     }
     // endregion
 }
