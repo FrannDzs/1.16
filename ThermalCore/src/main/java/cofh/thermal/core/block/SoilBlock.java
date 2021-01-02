@@ -62,6 +62,8 @@ public class SoilBlock extends Block {
         int charge = state.get(CHARGED);
         if (charge < 4) {
             worldIn.setBlockState(pos, state.with(CHARGED, charge + 1), 2);
+        } else if (worldIn instanceof ServerWorld) {
+            state.getBlock().tick(state, (ServerWorld) worldIn, pos, worldIn.rand);
         }
     }
 

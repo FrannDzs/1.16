@@ -53,7 +53,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     protected XpStorage xpStorage;
     protected boolean pause;
 
-    protected static final int RADIUS = 5;
+    protected static final int RADIUS = 4;
     public int radius = RADIUS;
 
     protected int timeOffset;

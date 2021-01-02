@@ -29,7 +29,6 @@ public class TCoreRecipeTypes {
     public static final ResourceLocation ID_MAPPING_TREE_EXTRACTOR = new ResourceLocation(ID_THERMAL, "tree_extractor");
     public static final ResourceLocation ID_BOOST_TREE_EXTRACTOR = new ResourceLocation(ID_THERMAL, "tree_extractor_boost");
     public static final ResourceLocation ID_MAPPING_ROCK_GEN = new ResourceLocation(ID_THERMAL, "rock_gen");
-
     public static final ResourceLocation ID_BOOST_POTION_DIFFUSER = new ResourceLocation(ID_THERMAL, "potion_diffuser_boost");
 
     public static final SerializableRecipeType<TreeExtractorMapping> MAPPING_TREE_EXTRACTOR = new SerializableRecipeType<>(ID_MAPPING_TREE_EXTRACTOR);

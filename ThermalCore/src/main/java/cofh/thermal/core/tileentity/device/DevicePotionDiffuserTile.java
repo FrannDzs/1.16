@@ -85,6 +85,12 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
     }
 
     @Override
+    protected boolean isValid() {
+
+        return inputTank.getAmount() > FLUID_AMOUNT;
+    }
+
+    @Override
     public void tick() {
 
         if (!timeCheckOffset()) {
