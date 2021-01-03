@@ -1,7 +1,6 @@
 package cofh.thermal.core.tileentity.device;
 
 import cofh.core.util.helpers.InventoryHelper;
-import cofh.core.util.helpers.MathHelper;
 import cofh.core.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
@@ -38,6 +37,8 @@ import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
 
 public class DeviceCollectorTile extends DeviceTileBase implements ITickableTileEntity {
 
+    protected static final int TICK_RATE = 20;
+
     protected static final IModelData MODEL_DATA = new ModelDataMap.Builder()
             .withInitial(UNDERLAY, ThermalTextures.DEVICE_COLLECTOR_UNDERLAY_LOC)
             .build();
@@ -47,7 +48,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
             return false;
         }
         CompoundNBT data = item.getPersistentData();
-        return data.getBoolean(TAG_CONVEYOR_COMPAT) && !data.getBoolean(TAG_DEMAGNETIZE_COMPAT);
+        return !data.getBoolean(TAG_CONVEYOR_COMPAT) || data.getBoolean(TAG_DEMAGNETIZE_COMPAT);
     };
 
     protected XpStorage xpStorage;
@@ -56,12 +57,11 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
 
-    protected int timeOffset;
+    protected int process = 1;
 
     public DeviceCollectorTile() {
 
         super(DEVICE_COLLECTOR_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(getTimeConstant());
 
         inventory.addSlots(ACCESSIBLE, 15);
 
@@ -75,8 +75,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     protected void updateActiveState(boolean curActive) {
 
         if (!curActive && isActive) {
-            int noOffset = TIME_CONSTANT_2X - (int) (world.getGameTime()) % getTimeConstant();
-            timeOffset = noOffset - 1;
+            process = 1;
         }
         super.updateActiveState(curActive);
     }
@@ -84,14 +83,17 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     @Override
     public void tick() {
 
-        if (!timeCheckOffset()) {
-            return;
-        }
         updateActiveState();
 
-        if (isActive) {
-            collectItemsAndXp();
+        if (!isActive) {
+            return;
         }
+        --process;
+        if (process > 0) {
+            return;
+        }
+        process = getTimeConstant();
+        collectItemsAndXp();
     }
 
     @Nonnull
@@ -123,7 +125,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
     public int getTimeConstant() {
 
-        return TIME_CONSTANT_HALF;
+        return TICK_RATE;
     }
 
     protected void collectItemsAndXp() {
@@ -133,7 +135,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         if (true) { // TODO: Item Config
             collectItems(area);
         }
-        if (xpStorageFeature && true) { // TODO: XP Config
+        if (xpStorageFeature) {
             collectXpOrbs(area);
         }
     }
@@ -168,11 +170,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
                 orb.remove();
             }
         }
-    }
-
-    protected boolean timeCheckOffset() {
-
-        return (world.getGameTime() + timeOffset) % getTimeConstant() == 0;
     }
     // endregion
 

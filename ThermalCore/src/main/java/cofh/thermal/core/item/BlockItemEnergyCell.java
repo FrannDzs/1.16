@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.thermal.core.tileentity.storage.EnergyCellTile.*;
 

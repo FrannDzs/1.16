@@ -5,7 +5,6 @@ import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.inventory.container.device.DevicePotionDiffuserContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
@@ -43,6 +42,8 @@ import static cofh.thermal.core.init.TCoreReferences.DEVICE_POTION_DIFFUSER_TILE
 
 public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickableTileEntity {
 
+    protected static final int TICK_RATE = 60;
+
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PotionDiffuserManager.instance()::validBoost);
     protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, FluidHelper::hasPotionTag);
 
@@ -54,7 +55,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
     protected List<EffectInstance> effects = Collections.emptyList();
     protected boolean instant;
 
-    protected int timeOffset;
+    protected int process = 1;
 
     protected int boostCycles;
     protected int boostMax = PotionDiffuserManager.instance().getDefaultEnergy();
@@ -64,7 +65,6 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
     public DevicePotionDiffuserTile() {
 
         super(DEVICE_POTION_DIFFUSER_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(getTimeConstant());
 
         inventory.addSlot(inputSlot, INPUT);
 
@@ -78,8 +78,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
     protected void updateActiveState(boolean curActive) {
 
         if (!curActive && isActive) {
-            int noOffset = TIME_CONSTANT_2X - (int) (world.getGameTime()) % getTimeConstant();
-            timeOffset = noOffset - 1;
+            process = 1;
         }
         super.updateActiveState(curActive);
     }
@@ -93,24 +92,30 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
     @Override
     public void tick() {
 
-        if (!timeCheckOffset()) {
-            return;
-        }
         updateActiveState();
 
+        if (!isActive) {
+            return;
+        }
+        --process;
+        if (process > 0) {
+            return;
+        }
+        process = getTimeConstant();
+
+        if (Utils.isClientWorld(world())) {
+            diffuseClient();
+            return;
+        }
         Fluid curFluid = renderFluid.getFluid();
 
-        if (isActive) {
-            if (Utils.isClientWorld(world())) {
-                diffuseClient();
-                return;
-            }
-            diffuse();
-        }
         cacheEffects();
+        diffuse();
+
         if (curFluid != renderFluid.getFluid()) {
             TileStatePacket.sendToClient(this);
         }
+
     }
 
     @Nonnull
@@ -186,7 +191,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
 
         super.getStatePacket(buffer);
 
-        buffer.writeInt(timeOffset);
+        buffer.writeInt(process);
         buffer.writeBoolean(instant);
 
         return buffer;
@@ -197,7 +202,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
 
         super.handleStatePacket(buffer);
 
-        timeOffset = buffer.readInt();
+        process = buffer.readInt();
         instant = buffer.readBoolean();
 
         ModelDataManager.requestModelDataRefresh(this);
@@ -216,7 +221,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
         boostDuration = nbt.getFloat(TAG_BOOST_DUR);
 
         instant = nbt.getBoolean(TAG_INSTANT);
-        timeOffset = nbt.getInt(TAG_TIME_OFFSET);
+        process = nbt.getInt(TAG_PROCESS);
 
         cacheEffects();
     }
@@ -232,7 +237,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
         nbt.putFloat(TAG_BOOST_DUR, boostDuration);
 
         nbt.putBoolean(TAG_INSTANT, instant);
-        nbt.putInt(TAG_TIME_OFFSET, timeOffset);
+        nbt.putInt(TAG_PROCESS, process);
 
         return nbt;
     }
@@ -252,17 +257,12 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
 
     public int getTimeConstant() {
 
-        return TIME_CONSTANT_2X;
+        return TICK_RATE;
     }
 
     public boolean isInstant() {
 
         return instant;
-    }
-
-    protected boolean timeCheckOffset() {
-
-        return (world.getGameTime() + timeOffset) % getTimeConstant() == 0;
     }
 
     protected void cacheEffects() {

@@ -138,30 +138,4 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
         return new DeviceWaterGenContainer(i, world, pos, inventory, player);
     }
 
-    // TODO: Must be added if *other* water types are supported.
-    //    // region NETWORK
-    //    @Override
-    //    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-    //
-    //        super.onDataPacket(net, pkt);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //
-    //    @Override
-    //    public void handleControlPacket(PacketBuffer buffer) {
-    //
-    //        super.handleControlPacket(buffer);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //
-    //    @Override
-    //    public void handleStatePacket(PacketBuffer buffer) {
-    //
-    //        super.handleStatePacket(buffer);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //    // endregion
 }

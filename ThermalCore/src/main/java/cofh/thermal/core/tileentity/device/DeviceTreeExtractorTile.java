@@ -43,7 +43,7 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXE
 public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickableTileEntity {
 
     protected static final int NUM_LEAVES = 3;
-    protected static final int TILE_TIME_CONSTANT = 500;
+    protected static final int TICK_RATE = 500;
 
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(TreeExtractorManager.instance()::validBoost);
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
@@ -54,8 +54,7 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     protected BlockPos trunkPos;
     protected final BlockPos[] leafPos = new BlockPos[NUM_LEAVES];
 
-    protected int timeConstant = TILE_TIME_CONSTANT;
-    protected int timeOffset;
+    protected int process = TICK_RATE / 2;
 
     protected int boostCycles;
     protected int boostMax = TreeExtractorManager.instance().getDefaultEnergy();
@@ -64,7 +63,6 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     public DeviceTreeExtractorTile() {
 
         super(DEVICE_TREE_EXTRACTOR_TILE);
-        timeOffset = MathHelper.RANDOM.nextInt(TILE_TIME_CONSTANT);
 
         inventory.addSlot(inputSlot, INPUT);
 
@@ -85,8 +83,6 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
         if (world == null || !world.isAreaLoaded(pos, 1) || Utils.isClientWorld(world)) {
             return;
         }
-        timeConstant = getTimeConstant();
-
         if (valid) {
             if (isTrunkBase(trunkPos)) {
                 Set<BlockState> leafSet = TreeExtractorManager.instance().getMatchingLeaves(world.getBlockState(trunkPos));
@@ -189,29 +185,32 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     @Override
     public void tick() {
 
-        if (!timeCheckOffset()) {
-            return;
-        }
         updateActiveState();
 
+        if (!isActive) {
+            return;
+        }
+        --process;
+        if (process > 0) {
+            return;
+        }
+        process = getTimeConstant();
         Fluid curFluid = renderFluid.getFluid();
 
-        if (isActive) {
-            if (valid) {
-                if (boostCycles > 0) {
-                    --boostCycles;
-                } else if (!inputSlot.isEmpty()) {
-                    boostCycles = TreeExtractorManager.instance().getBoostCycles(inputSlot.getItemStack());
-                    boostMax = boostCycles;
-                    boostMult = TreeExtractorManager.instance().getBoostOutputMod(inputSlot.getItemStack());
-                    inputSlot.consume(1);
-                } else {
-                    boostCycles = 0;
-                    boostMult = 1.0F;
-                }
-                outputTank.fill(new FluidStack(renderFluid, (int) (renderFluid.getAmount() * baseMod * boostMult)), EXECUTE);
-                updateValidity();
+        if (valid) {
+            if (boostCycles > 0) {
+                --boostCycles;
+            } else if (!inputSlot.isEmpty()) {
+                boostCycles = TreeExtractorManager.instance().getBoostCycles(inputSlot.getItemStack());
+                boostMax = boostCycles;
+                boostMult = TreeExtractorManager.instance().getBoostOutputMod(inputSlot.getItemStack());
+                inputSlot.consume(1);
+            } else {
+                boostCycles = 0;
+                boostMult = 1.0F;
             }
+            outputTank.fill(new FluidStack(renderFluid, (int) (renderFluid.getAmount() * baseMod * boostMult)), EXECUTE);
+            updateValidity();
         }
         if (curFluid != renderFluid.getFluid()) {
             TileStatePacket.sendToClient(this);
@@ -289,7 +288,7 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
 
         super.getStatePacket(buffer);
 
-        buffer.writeInt(timeOffset);
+        buffer.writeInt(process);
 
         return buffer;
     }
@@ -299,7 +298,7 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
 
         super.handleStatePacket(buffer);
 
-        timeOffset = buffer.readInt();
+        process = buffer.readInt();
 
         ModelDataManager.requestModelDataRefresh(this);
     }
@@ -314,11 +313,8 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
         boostCycles = nbt.getInt(TAG_BOOST_CYCLES);
         boostMax = nbt.getInt(TAG_BOOST_MAX);
         boostMult = nbt.getFloat(TAG_BOOST_MULT);
-        timeConstant = nbt.getInt(TAG_TIME_CONSTANT);
+        process = nbt.getInt(TAG_PROCESS);
 
-        if (timeConstant <= 0) {
-            timeConstant = TILE_TIME_CONSTANT;
-        }
         for (int i = 0; i < NUM_LEAVES; ++i) {
             leafPos[i] = NBTUtil.readBlockPos(nbt.getCompound("Leaf" + i));
         }
@@ -333,7 +329,7 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
         nbt.putInt(TAG_BOOST_CYCLES, boostCycles);
         nbt.putInt(TAG_BOOST_MAX, boostMax);
         nbt.putFloat(TAG_BOOST_MULT, boostMult);
-        nbt.putInt(TAG_TIME_CONSTANT, timeConstant);
+        nbt.putInt(TAG_PROCESS, process);
 
         for (int i = 0; i < NUM_LEAVES; ++i) {
             nbt.put("Leaf" + i, NBTUtil.writeBlockPos(leafPos[i]));
@@ -344,21 +340,16 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     // endregion
 
     // region HELPERS
-    protected boolean timeCheckOffset() {
-
-        return (world.getGameTime() + timeOffset) % timeConstant == 0;
-    }
-
     protected int getTimeConstant() {
 
-        int constant = TILE_TIME_CONSTANT / 2;
+        int constant = TICK_RATE / 2;
         Iterable<BlockPos> area = BlockPos.getAllInBoxMutable(trunkPos.add(-1, 0, -1), trunkPos.add(1, 0, 1));
         for (BlockPos scan : area) {
             if (isTreeExtractor(world.getBlockState(scan))) {
-                constant += TILE_TIME_CONSTANT / 2;
+                constant += TICK_RATE / 2;
             }
         }
-        return MathHelper.clamp(constant, TILE_TIME_CONSTANT, TILE_TIME_CONSTANT * 2);
+        return MathHelper.clamp(constant, TICK_RATE, TICK_RATE * 2);
     }
 
     protected boolean isTrunkBase(BlockPos checkPos) {

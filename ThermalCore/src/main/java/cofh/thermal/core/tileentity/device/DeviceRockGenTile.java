@@ -117,13 +117,15 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
 
         updateActiveState();
 
-        if (isActive) {
-            --process;
-            if (process <= 0) {
-                slot.modify((int) (genAmount * baseMod));
-                process = processMax;
-            }
+        if (!isActive) {
+            return;
         }
+        --process;
+        if (process > 0) {
+            return;
+        }
+        process = processMax;
+        slot.modify((int) (genAmount * baseMod));
     }
 
     @Nonnull
@@ -142,30 +144,4 @@ public class DeviceRockGenTile extends DeviceTileBase implements ITickableTileEn
         return new DeviceRockGenContainer(i, world, pos, inventory, player);
     }
 
-    // TODO: Must be added if non-lava fluids are supported.
-    //    // region NETWORK
-    //    @Override
-    //    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-    //
-    //        super.onDataPacket(net, pkt);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //
-    //    @Override
-    //    public void handleControlPacket(PacketBuffer buffer) {
-    //
-    //        super.handleControlPacket(buffer);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //
-    //    @Override
-    //    public void handleStatePacket(PacketBuffer buffer) {
-    //
-    //        super.handleStatePacket(buffer);
-    //
-    //        ModelDataManager.requestModelDataRefresh(this);
-    //    }
-    //    // endregion
 }

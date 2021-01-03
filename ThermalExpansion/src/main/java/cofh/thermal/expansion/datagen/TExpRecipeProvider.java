@@ -24,7 +24,8 @@ public class TExpRecipeProvider extends RecipeProviderCoFH {
     public TExpRecipeProvider(DataGenerator generatorIn) {
 
         super(generatorIn, ID_THERMAL);
-        manager = ThermalFlags.manager();}
+        manager = ThermalFlags.manager();
+    }
 
     @Override
     public String getName() {
