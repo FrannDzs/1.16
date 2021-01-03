@@ -1,13 +1,13 @@
 package cofh.redstonearsenal.datagen;
 
-import cofh.core.datagen.ItemModelProviderCoFH;
+import cofh.core.data.ItemModelProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static cofh.core.util.constants.Constants.ID_REDSTONE_ARSENAL;
+import static cofh.lib.util.constants.Constants.ID_REDSTONE_ARSENAL;
 import static cofh.redstonearsenal.RedstoneArsenal.BLOCKS;
 import static cofh.redstonearsenal.RedstoneArsenal.ITEMS;
 

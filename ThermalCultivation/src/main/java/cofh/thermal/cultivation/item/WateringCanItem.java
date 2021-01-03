@@ -1,13 +1,13 @@
 package cofh.thermal.cultivation.item;
 
 import cofh.core.item.FluidContainerItem;
-import cofh.core.item.IAugmentableItem;
-import cofh.core.item.IMultiModeItem;
-import cofh.core.util.ChatHelper;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
-import cofh.core.util.RayTracer;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.AugmentDataHelper;
+import cofh.lib.item.IAugmentableItem;
+import cofh.lib.item.IMultiModeItem;
+import cofh.lib.util.RayTracer;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.*;
@@ -39,12 +39,12 @@ import java.util.Set;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.RGB_DURABILITY_WATER;
-import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.FluidHelper.IS_WATER;
 import static cofh.core.util.helpers.FluidHelper.isWater;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.RGB_DURABILITY_WATER;
+import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class WateringCanItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {

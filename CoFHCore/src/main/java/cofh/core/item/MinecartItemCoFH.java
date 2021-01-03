@@ -1,6 +1,6 @@
 package cofh.core.item;
 
-import cofh.core.entity.AbstractMinecartEntityCoFH;
+import cofh.lib.entity.AbstractMinecartEntityCoFH;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;

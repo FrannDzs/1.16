@@ -10,9 +10,9 @@ import net.minecraft.tileentity.TileEntityType;
 
 import static cofh.core.CoFHCore.BLOCKS;
 import static cofh.core.CoFHCore.TILE_ENTITIES;
-import static cofh.core.util.helpers.BlockHelper.lightValue;
-import static cofh.core.util.references.CoreIDs.*;
-import static cofh.core.util.references.CoreReferences.*;
+import static cofh.lib.util.helpers.BlockHelper.lightValue;
+import static cofh.lib.util.references.CoreIDs.*;
+import static cofh.lib.util.references.CoreReferences.*;
 import static net.minecraft.block.AbstractBlock.Properties.from;
 
 public class CoreBlocks {

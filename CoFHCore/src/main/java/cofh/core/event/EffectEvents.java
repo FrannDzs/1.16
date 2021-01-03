@@ -13,8 +13,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.references.CoreReferences.*;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.references.CoreReferences.*;
 
 @Mod.EventBusSubscriber(modid = ID_COFH_CORE)
 public class EffectEvents {

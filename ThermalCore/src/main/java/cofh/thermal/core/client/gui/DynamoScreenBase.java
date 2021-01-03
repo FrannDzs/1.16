@@ -1,7 +1,7 @@
 package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.element.ElementEnergyStorage;
-import cofh.core.inventory.container.ContainerCoFH;
+import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.thermal.core.tileentity.DynamoTileBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
@@ -10,8 +10,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.List;
 
-import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
-import static cofh.core.util.helpers.StringHelper.DF0;
+import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
+import static cofh.lib.util.helpers.StringHelper.DF0;
 
 public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalScreenBase<T> {
 

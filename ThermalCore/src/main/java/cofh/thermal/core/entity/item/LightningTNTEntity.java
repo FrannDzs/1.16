@@ -1,8 +1,8 @@
 package cofh.thermal.core.entity.item;
 
-import cofh.core.entity.AbstractTNTEntity;
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
+import cofh.lib.entity.AbstractTNTEntity;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
 import cofh.thermal.core.entity.projectile.LightningGrenadeEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;

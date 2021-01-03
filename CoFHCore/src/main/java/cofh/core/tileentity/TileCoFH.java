@@ -1,28 +1,26 @@
 package cofh.core.tileentity;
 
 import cofh.core.network.packet.client.TileGuiPacket;
-import cofh.core.util.IConveyableData;
-import cofh.core.util.Utils;
-import cofh.core.util.control.ISecurable;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.xp.XpStorage;
+import cofh.lib.tileentity.ITileCallback;
+import cofh.lib.util.IConveyableData;
+import cofh.lib.util.Utils;
+import cofh.lib.util.control.ISecurable;
+import cofh.lib.xp.XpStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -105,24 +103,6 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
         return getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(handler -> FluidHelper.interactWithHandler(player.getHeldItem(hand), handler, player, hand)).orElse(false);
     }
 
-    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-
-    }
-
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState) {
-
-    }
-
-    public boolean onWrench(PlayerEntity player, Direction side) {
-
-        return false;
-    }
-
-    public ItemStack createItemStackTag(ItemStack stack) {
-
-        return stack;
-    }
-
     public boolean hasClientUpdate() {
 
         return false;
@@ -146,16 +126,6 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
     }
 
     public boolean clearEnergy(int coil) {
-
-        return false;
-    }
-
-    public boolean clearSlot(int slot) {
-
-        return false;
-    }
-
-    public boolean clearTank(int tank) {
 
         return false;
     }

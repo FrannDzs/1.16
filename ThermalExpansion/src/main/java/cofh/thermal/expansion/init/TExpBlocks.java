@@ -16,8 +16,8 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
 
-import static cofh.core.util.constants.Constants.ACTIVE;
-import static cofh.core.util.helpers.BlockHelper.lightValue;
+import static cofh.lib.util.constants.Constants.ACTIVE;
+import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.CONTAINERS;
 import static cofh.thermal.core.ThermalCore.TILE_ENTITIES;
 import static cofh.thermal.core.common.ThermalAugmentRules.DYNAMO_VALIDATOR;

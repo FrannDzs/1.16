@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-import static cofh.core.util.Utils.destroyBlock;
+import static cofh.lib.util.Utils.destroyBlock;
 
 public class EarthChargeItem extends ItemCoFH {
 

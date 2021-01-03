@@ -1,10 +1,10 @@
 package cofh.core.client.gui.element.panel;
 
 import cofh.core.client.gui.CoreTextures;
-import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.ElementAugmentSlots;
-import cofh.core.inventory.container.slot.SlotCoFH;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.inventory.container.slot.SlotCoFH;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.text.ITextComponent;
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.IntSupplier;
 
-import static cofh.core.util.helpers.StringHelper.localize;
+import static cofh.lib.util.helpers.StringHelper.localize;
 
 public class PanelAugmentation extends PanelBase {
 

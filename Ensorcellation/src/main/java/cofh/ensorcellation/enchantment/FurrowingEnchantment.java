@@ -1,11 +1,11 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.EnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
+import cofh.lib.enchantment.EnchantmentCoFH;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
-import static cofh.core.util.references.EnsorcReferences.TILLING;
+import static cofh.lib.util.references.EnsorcReferences.TILLING;
 
 public class FurrowingEnchantment extends EnchantmentCoFH {
 

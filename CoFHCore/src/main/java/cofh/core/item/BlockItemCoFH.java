@@ -1,6 +1,7 @@
 package cofh.core.item;
 
 import cofh.core.init.CoreConfig;
+import cofh.lib.item.ICoFHItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -21,8 +22,8 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.TRUE;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.constants.Constants.TRUE;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static net.minecraft.util.text.TextFormatting.GRAY;
 
 public class BlockItemCoFH extends BlockItem implements ICoFHItem {

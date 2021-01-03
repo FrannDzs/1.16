@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.constants.Constants.ACTIVE;
+import static cofh.lib.util.constants.Constants.ACTIVE;
 
 public abstract class DeviceTileBase extends ThermalTileBase {
 

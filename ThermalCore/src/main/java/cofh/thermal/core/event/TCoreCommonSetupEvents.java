@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLModIdMappingEvent;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 
 @Mod.EventBusSubscriber(modid = ID_THERMAL)
 public class TCoreCommonSetupEvents {

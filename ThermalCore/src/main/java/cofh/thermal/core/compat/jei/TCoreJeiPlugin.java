@@ -9,8 +9,8 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.common.ThermalConfig.jeiBucketTanks;
 
 // TODO: Implement as necessary.

@@ -1,17 +1,17 @@
 package cofh.core.init;
 
 import cofh.core.item.ItemCoFH;
-import cofh.core.item.ShearsItemCoFH;
-import cofh.core.item.override.DyeableHorseArmorItemCoFH;
-import cofh.core.item.override.HorseArmorItemCoFH;
-import cofh.core.item.override.ShieldItemCoFH;
+import cofh.lib.item.impl.DyeableHorseArmorItemCoFH;
+import cofh.lib.item.impl.HorseArmorItemCoFH;
+import cofh.lib.item.impl.ShearsItemCoFH;
+import cofh.lib.item.impl.ShieldItemCoFH;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
 import static cofh.core.CoFHCore.ITEMS;
 import static cofh.core.init.CoreFlags.FLAG_ECTOPLASM;
 import static cofh.core.init.CoreFlags.getFlag;
-import static cofh.core.util.references.CoreIDs.ID_ECTOPLASM;
+import static cofh.lib.util.references.CoreIDs.ID_ECTOPLASM;
 
 public class CoreItems {
 

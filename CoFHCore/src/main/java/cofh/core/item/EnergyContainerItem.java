@@ -1,8 +1,8 @@
 package cofh.core.item;
 
-import cofh.core.energy.EnergyContainerItemWrapper;
-import cofh.core.energy.IEnergyContainerItem;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.energy.EnergyContainerItemWrapper;
+import cofh.lib.energy.IEnergyContainerItem;
+import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,8 +13,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.core.util.constants.Constants.RGB_DURABILITY_FLUX;
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.lib.util.constants.Constants.RGB_DURABILITY_FLUX;
+import static cofh.lib.util.helpers.StringHelper.*;
 
 public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerItem {
 

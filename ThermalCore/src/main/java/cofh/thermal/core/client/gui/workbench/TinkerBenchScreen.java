@@ -3,7 +3,7 @@ package cofh.thermal.core.client.gui.workbench;
 import cofh.core.client.gui.element.ElementAugmentSlots;
 import cofh.core.client.gui.element.ElementButton;
 import cofh.core.client.gui.element.SimpleTooltip;
-import cofh.core.util.helpers.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalScreenBase;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import static cofh.core.util.GuiHelper.*;
-import static cofh.core.util.constants.Constants.ID_THERMAL;
-import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
+import static cofh.core.util.helpers.GuiHelper.*;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
 
 public class TinkerBenchScreen extends ThermalScreenBase<TinkerBenchContainer> {
 

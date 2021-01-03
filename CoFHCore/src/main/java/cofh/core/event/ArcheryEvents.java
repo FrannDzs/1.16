@@ -1,6 +1,6 @@
 package cofh.core.event;
 
-import cofh.core.capability.templates.ArcheryBowItemWrapper;
+import cofh.lib.capability.templates.ArcheryBowItemWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,14 +17,14 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static cofh.core.capability.CapabilityArchery.BOW_ITEM_CAPABILITY;
-import static cofh.core.util.Utils.getHeldEnchantmentLevel;
-import static cofh.core.util.constants.Constants.DAMAGE_ARROW;
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.helpers.ArcheryHelper.findAmmo;
-import static cofh.core.util.helpers.ArcheryHelper.validBow;
-import static cofh.core.util.references.EnsorcReferences.QUICK_DRAW;
-import static cofh.core.util.references.EnsorcReferences.VOLLEY;
+import static cofh.lib.capability.CapabilityArchery.BOW_ITEM_CAPABILITY;
+import static cofh.lib.util.Utils.getHeldEnchantmentLevel;
+import static cofh.lib.util.constants.Constants.DAMAGE_ARROW;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.helpers.ArcheryHelper.findAmmo;
+import static cofh.lib.util.helpers.ArcheryHelper.validBow;
+import static cofh.lib.util.references.EnsorcReferences.QUICK_DRAW;
+import static cofh.lib.util.references.EnsorcReferences.VOLLEY;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.INFINITY;
 

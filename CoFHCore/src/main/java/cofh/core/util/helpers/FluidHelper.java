@@ -1,8 +1,10 @@
 package cofh.core.util.helpers;
 
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.PotionFluid;
-import cofh.core.util.references.CoreReferences;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.util.helpers.BlockHelper;
+import cofh.lib.util.helpers.ItemHelper;
+import cofh.lib.util.references.CoreReferences;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -36,10 +38,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.Constants.BOTTLE_VOLUME;
-import static cofh.core.util.constants.NBTTags.TAG_POTION;
-import static cofh.core.util.references.CoreReferences.FLUID_HONEY;
-import static cofh.core.util.references.CoreReferences.FLUID_XP;
+import static cofh.lib.util.constants.Constants.BOTTLE_VOLUME;
+import static cofh.lib.util.constants.NBTTags.TAG_POTION;
+import static cofh.lib.util.references.CoreReferences.FLUID_HONEY;
+import static cofh.lib.util.references.CoreReferences.FLUID_XP;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 

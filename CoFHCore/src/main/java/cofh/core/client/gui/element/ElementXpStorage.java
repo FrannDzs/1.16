@@ -1,10 +1,10 @@
 package cofh.core.client.gui.element;
 
-import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
-import cofh.core.xp.XpStorage;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.xp.XpStorage;
 
-import static cofh.core.util.constants.Constants.FALSE;
+import static cofh.lib.util.constants.Constants.FALSE;
 
 public class ElementXpStorage extends ElementResourceStorage {
 

@@ -1,7 +1,7 @@
 package cofh.core.client.renderer.model;
 
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 
 public class ModelUtils {
 

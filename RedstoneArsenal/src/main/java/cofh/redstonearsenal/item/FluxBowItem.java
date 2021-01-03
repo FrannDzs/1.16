@@ -1,6 +1,6 @@
 package cofh.redstonearsenal.item;
 
-import cofh.core.capability.templates.ArcheryBowItemWrapper;
+import cofh.lib.capability.templates.ArcheryBowItemWrapper;
 import cofh.core.item.BowItemCoFH;
 import cofh.core.util.Utils;
 import net.minecraft.enchantment.EnchantmentHelper;

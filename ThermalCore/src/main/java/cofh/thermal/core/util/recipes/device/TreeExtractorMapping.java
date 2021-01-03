@@ -1,6 +1,6 @@
 package cofh.thermal.core.util.recipes.device;
 
-import cofh.core.util.recipes.SerializableRecipe;
+import cofh.lib.util.recipes.SerializableRecipe;
 import cofh.thermal.core.init.TCoreRecipeTypes;
 import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipeSerializer;

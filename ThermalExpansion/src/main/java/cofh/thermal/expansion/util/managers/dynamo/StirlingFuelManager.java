@@ -1,6 +1,6 @@
 package cofh.thermal.expansion.util.managers.dynamo;
 
-import cofh.core.inventory.FalseIInventory;
+import cofh.lib.inventory.FalseIInventory;
 import cofh.thermal.core.util.managers.SingleItemFuelManager;
 import cofh.thermal.core.util.recipes.ThermalFuel;
 import cofh.thermal.core.util.recipes.internal.IDynamoFuel;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
-import static cofh.core.util.constants.Constants.RF_PER_FURNACE_UNIT;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.RF_PER_FURNACE_UNIT;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 

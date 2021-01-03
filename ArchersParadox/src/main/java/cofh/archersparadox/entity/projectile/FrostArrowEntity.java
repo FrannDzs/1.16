@@ -1,7 +1,7 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
@@ -25,8 +25,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import static cofh.archersparadox.init.APReferences.FROST_ARROW_ENTITY;
 import static cofh.archersparadox.init.APReferences.FROST_ARROW_ITEM;
-import static cofh.core.util.constants.NBTTags.TAG_ARROW_DATA;
-import static cofh.core.util.references.CoreReferences.CHILLED;
+import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
+import static cofh.lib.util.references.CoreReferences.CHILLED;
 
 public class FrostArrowEntity extends AbstractArrowEntity {
 

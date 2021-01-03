@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.EnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
+import cofh.lib.enchantment.EnchantmentCoFH;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class LeechEnchantment extends EnchantmentCoFH {

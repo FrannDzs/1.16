@@ -1,10 +1,10 @@
 package cofh.thermal.expansion.util.managers.machine;
 
-import cofh.core.fluid.IFluidStackAccess;
-import cofh.core.inventory.FalseIInventory;
-import cofh.core.inventory.IItemStackAccess;
-import cofh.core.util.ComparableItemStack;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.IFluidStackAccess;
+import cofh.lib.inventory.FalseIInventory;
+import cofh.lib.inventory.IItemStackAccess;
+import cofh.lib.util.ComparableItemStack;
 import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.util.IThermalInventory;
 import cofh.thermal.core.util.managers.AbstractManager;
@@ -31,8 +31,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.references.CoreReferences.FLUID_POTION;
+import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.references.CoreReferences.FLUID_POTION;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;

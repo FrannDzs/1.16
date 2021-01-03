@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.NBTTags.*;
+import static cofh.lib.util.constants.NBTTags.*;
 
 public class ThermalAugmentRules {
 

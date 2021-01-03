@@ -1,9 +1,10 @@
 package cofh.core.potion;
 
+import cofh.lib.potion.EffectCoFH;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.EffectType;
 
-import static cofh.core.util.constants.Constants.UUID_EFFECT_CHILLED_MOVEMENT_SPEED;
+import static cofh.lib.util.constants.Constants.UUID_EFFECT_CHILLED_MOVEMENT_SPEED;
 
 public class ChilledEffect extends EffectCoFH {
 

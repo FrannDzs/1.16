@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.DamageEnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
+import cofh.lib.enchantment.DamageEnchantmentCoFH;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -11,7 +11,7 @@ import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
 
-import static cofh.core.util.references.CoreReferences.ENDERFERENCE;
+import static cofh.lib.util.references.CoreReferences.ENDERFERENCE;
 
 public class DamageEnderEnchantment extends DamageEnchantmentCoFH {
 

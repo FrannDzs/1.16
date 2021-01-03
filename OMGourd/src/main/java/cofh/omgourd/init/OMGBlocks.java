@@ -2,7 +2,7 @@ package cofh.omgourd.init;
 
 import cofh.core.block.CarvedPumpkinBlockCoFH;
 import cofh.core.item.BlockItemCoFH;
-import cofh.core.util.helpers.BlockHelper;
+import cofh.lib.util.helpers.BlockHelper;
 import cofh.omgourd.OMGourd;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

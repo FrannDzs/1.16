@@ -1,6 +1,6 @@
 package cofh.thermal.expansion.util.managers.machine;
 
-import cofh.core.inventory.FalseIInventory;
+import cofh.lib.inventory.FalseIInventory;
 import cofh.thermal.core.util.IMachineInventory;
 import cofh.thermal.core.util.managers.SingleItemRecipeManager;
 import cofh.thermal.core.util.recipes.ThermalCatalyst;
@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 
 public class InsolatorRecipeManager extends SingleItemRecipeManager.Catalyzed {
 

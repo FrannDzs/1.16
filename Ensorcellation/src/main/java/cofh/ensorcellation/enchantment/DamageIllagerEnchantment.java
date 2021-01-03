@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.DamageEnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
+import cofh.lib.enchantment.DamageEnchantmentCoFH;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.AbstractRaiderEntity;
 import net.minecraft.inventory.EquipmentSlotType;

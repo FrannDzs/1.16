@@ -17,8 +17,8 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
-import static cofh.core.util.helpers.StringHelper.DF0;
-import static cofh.core.util.helpers.StringHelper.localize;
+import static cofh.lib.util.helpers.StringHelper.DF0;
+import static cofh.lib.util.helpers.StringHelper.localize;
 import static java.util.Collections.singletonList;
 
 public abstract class ThermalCatalystCategory<T extends ThermalCatalyst> implements IRecipeCategory<T> {

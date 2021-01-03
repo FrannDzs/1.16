@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.ThermalCore.ITEMS;
 import static cofh.thermal.expansion.init.TExpRecipeTypes.*;
 import static cofh.thermal.expansion.init.TExpReferences.*;

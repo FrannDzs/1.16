@@ -1,9 +1,9 @@
 package cofh.thermal.core.client.renderer.model;
 
-import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.client.renderer.model.ModelUtils.FluidCacheWrapper;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.renderer.model.RetexturedBakedQuad;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -63,7 +63,7 @@ public class UnderlayBakedModel extends BakedModelWrapper<IBakedModel> implement
                     cachedFluidQuads = new BakedQuad[6];
                 }
                 if (cachedFluidQuads[sideIndex] == null) {
-                    cachedFluidQuads[sideIndex] = new BakedQuadRetextured(RenderHelper.mulColor(baseQuad, RenderHelper.getFluidColor(fluid)), RenderHelper.getFluidTexture(fluid));
+                    cachedFluidQuads[sideIndex] = new RetexturedBakedQuad(RenderHelper.mulColor(baseQuad, RenderHelper.getFluidColor(fluid)), RenderHelper.getFluidTexture(fluid));
                     FLUID_QUAD_CACHE.put(wrapper, cachedFluidQuads);
                 }
                 quads.offerFirst(cachedFluidQuads[sideIndex]);
@@ -75,7 +75,7 @@ public class UnderlayBakedModel extends BakedModelWrapper<IBakedModel> implement
                 cachedUnderlayQuads = new BakedQuad[6];
             }
             if (cachedUnderlayQuads[sideIndex] == null) {
-                cachedUnderlayQuads[sideIndex] = new BakedQuadRetextured(baseQuad, RenderHelper.getTexture(loc));
+                cachedUnderlayQuads[sideIndex] = new RetexturedBakedQuad(baseQuad, RenderHelper.getTexture(loc));
                 UNDERLAY_QUAD_CACHE.put(state, cachedUnderlayQuads);
             }
             quads.offerFirst(cachedUnderlayQuads[sideIndex]);

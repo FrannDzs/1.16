@@ -1,9 +1,9 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.energy.EmptyEnergyHandler;
-import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
-import cofh.core.util.helpers.BlockHelper;
+import cofh.lib.energy.EmptyEnergyHandler;
+import cofh.lib.energy.EnergyStorageAdjustable;
+import cofh.lib.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.tileentity.CellTileBase;
 import net.minecraft.entity.player.PlayerEntity;

@@ -19,7 +19,7 @@ import net.minecraftforge.common.PlantType;
 
 import java.util.Random;
 
-import static cofh.core.util.constants.Constants.CHARGED;
+import static cofh.lib.util.constants.Constants.CHARGED;
 import static net.minecraftforge.common.PlantType.*;
 
 public class SoilBlock extends Block {

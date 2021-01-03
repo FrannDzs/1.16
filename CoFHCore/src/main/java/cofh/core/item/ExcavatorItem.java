@@ -1,6 +1,6 @@
 package cofh.core.item;
 
-import cofh.core.capability.templates.AreaEffectMiningItemWrapper;
+import cofh.lib.capability.templates.AreaEffectMiningItemWrapper;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
@@ -9,7 +9,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.constants.ToolTypes.EXCAVATOR;
+import static cofh.lib.util.constants.ToolTypes.EXCAVATOR;
 
 public class ExcavatorItem extends ShovelItem {
 

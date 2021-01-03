@@ -3,8 +3,8 @@ package cofh.thermal.cultivation.init;
 import net.minecraft.item.Food;
 import net.minecraft.potion.EffectInstance;
 
-import static cofh.core.util.references.CoreReferences.CLARITY;
-import static cofh.core.util.references.CoreReferences.PANACEA;
+import static cofh.lib.util.references.CoreReferences.CLARITY;
+import static cofh.lib.util.references.CoreReferences.PANACEA;
 import static net.minecraft.potion.Effects.FIRE_RESISTANCE;
 import static net.minecraft.potion.Effects.SPEED;
 

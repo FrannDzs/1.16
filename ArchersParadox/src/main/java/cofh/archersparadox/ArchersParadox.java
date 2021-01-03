@@ -5,7 +5,7 @@ import cofh.archersparadox.init.APConfig;
 import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
-import cofh.core.registries.DeferredRegisterCoFH;
+import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -27,7 +27,7 @@ import static cofh.archersparadox.init.APIDs.ID_BLAZE_ARROW;
 import static cofh.archersparadox.init.APReferences.*;
 import static cofh.core.init.CoreFlags.FLAG_ECTOPLASM;
 import static cofh.core.init.CoreFlags.setFlag;
-import static cofh.core.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
 
 @Mod(ID_ARCHERS_PARADOX)
 public class ArchersParadox {

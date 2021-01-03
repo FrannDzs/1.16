@@ -1,8 +1,9 @@
 package cofh.core.util;
 
 import cofh.core.event.CoreClientSetupEvents;
-import cofh.core.util.helpers.SoundHelper;
-import cofh.core.util.helpers.StringHelper;
+import cofh.lib.util.IProxyItemPropertyGetter;
+import cofh.lib.util.helpers.SoundHelper;
+import cofh.lib.util.helpers.StringHelper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;

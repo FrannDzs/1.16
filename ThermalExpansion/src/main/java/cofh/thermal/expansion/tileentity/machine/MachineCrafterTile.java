@@ -1,10 +1,10 @@
 package cofh.thermal.expansion.tileentity.machine;
 
-import cofh.core.fluid.FluidStorageCoFH;
-import cofh.core.inventory.FalseCraftingInventory;
-import cofh.core.inventory.ItemStorageCoFH;
-import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.inventory.FalseCraftingInventory;
+import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.Utils;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.tileentity.MachineTileProcess;
 import cofh.thermal.expansion.inventory.container.machine.MachineCrafterContainer;
@@ -29,9 +29,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import static cofh.core.util.StorageGroup.*;
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.TANK_MEDIUM;
+import static cofh.lib.util.StorageGroup.*;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.TANK_MEDIUM;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_CRAFTER_TILE;
 

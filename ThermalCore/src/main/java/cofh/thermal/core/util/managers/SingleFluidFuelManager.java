@@ -1,9 +1,9 @@
 package cofh.thermal.core.util.managers;
 
-import cofh.core.fluid.FluidStackHolder;
-import cofh.core.fluid.IFluidStackAccess;
-import cofh.core.inventory.IItemStackAccess;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStackHolder;
+import cofh.lib.fluid.IFluidStackAccess;
+import cofh.lib.inventory.IItemStackAccess;
 import cofh.thermal.core.util.IThermalInventory;
 import cofh.thermal.core.util.recipes.ThermalFuel;
 import cofh.thermal.core.util.recipes.internal.BaseDynamoFuel;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 
 public abstract class SingleFluidFuelManager extends AbstractManager implements IFuelManager {
 

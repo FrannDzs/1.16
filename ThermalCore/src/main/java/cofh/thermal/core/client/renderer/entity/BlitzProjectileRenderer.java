@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 
 public class BlitzProjectileRenderer extends EntityRenderer<BlitzProjectileEntity> {
 

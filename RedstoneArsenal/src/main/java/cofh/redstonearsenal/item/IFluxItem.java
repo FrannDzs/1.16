@@ -1,6 +1,6 @@
 package cofh.redstonearsenal.item;
 
-import cofh.core.energy.IEnergyContainerItem;
+import cofh.lib.energy.IEnergyContainerItem;
 import cofh.core.item.ICoFHItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.helpers.MathHelper;
@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 
-import static cofh.core.util.constants.Constants.RGB_DURABILITY_FLUX;
-import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
+import static cofh.lib.util.constants.Constants.RGB_DURABILITY_FLUX;
+import static cofh.lib.util.constants.NBTTags.TAG_ENERGY;
 
 public interface IFluxItem extends ICoFHItem, IEnergyContainerItem, IMultiModeItem {
 

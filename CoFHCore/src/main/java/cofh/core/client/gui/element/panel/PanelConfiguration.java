@@ -1,12 +1,12 @@
 package cofh.core.client.gui.element.panel;
 
 import cofh.core.client.gui.CoreTextures;
-import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.ElementConditionalLayered;
-import cofh.core.util.control.IReconfigurable;
-import cofh.core.util.control.ITransferControllable;
-import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.util.control.IReconfigurable;
+import cofh.lib.util.control.ITransferControllable;
+import cofh.lib.util.helpers.BlockHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.Screen;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static cofh.core.client.gui.CoreTextures.*;
-import static cofh.core.util.helpers.SoundHelper.playClickSound;
-import static cofh.core.util.helpers.StringHelper.localize;
+import static cofh.lib.util.helpers.SoundHelper.playClickSound;
+import static cofh.lib.util.helpers.StringHelper.localize;
 
 public class PanelConfiguration extends PanelBase {
 

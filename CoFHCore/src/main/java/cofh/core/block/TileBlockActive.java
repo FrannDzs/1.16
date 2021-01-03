@@ -7,7 +7,7 @@ import net.minecraft.state.StateContainer;
 
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.ACTIVE;
+import static cofh.lib.util.constants.Constants.ACTIVE;
 
 public class TileBlockActive extends TileBlockCoFH {
 

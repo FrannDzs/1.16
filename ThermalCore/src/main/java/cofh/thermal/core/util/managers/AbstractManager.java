@@ -1,7 +1,7 @@
 package cofh.thermal.core.util.managers;
 
-import cofh.core.util.ComparableItemStack;
-import cofh.core.util.ComparableItemStackNBT;
+import cofh.lib.util.ComparableItemStack;
+import cofh.lib.util.ComparableItemStackNBT;
 import net.minecraft.item.ItemStack;
 
 public abstract class AbstractManager implements IManager {

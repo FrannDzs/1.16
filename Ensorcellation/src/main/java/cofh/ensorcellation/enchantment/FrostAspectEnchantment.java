@@ -1,8 +1,8 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.EnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
-import cofh.core.util.Utils;
+import cofh.lib.enchantment.EnchantmentCoFH;
+import cofh.lib.util.Utils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -14,7 +14,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.server.ServerWorld;
 
-import static cofh.core.util.references.CoreReferences.CHILLED;
+import static cofh.lib.util.references.CoreReferences.CHILLED;
 
 public class FrostAspectEnchantment extends EnchantmentCoFH {
 

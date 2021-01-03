@@ -1,9 +1,9 @@
 package cofh.core.compat.quark;
 
-import cofh.core.util.FlagManager;
+import cofh.lib.util.flags.FlagManager;
 
-import static cofh.core.util.Utils.isModLoaded;
-import static cofh.core.util.constants.Constants.ID_QUARK;
+import static cofh.lib.util.Utils.isModLoaded;
+import static cofh.lib.util.constants.Constants.ID_QUARK;
 
 public class QuarkFlags {
 

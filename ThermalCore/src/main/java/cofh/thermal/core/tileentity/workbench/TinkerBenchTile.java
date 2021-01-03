@@ -1,12 +1,12 @@
 package cofh.thermal.core.tileentity.workbench;
 
-import cofh.core.energy.EnergyStorageCoFH;
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.PotionFluid;
-import cofh.core.inventory.ItemStorageCoFH;
-import cofh.core.util.helpers.AugmentableHelper;
 import cofh.core.util.helpers.EnergyHelper;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.energy.EnergyStorageCoFH;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.helpers.AugmentableHelper;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.BlockState;
@@ -24,10 +24,10 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.StorageGroup.INPUT;
-import static cofh.core.util.StorageGroup.INTERNAL;
-import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.constants.NBTTags.TAG_MODE;
+import static cofh.lib.util.StorageGroup.INPUT;
+import static cofh.lib.util.StorageGroup.INTERNAL;
+import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.constants.NBTTags.TAG_MODE;
 import static cofh.thermal.core.common.ThermalConfig.storageAugments;
 import static cofh.thermal.core.init.TCoreReferences.TINKER_BENCH_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;

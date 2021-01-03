@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.core.util.Utils;
+import cofh.lib.util.Utils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import static cofh.archersparadox.init.APReferences.SLIME_ARROW_ENTITY;
 import static cofh.archersparadox.init.APReferences.SLIME_ARROW_ITEM;
-import static cofh.core.util.constants.NBTTags.TAG_ARROW_DATA;
+import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class SlimeArrowEntity extends AbstractArrowEntity {
 

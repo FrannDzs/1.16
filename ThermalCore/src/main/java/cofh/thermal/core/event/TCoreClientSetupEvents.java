@@ -1,8 +1,8 @@
 package cofh.thermal.core.event;
 
-import cofh.core.client.renderer.model.SimpleModelLoader;
-import cofh.core.client.renderer.model.entity.ArmorModelFullSuit;
 import cofh.core.util.ProxyUtils;
+import cofh.lib.client.model.SimpleModelLoader;
+import cofh.lib.client.renderer.entity.model.ArmorModelFullSuit;
 import cofh.thermal.core.client.renderer.model.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -11,7 +11,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.ThermalCore.ITEMS;
 import static cofh.thermal.core.init.TCoreIDs.*;
 

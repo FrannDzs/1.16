@@ -18,9 +18,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.Set;
 
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.constants.NBTTags.TAG_STORED_ENCHANTMENTS;
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.constants.NBTTags.TAG_STORED_ENCHANTMENTS;
+import static cofh.lib.util.helpers.StringHelper.*;
 import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
 import static net.minecraft.util.text.TextFormatting.GRAY;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;

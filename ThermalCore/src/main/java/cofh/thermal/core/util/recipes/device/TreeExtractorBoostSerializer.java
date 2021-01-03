@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.RecipeJsonUtils.*;
+import static cofh.lib.util.recipes.RecipeJsonUtils.*;
 
 public class TreeExtractorBoostSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<TreeExtractorBoost> {
 

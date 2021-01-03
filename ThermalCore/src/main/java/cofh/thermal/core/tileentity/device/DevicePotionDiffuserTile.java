@@ -1,10 +1,10 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.fluid.FluidStorageCoFH;
-import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
-import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.Utils;
 import cofh.thermal.core.ThermalCore;
 import cofh.thermal.core.inventory.container.device.DevicePotionDiffuserContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
@@ -34,9 +34,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
-import static cofh.core.util.StorageGroup.INPUT;
-import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.constants.NBTTags.*;
+import static cofh.lib.util.StorageGroup.INPUT;
+import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_POTION_DIFFUSER_TILE;
 

@@ -1,6 +1,7 @@
 package cofh.core.potion;
 
-import cofh.core.util.Utils;
+import cofh.lib.potion.EffectCoFH;
+import cofh.lib.util.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;

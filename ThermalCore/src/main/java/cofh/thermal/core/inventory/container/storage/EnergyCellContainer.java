@@ -1,7 +1,7 @@
 package cofh.thermal.core.inventory.container.storage;
 
-import cofh.core.inventory.InvWrapperCoFH;
 import cofh.core.inventory.container.TileContainer;
+import cofh.lib.inventory.InvWrapperCoFH;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

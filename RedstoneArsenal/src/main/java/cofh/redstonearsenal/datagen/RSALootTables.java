@@ -1,6 +1,6 @@
 package cofh.redstonearsenal.datagen;
 
-import cofh.core.datagen.LootTableProviderCoFH;
+import cofh.core.data.LootTableProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;

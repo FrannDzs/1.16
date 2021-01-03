@@ -1,10 +1,10 @@
 package cofh.thermal.core.item;
 
-import cofh.core.item.IMultiModeItem;
 import cofh.core.item.ItemCoFH;
-import cofh.core.util.ChatHelper;
 import cofh.core.util.ProxyUtils;
-import cofh.core.util.Utils;
+import cofh.core.util.helpers.ChatHelper;
+import cofh.lib.item.IMultiModeItem;
+import cofh.lib.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -27,8 +27,8 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static cofh.core.util.constants.NBTTags.TAG_PRIMED;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.constants.NBTTags.TAG_PRIMED;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public class DetonatorItem extends ItemCoFH implements IMultiModeItem {

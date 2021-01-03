@@ -1,7 +1,7 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.ItemCoFH;
-import cofh.core.util.Utils;
+import cofh.lib.util.Utils;
 import cofh.thermal.core.entity.projectile.BlitzProjectileEntity;
 import cofh.thermal.core.init.TCoreSounds;
 import net.minecraft.block.DispenserBlock;

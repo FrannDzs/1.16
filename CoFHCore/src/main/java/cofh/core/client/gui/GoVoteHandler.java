@@ -36,7 +36,7 @@
 //import java.time.Month;
 //import java.util.*;
 //
-//import static cofh.core.util.constants.Constants.ID_COFH_CORE;
+//import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
 //
 ///**
 // * This class is derived from Botania and released for public use via the Waive Clause of the Botania License.<br />

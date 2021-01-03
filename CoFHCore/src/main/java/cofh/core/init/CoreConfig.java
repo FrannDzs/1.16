@@ -1,7 +1,7 @@
 package cofh.core.init;
 
 import cofh.core.command.*;
-import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.lib.enchantment.EnchantmentCoFH;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
@@ -11,8 +11,8 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import static cofh.core.util.constants.Constants.MAX_ENCHANT_LEVEL;
-import static cofh.core.util.references.CoreReferences.HOLDING;
+import static cofh.lib.util.constants.Constants.MAX_ENCHANT_LEVEL;
+import static cofh.lib.util.references.CoreReferences.HOLDING;
 
 public class CoreConfig {
 

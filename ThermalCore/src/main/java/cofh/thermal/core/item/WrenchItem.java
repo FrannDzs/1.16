@@ -1,10 +1,10 @@
 package cofh.thermal.core.item;
 
-import cofh.core.block.IDismantleable;
-import cofh.core.block.IWrenchable;
 import cofh.core.item.ItemCoFH;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.BlockHelper;
+import cofh.lib.block.IDismantleable;
+import cofh.lib.block.IWrenchable;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.BlockHelper;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;

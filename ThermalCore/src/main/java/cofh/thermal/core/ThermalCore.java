@@ -1,9 +1,9 @@
 package cofh.thermal.core;
 
-import cofh.core.client.renderer.entity.SpriteRendererCoFH;
-import cofh.core.client.renderer.entity.TNTRendererCoFH;
 import cofh.core.init.CoreEnchantments;
-import cofh.core.registries.DeferredRegisterCoFH;
+import cofh.lib.client.renderer.entity.SpriteRendererCoFH;
+import cofh.lib.client.renderer.entity.TNTRendererCoFH;
+import cofh.lib.util.DeferredRegisterCoFH;
 import cofh.thermal.core.client.gui.device.*;
 import cofh.thermal.core.client.gui.storage.EnergyCellScreen;
 import cofh.thermal.core.client.gui.storage.FluidCellScreen;
@@ -36,7 +36,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.core.init.TCoreReferences.*;

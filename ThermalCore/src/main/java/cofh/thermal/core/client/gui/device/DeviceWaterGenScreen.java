@@ -1,15 +1,15 @@
 package cofh.thermal.core.client.gui.device;
 
-import cofh.core.util.helpers.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalScreenBase;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-import static cofh.core.util.GuiHelper.createMediumFluidStorage;
-import static cofh.core.util.GuiHelper.generatePanelInfo;
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.core.util.helpers.GuiHelper.createMediumFluidStorage;
+import static cofh.core.util.helpers.GuiHelper.generatePanelInfo;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 
 public class DeviceWaterGenScreen extends ThermalScreenBase<DeviceWaterGenContainer> {
 

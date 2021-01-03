@@ -1,6 +1,6 @@
 package cofh.redstonearsenal.item;
 
-import cofh.core.energy.EnergyContainerItemWrapper;
+import cofh.lib.energy.EnergyContainerItemWrapper;
 import cofh.core.util.Utils;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;

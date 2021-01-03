@@ -1,5 +1,6 @@
 package cofh.core.util.helpers;
 
+import cofh.lib.util.helpers.MathHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

@@ -1,12 +1,13 @@
 package cofh.core.fluid;
 
+import cofh.lib.fluid.FluidCoFH;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fluids.FluidAttributes;
 
 import static cofh.core.CoFHCore.FLUIDS;
-import static cofh.core.util.references.CoreIDs.ID_FLUID_XP;
+import static cofh.lib.util.references.CoreIDs.ID_FLUID_XP;
 
 public class XPFluid extends FluidCoFH {
 

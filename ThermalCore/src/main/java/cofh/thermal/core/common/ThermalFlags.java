@@ -1,10 +1,10 @@
 package cofh.thermal.core.common;
 
-import cofh.core.util.FlagManager;
+import cofh.lib.util.flags.FlagManager;
 
 import java.util.function.BooleanSupplier;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 
 public class ThermalFlags {
 

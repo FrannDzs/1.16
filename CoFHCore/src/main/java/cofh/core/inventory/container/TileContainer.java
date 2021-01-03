@@ -1,6 +1,7 @@
 package cofh.core.inventory.container;
 
 import cofh.core.tileentity.TileCoFH;
+import cofh.lib.inventory.container.ContainerCoFH;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;

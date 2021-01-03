@@ -1,18 +1,19 @@
 package cofh.core.util.control;
 
 import cofh.core.network.packet.server.SideConfigPacket;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.BlockHelper;
+import cofh.lib.util.Utils;
+import cofh.lib.util.control.IReconfigurable;
+import cofh.lib.util.helpers.BlockHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Direction;
 
 import java.util.function.BooleanSupplier;
 
-import static cofh.core.util.constants.Constants.TRUE;
-import static cofh.core.util.constants.NBTTags.TAG_SIDES;
-import static cofh.core.util.control.IReconfigurable.SideConfig.SIDE_ACCESSIBLE;
-import static cofh.core.util.control.IReconfigurable.SideConfig.SIDE_NONE;
+import static cofh.lib.util.constants.Constants.TRUE;
+import static cofh.lib.util.constants.NBTTags.TAG_SIDES;
+import static cofh.lib.util.control.IReconfigurable.SideConfig.SIDE_ACCESSIBLE;
+import static cofh.lib.util.control.IReconfigurable.SideConfig.SIDE_NONE;
 
 public class ReconfigControlModule implements IReconfigurable {
 

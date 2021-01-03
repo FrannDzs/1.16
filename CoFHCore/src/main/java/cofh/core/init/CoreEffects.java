@@ -1,13 +1,17 @@
 package cofh.core.init;
 
-import cofh.core.potion.*;
+import cofh.core.potion.ChilledEffect;
+import cofh.core.potion.LoveEffect;
+import cofh.core.potion.PanaceaEffect;
+import cofh.core.potion.WrenchedEffect;
+import cofh.lib.potion.EffectCoFH;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.EffectType;
 
 import static cofh.core.CoFHCore.EFFECTS;
-import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.references.CoreIDs.*;
+import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.references.CoreIDs.*;
 
 public class CoreEffects {
 

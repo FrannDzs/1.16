@@ -1,6 +1,6 @@
 package cofh.thermal.core.compat.jei;
 
-import cofh.core.util.helpers.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.util.recipes.ThermalRecipe;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,8 +16,8 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cofh.core.util.constants.Constants.BASE_CHANCE;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.constants.Constants.BASE_CHANCE;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 
 public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements IRecipeCategory<T> {
 

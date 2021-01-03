@@ -2,12 +2,12 @@ package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.element.ElementXpStorage;
 import cofh.core.client.gui.element.panel.PanelConfiguration;
-import cofh.core.inventory.container.ContainerCoFH;
+import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
-import static cofh.core.util.GuiHelper.*;
+import static cofh.core.util.helpers.GuiHelper.*;
 
 public class MachineScreenReconfigurable<T extends ContainerCoFH> extends ThermalScreenBase<T> {
 

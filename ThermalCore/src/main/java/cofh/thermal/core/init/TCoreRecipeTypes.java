@@ -1,13 +1,13 @@
 package cofh.thermal.core.init;
 
-import cofh.core.util.recipes.SerializableRecipeType;
+import cofh.lib.util.recipes.SerializableRecipeType;
 import cofh.thermal.core.util.recipes.device.PotionDiffuserBoost;
 import cofh.thermal.core.util.recipes.device.RockGenMapping;
 import cofh.thermal.core.util.recipes.device.TreeExtractorBoost;
 import cofh.thermal.core.util.recipes.device.TreeExtractorMapping;
 import net.minecraft.util.ResourceLocation;
 
-import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
 
 public class TCoreRecipeTypes {
 

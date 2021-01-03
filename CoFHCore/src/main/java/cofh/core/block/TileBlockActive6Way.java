@@ -1,6 +1,7 @@
 package cofh.core.block;
 
 import cofh.core.tileentity.TileCoFH;
+import cofh.lib.block.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.FACING_ALL;
+import static cofh.lib.util.constants.Constants.FACING_ALL;
 
 public class TileBlockActive6Way extends TileBlockActive implements IWrenchable {
 

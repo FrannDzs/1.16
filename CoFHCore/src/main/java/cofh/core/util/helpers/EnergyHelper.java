@@ -1,12 +1,13 @@
 package cofh.core.util.helpers;
 
+import cofh.lib.util.helpers.BlockHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.energy.CapabilityEnergy;
 
-import static cofh.core.util.constants.Constants.RF_PER_FURNACE_UNIT;
+import static cofh.lib.util.constants.Constants.RF_PER_FURNACE_UNIT;
 
 /**
  * This class contains helper functions related to Redstone Flux, aka the Forge Energy system.

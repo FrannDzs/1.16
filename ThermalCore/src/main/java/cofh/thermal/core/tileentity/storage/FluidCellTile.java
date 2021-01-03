@@ -1,11 +1,11 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.fluid.FluidStorageAdjustable;
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
-import cofh.core.util.StorageGroup;
-import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStorageAdjustable;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.util.StorageGroup;
+import cofh.lib.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
 import cofh.thermal.core.tileentity.CellTileBase;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static cofh.core.client.renderer.model.ModelUtils.*;
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.TANK_MEDIUM;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.TANK_MEDIUM;
 import static cofh.thermal.core.common.ThermalConfig.storageAugments;
 import static cofh.thermal.core.init.TCoreReferences.FLUID_CELL_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;

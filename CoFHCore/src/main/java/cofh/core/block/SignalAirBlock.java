@@ -1,7 +1,7 @@
 package cofh.core.block;
 
 import cofh.core.tileentity.SignalAirTile;
-import cofh.core.util.Utils;
+import cofh.lib.util.Utils;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

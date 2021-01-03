@@ -1,8 +1,8 @@
 package cofh.thermal.core.entity.projectile;
 
-import cofh.core.entity.AbstractGrenadeEntity;
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
+import cofh.lib.entity.AbstractGrenadeEntity;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

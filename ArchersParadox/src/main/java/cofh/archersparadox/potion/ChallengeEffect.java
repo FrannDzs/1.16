@@ -1,7 +1,7 @@
 package cofh.archersparadox.potion;
 
-import cofh.core.potion.EffectCoFH;
-import cofh.core.util.Utils;
+import cofh.lib.potion.EffectCoFH;
+import cofh.lib.util.Utils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;

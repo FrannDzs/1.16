@@ -1,11 +1,12 @@
 package cofh.core.block;
 
-import cofh.core.item.IPlacementItem;
 import cofh.core.tileentity.TileCoFH;
-import cofh.core.util.ChatHelper;
-import cofh.core.util.RayTracer;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.SecurityHelper;
+import cofh.core.util.helpers.ChatHelper;
+import cofh.lib.block.IDismantleable;
+import cofh.lib.item.IPlacementItem;
+import cofh.lib.util.RayTracer;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.SecurityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;

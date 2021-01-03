@@ -1,6 +1,6 @@
 package cofh.core.command;
 
-import cofh.core.util.SocialUtils;
+import cofh.lib.util.SocialUtils;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.command.CommandSource;
@@ -10,7 +10,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 
 import java.util.Collection;
 
-import static cofh.core.util.constants.Constants.CMD_PLAYERS;
+import static cofh.lib.util.constants.Constants.CMD_PLAYERS;
 
 public class SubCommandFriend {
 

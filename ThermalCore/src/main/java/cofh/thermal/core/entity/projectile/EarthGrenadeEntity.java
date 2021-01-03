@@ -1,8 +1,8 @@
 package cofh.thermal.core.entity.projectile;
 
-import cofh.core.entity.AbstractGrenadeEntity;
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
+import cofh.lib.entity.AbstractGrenadeEntity;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowyDirtBlock;
 import net.minecraft.block.material.Material;
@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.Utils.destroyBlock;
-import static cofh.core.util.references.CoreReferences.SUNDERED;
+import static cofh.lib.util.Utils.destroyBlock;
+import static cofh.lib.util.references.CoreReferences.SUNDERED;
 import static cofh.thermal.core.init.TCoreReferences.EARTH_GRENADE_ENTITY;
 import static cofh.thermal.core.init.TCoreReferences.EARTH_GRENADE_ITEM;
 

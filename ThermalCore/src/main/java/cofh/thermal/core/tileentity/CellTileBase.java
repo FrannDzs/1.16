@@ -3,7 +3,7 @@ package cofh.thermal.core.tileentity;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.IReconfigurableTile;
 import cofh.core.util.control.ReconfigControlModule;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.core.util.control.CellReconfigControlModule;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -20,9 +20,9 @@ import net.minecraftforge.client.model.ModelDataManager;
 
 import java.util.Map;
 
-import static cofh.core.util.constants.Constants.FACING_HORIZONTAL;
-import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.BlockHelper.*;
+import static cofh.lib.util.constants.Constants.FACING_HORIZONTAL;
+import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.BlockHelper.*;
 
 public abstract class CellTileBase extends ThermalTileBase implements IReconfigurableTile {
 

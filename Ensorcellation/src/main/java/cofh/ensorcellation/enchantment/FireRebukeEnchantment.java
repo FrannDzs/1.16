@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.EnchantmentCoFH;
-import cofh.core.util.Utils;
+import cofh.lib.enchantment.EnchantmentCoFH;
+import cofh.lib.util.Utils;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import static cofh.core.util.constants.Constants.ARMOR_SLOTS;
-import static cofh.core.util.references.EnsorcReferences.*;
+import static cofh.lib.util.constants.Constants.ARMOR_SLOTS;
+import static cofh.lib.util.references.EnsorcReferences.*;
 import static net.minecraft.enchantment.Enchantments.THORNS;
 
 public class FireRebukeEnchantment extends EnchantmentCoFH {

@@ -1,6 +1,6 @@
 package cofh.thermal.core.util.managers.device;
 
-import cofh.core.inventory.FalseIInventory;
+import cofh.lib.inventory.FalseIInventory;
 import cofh.thermal.core.init.TCoreRecipeTypes;
 import cofh.thermal.core.util.managers.AbstractManager;
 import cofh.thermal.core.util.recipes.device.RockGenMapping;

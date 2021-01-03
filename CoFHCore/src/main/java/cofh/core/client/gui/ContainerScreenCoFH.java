@@ -3,8 +3,9 @@ package cofh.core.client.gui;
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.panel.PanelBase;
 import cofh.core.client.gui.element.panel.PanelTracker;
-import cofh.core.inventory.container.slot.SlotFalseCopy;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.inventory.container.slot.SlotFalseCopy;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -31,7 +32,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static cofh.core.util.helpers.StringHelper.localize;
+import static cofh.lib.util.helpers.StringHelper.localize;
 
 public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T> implements IGuiAccess {
 

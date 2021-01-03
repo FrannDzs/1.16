@@ -1,5 +1,6 @@
 package cofh.core.item;
 
+import cofh.lib.item.ICoFHItem;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.ProjectileDispenseBehavior;
@@ -22,7 +23,7 @@ import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.lib.util.constants.Constants.TRUE;
 
 public class ArrowItemCoFH extends ArrowItem implements ICoFHItem {
 

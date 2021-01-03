@@ -1,9 +1,9 @@
 package cofh.core.client.gui.element;
 
-import cofh.core.client.gui.IGuiAccess;
-import cofh.core.util.IResourceStorage;
-import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.util.IResourceStorage;
+import cofh.lib.util.helpers.MathHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 import static cofh.core.CoFHCore.LOG;
-import static cofh.core.util.constants.Constants.FALSE;
-import static cofh.core.util.constants.Constants.TRUE;
-import static cofh.core.util.helpers.StringHelper.format;
+import static cofh.lib.util.constants.Constants.FALSE;
+import static cofh.lib.util.constants.Constants.TRUE;
+import static cofh.lib.util.helpers.StringHelper.format;
 import static net.minecraft.client.gui.screen.Screen.hasAltDown;
 import static net.minecraft.client.gui.screen.Screen.hasShiftDown;
 

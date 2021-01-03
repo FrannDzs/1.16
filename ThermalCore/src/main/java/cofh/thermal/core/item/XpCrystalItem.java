@@ -1,10 +1,10 @@
 package cofh.thermal.core.item;
 
-import cofh.core.item.IMultiModeItem;
 import cofh.core.item.XpContainerItem;
-import cofh.core.util.ChatHelper;
 import cofh.core.util.ProxyUtils;
-import cofh.core.util.Utils;
+import cofh.core.util.helpers.ChatHelper;
+import cofh.lib.item.IMultiModeItem;
+import cofh.lib.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,8 +20,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.constants.NBTTags.TAG_XP_TIMER;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 
 public class XpCrystalItem extends XpContainerItem implements IMultiModeItem {
 

@@ -1,11 +1,11 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.lib.enchantment.EnchantmentCoFH;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 
-import static cofh.core.util.helpers.ArcheryHelper.validBow;
+import static cofh.lib.util.helpers.ArcheryHelper.validBow;
 
 public class QuickdrawEnchantment extends EnchantmentCoFH {
 

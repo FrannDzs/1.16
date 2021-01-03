@@ -1,6 +1,6 @@
 package cofh.core.item;
 
-import cofh.core.capability.templates.AreaEffectMiningItemWrapper;
+import cofh.lib.capability.templates.AreaEffectMiningItemWrapper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
@@ -10,7 +10,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.constants.ToolTypes.HAMMER;
+import static cofh.lib.util.constants.ToolTypes.HAMMER;
 
 public class HammerItem extends PickaxeItem {
 

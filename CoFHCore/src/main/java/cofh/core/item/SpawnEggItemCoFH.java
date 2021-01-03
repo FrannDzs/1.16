@@ -1,6 +1,7 @@
 package cofh.core.item;
 
 import cofh.core.util.ProxyUtils;
+import cofh.lib.item.IColorableItem;
 import net.minecraft.block.*;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
@@ -31,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.NBTTags.TAG_ENTITY;
+import static cofh.lib.util.constants.NBTTags.TAG_ENTITY;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public class SpawnEggItemCoFH extends ItemCoFH implements IColorableItem {

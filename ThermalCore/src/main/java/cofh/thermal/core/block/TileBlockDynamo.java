@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockReader;
 
 import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.FACING_ALL;
+import static cofh.lib.util.constants.Constants.FACING_ALL;
 
 public class TileBlockDynamo extends TileBlockActive6Way {
 

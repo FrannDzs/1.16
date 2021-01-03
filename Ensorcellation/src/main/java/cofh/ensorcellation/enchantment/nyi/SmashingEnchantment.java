@@ -1,6 +1,6 @@
 package cofh.ensorcellation.enchantment.nyi;
 
-import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.lib.enchantment.EnchantmentCoFH;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;

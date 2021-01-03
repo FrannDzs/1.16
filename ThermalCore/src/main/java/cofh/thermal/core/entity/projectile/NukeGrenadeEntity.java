@@ -1,9 +1,9 @@
 package cofh.thermal.core.entity.projectile;
 
-import cofh.core.entity.AbstractGrenadeEntity;
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.entity.AbstractGrenadeEntity;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;

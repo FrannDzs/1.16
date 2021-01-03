@@ -1,7 +1,7 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.util.helpers.InventoryHelper;
-import cofh.core.xp.XpStorage;
+import cofh.lib.util.helpers.InventoryHelper;
+import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import static cofh.core.client.renderer.model.ModelUtils.UNDERLAY;
-import static cofh.core.util.StorageGroup.ACCESSIBLE;
-import static cofh.core.util.constants.NBTTags.*;
+import static cofh.lib.util.StorageGroup.ACCESSIBLE;
+import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
 

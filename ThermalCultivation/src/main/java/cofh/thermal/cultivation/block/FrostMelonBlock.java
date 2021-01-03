@@ -1,6 +1,6 @@
 package cofh.thermal.cultivation.block;
 
-import cofh.core.block.crops.AttachedStemBlockCoFH;
+import cofh.lib.block.impl.crops.AttachedStemBlockCoFH;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;

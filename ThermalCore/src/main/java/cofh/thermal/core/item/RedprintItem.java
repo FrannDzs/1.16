@@ -1,10 +1,10 @@
 package cofh.thermal.core.item;
 
-import cofh.core.item.IPlacementItem;
 import cofh.core.item.ItemCoFH;
-import cofh.core.util.IConveyableData;
-import cofh.core.util.Utils;
-import cofh.core.util.control.ISecurable;
+import cofh.lib.item.IPlacementItem;
+import cofh.lib.util.IConveyableData;
+import cofh.lib.util.Utils;
+import cofh.lib.util.control.ISecurable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.core.util.helpers.StringHelper.canLocalize;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.helpers.StringHelper.canLocalize;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
 import static net.minecraft.util.text.TextFormatting.GRAY;
 

@@ -1,6 +1,7 @@
 package cofh.core.item;
 
 import cofh.core.init.CoreConfig;
+import cofh.lib.item.ICoFHItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -18,10 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
-import static cofh.core.util.constants.Constants.TRUE;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.core.init.CoreKeys.MULTIMODE_INCREMENT;
+import static cofh.lib.util.constants.Constants.TRUE;
+import static cofh.lib.util.helpers.KeyHelper.getKeynameFromKeycode;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static net.minecraft.util.text.TextFormatting.GRAY;
 import static net.minecraft.util.text.TextFormatting.YELLOW;
 

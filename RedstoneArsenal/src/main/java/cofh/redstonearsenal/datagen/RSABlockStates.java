@@ -1,12 +1,12 @@
 package cofh.redstonearsenal.datagen;
 
-import cofh.core.datagen.BlockStateProviderCoFH;
+import cofh.core.data.BlockStateProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static cofh.core.util.constants.Constants.ID_REDSTONE_ARSENAL;
+import static cofh.lib.util.constants.Constants.ID_REDSTONE_ARSENAL;
 import static cofh.redstonearsenal.RedstoneArsenal.BLOCKS;
 
 public class RSABlockStates extends BlockStateProviderCoFH {

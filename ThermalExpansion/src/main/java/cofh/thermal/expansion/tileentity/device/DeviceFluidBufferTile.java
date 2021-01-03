@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.tileentity.device;
 
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import cofh.thermal.expansion.inventory.container.device.DeviceFluidBufferContainer;
 import net.minecraft.block.BlockState;
@@ -16,10 +16,10 @@ import net.minecraft.util.Direction;
 
 import javax.annotation.Nullable;
 
-import static cofh.core.util.StorageGroup.ACCESSIBLE;
-import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.constants.NBTTags.TAG_AMOUNT_IN;
-import static cofh.core.util.constants.NBTTags.TAG_AMOUNT_OUT;
+import static cofh.lib.util.StorageGroup.ACCESSIBLE;
+import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.constants.NBTTags.TAG_AMOUNT_IN;
+import static cofh.lib.util.constants.NBTTags.TAG_AMOUNT_OUT;
 import static cofh.thermal.expansion.init.TExpReferences.DEVICE_FLUID_BUFFER_TILE;
 
 public class DeviceFluidBufferTile extends ReconfigurableTile4Way implements ITickableTileEntity {

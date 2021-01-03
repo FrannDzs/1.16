@@ -1,7 +1,7 @@
 package cofh.core.event;
 
-import cofh.core.capability.templates.AreaEffectItemWrapper;
-import cofh.core.util.Utils;
+import cofh.lib.capability.templates.AreaEffectItemWrapper;
+import cofh.lib.util.Utils;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.BlockState;
@@ -25,10 +25,10 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 import java.util.Set;
 
-import static cofh.core.capability.CapabilityAreaEffect.AREA_EFFECT_ITEM_CAPABILITY;
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.helpers.AreaEffectHelper.validAreaEffectMiningItem;
-import static cofh.core.util.references.EnsorcReferences.WEEDING;
+import static cofh.lib.capability.CapabilityAreaEffect.AREA_EFFECT_ITEM_CAPABILITY;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.helpers.AreaEffectHelper.validAreaEffectMiningItem;
+import static cofh.lib.util.references.EnsorcReferences.WEEDING;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.item.HoeItem.HOE_LOOKUP;
 

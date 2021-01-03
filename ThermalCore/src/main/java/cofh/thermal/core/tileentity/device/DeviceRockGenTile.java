@@ -1,6 +1,6 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.inventory.ItemStorageCoFH;
+import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
 import cofh.thermal.core.util.managers.device.RockGenManager;
@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
-import static cofh.core.util.StorageGroup.OUTPUT;
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.StorageGroup.OUTPUT;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;
 

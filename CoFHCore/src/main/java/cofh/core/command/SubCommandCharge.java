@@ -11,7 +11,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 
 import java.util.Collection;
 
-import static cofh.core.util.constants.Constants.CMD_TARGETS;
+import static cofh.lib.util.constants.Constants.CMD_TARGETS;
 
 public class SubCommandCharge {
 

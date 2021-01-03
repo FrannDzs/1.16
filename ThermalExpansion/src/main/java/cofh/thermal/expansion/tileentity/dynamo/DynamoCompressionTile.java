@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.tileentity.dynamo;
 
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.thermal.core.tileentity.DynamoTileBase;
 import cofh.thermal.expansion.inventory.container.dynamo.DynamoCompressionContainer;
 import cofh.thermal.expansion.util.managers.dynamo.CompressionFuelManager;
@@ -18,9 +18,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
-import static cofh.core.util.StorageGroup.INPUT;
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.TANK_SMALL;
+import static cofh.lib.util.StorageGroup.INPUT;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.TANK_SMALL;
 import static cofh.thermal.core.common.ThermalConfig.dynamoAugments;
 import static cofh.thermal.core.util.managers.SingleFluidFuelManager.FLUID_FUEL_AMOUNT;
 import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_COMPRESSION_TILE;

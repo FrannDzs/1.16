@@ -1,12 +1,12 @@
 package cofh.thermal.expansion.inventory.container.machine;
 
-import cofh.core.inventory.InvWrapperCoFH;
 import cofh.core.inventory.container.TileContainer;
-import cofh.core.inventory.container.slot.SlotCoFH;
-import cofh.core.inventory.container.slot.SlotFalseCopy;
-import cofh.core.inventory.container.slot.SlotRemoveOnly;
 import cofh.core.network.packet.server.TileConfigPacket;
-import cofh.core.util.Utils;
+import cofh.lib.inventory.InvWrapperCoFH;
+import cofh.lib.inventory.container.slot.SlotCoFH;
+import cofh.lib.inventory.container.slot.SlotFalseCopy;
+import cofh.lib.inventory.container.slot.SlotRemoveOnly;
+import cofh.lib.util.Utils;
 import cofh.thermal.expansion.tileentity.machine.MachineCrafterTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

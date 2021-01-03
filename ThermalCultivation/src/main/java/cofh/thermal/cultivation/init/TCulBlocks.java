@@ -1,11 +1,11 @@
 package cofh.thermal.cultivation.init;
 
-import cofh.core.block.Block4Way;
-import cofh.core.block.CakeBlockCoFH;
 import cofh.core.block.TileBlockActive4Way;
-import cofh.core.block.crops.AttachedStemBlockCoFH;
-import cofh.core.block.crops.StemBlockCoFH;
 import cofh.core.util.ProxyUtils;
+import cofh.lib.block.impl.CakeBlockCoFH;
+import cofh.lib.block.impl.DirectionalBlock4Way;
+import cofh.lib.block.impl.crops.AttachedStemBlockCoFH;
+import cofh.lib.block.impl.crops.StemBlockCoFH;
 import cofh.thermal.core.block.SoilBlock;
 import cofh.thermal.core.block.TilledSoilBlock;
 import cofh.thermal.core.common.ThermalConfig;
@@ -22,9 +22,9 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
 
-import static cofh.core.util.constants.Constants.ACTIVE;
-import static cofh.core.util.constants.Constants.CHARGED;
-import static cofh.core.util.helpers.BlockHelper.lightValue;
+import static cofh.lib.util.constants.Constants.ACTIVE;
+import static cofh.lib.util.constants.Constants.CHARGED;
+import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static cofh.thermal.core.util.RegistrationHelper.*;
@@ -110,11 +110,11 @@ public class TCulBlocks {
         registerBlock(block(ID_STRAWBERRY), () -> new Block(create(Material.WOOD, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.SCAFFOLDING).harvestTool(ToolType.AXE)));
         registerBlock(block(ID_TOMATO), () -> new Block(create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(1.5F).sound(SoundType.SCAFFOLDING).harvestTool(ToolType.AXE)));
 
-        registerBlock(block(ID_RICE), () -> new Block4Way(create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
+        registerBlock(block(ID_RICE), () -> new DirectionalBlock4Way(create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
 
-        registerBlock(block(ID_COFFEE), () -> new Block4Way(create(Material.WOOL, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
-        registerBlock(block(ID_PEANUT), () -> new Block4Way(create(Material.WOOL, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
-        registerBlock(block(ID_TEA), () -> new Block4Way(create(Material.WOOL, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
+        registerBlock(block(ID_COFFEE), () -> new DirectionalBlock4Way(create(Material.WOOL, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
+        registerBlock(block(ID_PEANUT), () -> new DirectionalBlock4Way(create(Material.WOOL, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
+        registerBlock(block(ID_TEA), () -> new DirectionalBlock4Way(create(Material.WOOL, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.WART)));
     }
 
     private static void registerMisc() {

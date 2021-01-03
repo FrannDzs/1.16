@@ -5,7 +5,7 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.item.*;
 
 import static cofh.core.CoFHCore.ENCHANTMENTS;
-import static cofh.core.util.references.CoreIDs.ID_HOLDING;
+import static cofh.lib.util.references.CoreIDs.ID_HOLDING;
 
 public class CoreEnchantments {
 

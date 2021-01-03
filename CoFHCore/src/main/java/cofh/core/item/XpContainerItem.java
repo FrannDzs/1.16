@@ -1,8 +1,8 @@
 package cofh.core.item;
 
-import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.xp.IXpContainerItem;
+import cofh.lib.util.Utils;
+import cofh.lib.xp.IXpContainerItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -16,11 +16,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.core.util.constants.Constants.MB_PER_XP;
-import static cofh.core.util.constants.Constants.RGB_DURABILITY_XP;
-import static cofh.core.util.helpers.StringHelper.*;
-import static cofh.core.util.helpers.XpHelper.*;
-import static cofh.core.util.references.CoreReferences.FLUID_XP;
+import static cofh.lib.util.constants.Constants.MB_PER_XP;
+import static cofh.lib.util.constants.Constants.RGB_DURABILITY_XP;
+import static cofh.lib.util.helpers.StringHelper.*;
+import static cofh.lib.util.helpers.XpHelper.*;
+import static cofh.lib.util.references.CoreReferences.FLUID_XP;
 
 /**
  * This class does not set the XP Timer on the player entity.

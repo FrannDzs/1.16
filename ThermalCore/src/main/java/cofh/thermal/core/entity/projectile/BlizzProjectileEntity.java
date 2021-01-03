@@ -1,7 +1,7 @@
 package cofh.thermal.core.entity.projectile;
 
-import cofh.core.util.AreaUtils;
-import cofh.core.util.Utils;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.Utils;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,7 +19,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import static cofh.core.util.references.CoreReferences.CHILLED;
+import static cofh.lib.util.references.CoreReferences.CHILLED;
 import static cofh.thermal.core.init.TCoreReferences.BLIZZ_PROJECTILE_ENTITY;
 
 public class BlizzProjectileEntity extends DamagingProjectileEntity {

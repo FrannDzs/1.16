@@ -1,6 +1,6 @@
 package cofh.core.client.gui.element;
 
-import cofh.core.client.gui.IGuiAccess;
+import cofh.lib.client.gui.IGuiAccess;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
-import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.lib.util.constants.Constants.TRUE;
 
 public abstract class ElementBase {
 

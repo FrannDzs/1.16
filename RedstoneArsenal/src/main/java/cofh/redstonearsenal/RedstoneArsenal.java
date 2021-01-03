@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static cofh.core.util.constants.Constants.ID_REDSTONE_ARSENAL;
+import static cofh.lib.util.constants.Constants.ID_REDSTONE_ARSENAL;
 
 @Mod(ID_REDSTONE_ARSENAL)
 public class RedstoneArsenal {

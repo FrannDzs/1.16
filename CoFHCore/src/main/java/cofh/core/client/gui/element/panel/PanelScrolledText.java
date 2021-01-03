@@ -1,8 +1,8 @@
 package cofh.core.client.gui.element.panel;
 
-import cofh.core.client.gui.IGuiAccess;
-import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
+import cofh.lib.util.helpers.MathHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.IReorderingProcessor;

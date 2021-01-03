@@ -1,6 +1,7 @@
 package cofh.core.item;
 
-import cofh.core.capability.templates.AreaEffectMiningItemWrapper;
+import cofh.lib.capability.templates.AreaEffectMiningItemWrapper;
+import cofh.lib.item.ICoFHItem;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -15,7 +16,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-import static cofh.core.util.constants.ToolTypes.SICKLE;
+import static cofh.lib.util.constants.ToolTypes.SICKLE;
 
 public class SickleItem extends ToolItem implements ICoFHItem {
 

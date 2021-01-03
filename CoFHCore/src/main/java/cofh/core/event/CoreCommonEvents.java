@@ -1,7 +1,7 @@
 package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
-import cofh.core.xp.IXpContainerItem;
+import cofh.lib.xp.IXpContainerItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -21,8 +21,8 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.constants.NBTTags.TAG_XP_TIMER;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.FEATHER_FALLING;

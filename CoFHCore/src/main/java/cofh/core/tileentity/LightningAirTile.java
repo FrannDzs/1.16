@@ -1,13 +1,13 @@
 package cofh.core.tileentity;
 
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.server.ServerWorld;
 
-import static cofh.core.util.references.CoreReferences.LIGHTNING_AIR_TILE;
+import static cofh.lib.util.references.CoreReferences.LIGHTNING_AIR_TILE;
 
 public class LightningAirTile extends TileEntity implements ITickableTileEntity {
 

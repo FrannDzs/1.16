@@ -1,5 +1,6 @@
 package cofh.core.potion;
 
+import cofh.lib.potion.EffectCoFH;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectType;
 

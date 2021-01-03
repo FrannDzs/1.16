@@ -1,12 +1,12 @@
 package cofh.thermal.locomotion.init;
 
-import cofh.core.block.rails.*;
+import cofh.lib.block.impl.rails.*;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Rarity;
 
-import static cofh.core.util.helpers.BlockHelper.lightValue;
+import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.util.RegistrationHelper.registerBlock;
 import static cofh.thermal.locomotion.init.TLocIDs.*;
 import static net.minecraft.block.AbstractBlock.Properties.create;

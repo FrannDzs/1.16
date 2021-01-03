@@ -2,7 +2,7 @@ package cofh.thermal.expansion.client.gui.machine;
 
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.ElementButton;
-import cofh.core.util.helpers.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.MachineScreenReconfigurable;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
 import cofh.thermal.expansion.inventory.container.machine.MachineCrafterContainer;
@@ -10,10 +10,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-import static cofh.core.util.GuiHelper.*;
-import static cofh.core.util.constants.Constants.ID_COFH_CORE;
-import static cofh.core.util.constants.Constants.ID_THERMAL;
-import static cofh.core.util.helpers.SoundHelper.playClickSound;
+import static cofh.core.util.helpers.GuiHelper.*;
+import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.constants.Constants.ID_THERMAL;
+import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 
 public class MachineCrafterScreen extends MachineScreenReconfigurable<MachineCrafterContainer> {
 

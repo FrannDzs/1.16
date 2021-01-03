@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
-import cofh.core.enchantment.DamageEnchantmentCoFH;
 import cofh.core.init.CoreEnchantments;
+import cofh.lib.enchantment.DamageEnchantmentCoFH;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class InstigatingEnchantment extends DamageEnchantmentCoFH {

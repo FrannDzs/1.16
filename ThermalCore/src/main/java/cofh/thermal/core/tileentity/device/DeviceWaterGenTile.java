@@ -1,8 +1,8 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.fluid.FluidStorageCoFH;
-import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,10 +22,10 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
-import static cofh.core.util.StorageGroup.INTERNAL;
-import static cofh.core.util.StorageGroup.OUTPUT;
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.Constants.TANK_SMALL;
+import static cofh.lib.util.StorageGroup.INTERNAL;
+import static cofh.lib.util.StorageGroup.OUTPUT;
+import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.lib.util.constants.Constants.TANK_SMALL;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_WATER_GEN_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;

@@ -1,9 +1,9 @@
 package cofh.thermal.core.item;
 
-import cofh.core.energy.EnergyStorageCoFH;
-import cofh.core.energy.IEnergyContainerItem;
 import cofh.core.item.BlockItemAugmentable;
-import cofh.core.util.helpers.AugmentDataHelper;
+import cofh.lib.energy.EnergyStorageCoFH;
+import cofh.lib.energy.IEnergyContainerItem;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -14,10 +14,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
-import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
+import static cofh.lib.util.helpers.StringHelper.*;
 import static cofh.thermal.core.tileentity.storage.EnergyCellTile.*;
 
 public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergyContainerItem {

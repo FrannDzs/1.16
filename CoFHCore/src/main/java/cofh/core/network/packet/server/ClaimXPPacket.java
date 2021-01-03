@@ -1,9 +1,9 @@
 package cofh.core.network.packet.server;
 
 import cofh.core.CoFHCore;
-import cofh.core.network.packet.IPacketServer;
-import cofh.core.network.packet.PacketBase;
 import cofh.core.tileentity.TileCoFH;
+import cofh.lib.network.packet.IPacketServer;
+import cofh.lib.network.packet.PacketBase;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import static cofh.core.util.constants.Constants.PACKET_CLAIM_XP;
+import static cofh.lib.util.constants.Constants.PACKET_CLAIM_XP;
 
 public class ClaimXPPacket extends PacketBase implements IPacketServer {
 

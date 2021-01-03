@@ -1,8 +1,10 @@
 package cofh.thermal.core.init;
 
-import cofh.core.block.*;
+import cofh.core.block.TileBlockActive4Way;
+import cofh.core.block.TileBlockCoFH;
 import cofh.core.item.BlockItemCoFH;
 import cofh.core.util.ProxyUtils;
+import cofh.lib.block.impl.*;
 import cofh.thermal.core.block.TileBlockCell;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.entity.item.*;
@@ -38,7 +40,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static cofh.core.util.helpers.BlockHelper.lightValue;
+import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static cofh.thermal.core.common.ThermalFlags.*;

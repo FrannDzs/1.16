@@ -1,7 +1,7 @@
 package cofh.core.client.gui.element.panel;
 
-import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.IGuiAccess;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.text.ITextComponent;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.lib.util.helpers.StringHelper.*;
 
 public class PanelResource extends PanelBase {
 

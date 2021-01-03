@@ -5,7 +5,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
-import static cofh.core.util.constants.Constants.ID_REDSTONE_ARSENAL;
+import static cofh.lib.util.constants.Constants.ID_REDSTONE_ARSENAL;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID_REDSTONE_ARSENAL)
 public class RSADataGen {

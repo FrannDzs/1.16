@@ -1,5 +1,6 @@
 package cofh.core.item;
 
+import cofh.lib.item.IAugmentableItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

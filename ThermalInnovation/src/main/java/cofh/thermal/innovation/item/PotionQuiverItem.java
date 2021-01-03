@@ -1,17 +1,17 @@
 package cofh.thermal.innovation.item;
 
-import cofh.core.capability.CapabilityArchery;
-import cofh.core.capability.IArcheryAmmoItem;
-import cofh.core.fluid.FluidContainerItemWrapper;
-import cofh.core.fluid.IFluidContainerItem;
 import cofh.core.item.FluidContainerItem;
-import cofh.core.item.IAugmentableItem;
-import cofh.core.item.IMultiModeItem;
-import cofh.core.util.ChatHelper;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.capability.CapabilityArchery;
+import cofh.lib.capability.IArcheryAmmoItem;
+import cofh.lib.fluid.FluidContainerItemWrapper;
+import cofh.lib.fluid.IFluidContainerItem;
+import cofh.lib.item.IAugmentableItem;
+import cofh.lib.item.IMultiModeItem;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -39,13 +39,13 @@ import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.Constants.MAX_POTION_AMPLIFIER;
-import static cofh.core.util.constants.Constants.MAX_POTION_DURATION;
-import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.ArcheryHelper.findArrows;
-import static cofh.core.util.helpers.AugmentableHelper.*;
-import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.lib.util.constants.Constants.MAX_POTION_AMPLIFIER;
+import static cofh.lib.util.constants.Constants.MAX_POTION_DURATION;
+import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.ArcheryHelper.findArrows;
+import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.lib.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
+import static cofh.lib.util.helpers.StringHelper.*;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 

@@ -1,8 +1,8 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.ItemCoFH;
-import cofh.core.util.AreaUtils;
-import cofh.core.util.helpers.MathHelper;
+import cofh.lib.util.AreaUtils;
+import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.core.entity.projectile.BlizzProjectileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-import static cofh.core.util.references.CoreReferences.GLOSSED_MAGMA;
+import static cofh.lib.util.references.CoreReferences.GLOSSED_MAGMA;
 import static cofh.thermal.core.common.ThermalConfig.permanentLava;
 import static cofh.thermal.core.common.ThermalConfig.permanentWater;
 import static net.minecraft.block.Blocks.*;

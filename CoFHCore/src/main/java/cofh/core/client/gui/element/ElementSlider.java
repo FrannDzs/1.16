@@ -1,12 +1,12 @@
 package cofh.core.client.gui.element;
 
-import cofh.core.client.gui.GuiColor;
-import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import cofh.lib.client.gui.GuiColor;
+import cofh.lib.client.gui.IGuiAccess;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.util.ResourceLocation;
 
-import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
+import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
 
 public abstract class ElementSlider extends ElementBase {
 

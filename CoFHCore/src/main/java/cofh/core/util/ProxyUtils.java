@@ -1,6 +1,7 @@
 package cofh.core.util;
 
 import cofh.core.CoFHCore;
+import cofh.lib.util.IProxyItemPropertyGetter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

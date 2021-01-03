@@ -1,12 +1,12 @@
 package cofh.thermal.innovation.item;
 
 import cofh.core.item.EnergyContainerItem;
-import cofh.core.item.IAugmentableItem;
-import cofh.core.item.IMultiModeItem;
-import cofh.core.util.ChatHelper;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
-import cofh.core.util.Utils;
-import cofh.core.util.helpers.AugmentDataHelper;
+import cofh.lib.item.IAugmentableItem;
+import cofh.lib.item.IMultiModeItem;
+import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import com.google.common.collect.Iterables;
 import net.minecraft.client.util.ITooltipFlag;
@@ -28,10 +28,10 @@ import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.NBTTags.*;
-import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
-import static cofh.core.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
-import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
+import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 
 public class RFCapacitorItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 

@@ -1,5 +1,6 @@
 package cofh.core.item;
 
+import cofh.lib.item.IAugmentItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
