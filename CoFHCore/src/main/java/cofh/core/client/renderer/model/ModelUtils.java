@@ -2,8 +2,6 @@ package cofh.core.client.renderer.model;
 
 import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

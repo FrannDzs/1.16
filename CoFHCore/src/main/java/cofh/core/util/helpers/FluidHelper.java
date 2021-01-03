@@ -3,7 +3,6 @@ package cofh.core.util.helpers;
 import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.PotionFluid;
 import cofh.core.util.references.CoreReferences;
-import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

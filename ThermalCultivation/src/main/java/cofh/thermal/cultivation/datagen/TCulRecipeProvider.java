@@ -27,7 +27,8 @@ public class TCulRecipeProvider extends RecipeProviderCoFH {
     public TCulRecipeProvider(DataGenerator generatorIn) {
 
         super(generatorIn, ID_THERMAL);
-        manager = ThermalFlags.manager();}
+        manager = ThermalFlags.manager();
+    }
 
     @Override
     public String getName() {
