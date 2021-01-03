@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " i ",
-    "ici",
+    "iCi",
     " i "
   ],
   "key": {
     "i": {
       "tag": "forge:nuggets/gold"
     },
-    "c": {
-      "item": "minecraft:experience_bottle"
+    "C": {
+      "item": "thermal:xp_crystal"
     }
   },
   "result": {

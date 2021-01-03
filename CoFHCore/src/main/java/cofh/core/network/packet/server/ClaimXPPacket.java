@@ -32,7 +32,7 @@ public class ClaimXPPacket extends PacketBase implements IPacketServer {
         }
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileCoFH) {
-            ((TileCoFH) tile).claimXP(player.getPositionVec());
+            ((TileCoFH) tile).claimXP(player);
         }
         // TODO: Debug logging?
     }

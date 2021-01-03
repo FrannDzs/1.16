@@ -158,9 +158,8 @@ public class TCoreItems {
 
         registerItem("wrench", () -> new WrenchItem(new Item.Properties().maxStackSize(1).group(group).addToolType(ToolTypes.WRENCH, 1)));
         registerItem("redprint", () -> new RedprintItem(new Item.Properties().maxStackSize(1).group(group)));
-        // TODO: Bring back w/ 1.2.
-        // registerItem("xp_crystal", () -> new XPCrystalItem(new Item.Properties().maxStackSize(1).group(group), MB_PER_XP * 10000));
         registerItem("rf_potato", () -> new EnergyContainerItem(new Item.Properties().maxStackSize(1).group(group), 100000, 40));
+        registerItem("xp_crystal", () -> new XpCrystalItem(new Item.Properties().maxStackSize(1).group(group), 10000));
         registerItem("lock", () -> new LockItem(new Item.Properties().group(group)));
         registerItem("phytogro", () -> new PhytoGroItem(new Item.Properties().group(group)));
 

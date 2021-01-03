@@ -52,7 +52,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     };
 
     protected XpStorage xpStorage;
-    protected boolean pause;
 
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
@@ -110,13 +109,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         return new DeviceCollectorContainer(i, world, pos, inventory, player);
     }
 
-    @Override
-    public boolean claimXP(Vector3d pos) {
-
-        pause = true;
-        return super.claimXP(pos);
-    }
-
     // region HELPERS
     public int getRadius() {
 
@@ -132,9 +124,8 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -1, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
 
-        if (true) { // TODO: Item Config
-            collectItems(area);
-        }
+        collectItems(area);
+
         if (xpStorageFeature) {
             collectXpOrbs(area);
         }
@@ -158,10 +149,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
     protected void collectXpOrbs(AxisAlignedBB area) {
 
-        if (pause) {
-            pause = false;
-            return;
-        }
         List<ExperienceOrbEntity> orbs = world.getEntitiesWithinAABB(ExperienceOrbEntity.class, area, EntityPredicates.IS_ALIVE);
 
         for (ExperienceOrbEntity orb : orbs) {

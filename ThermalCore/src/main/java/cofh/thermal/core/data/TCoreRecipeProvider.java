@@ -670,11 +670,11 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
         result = reg.get("xp_storage_augment");
         ShapedRecipeBuilder.shapedRecipe(result)
                 .key('i', Tags.Items.NUGGETS_GOLD)
-                .key('c', Items.EXPERIENCE_BOTTLE)
+                .key('C', reg.get("xp_crystal"))
                 .patternLine(" i ")
-                .patternLine("ici")
+                .patternLine("iCi")
                 .patternLine(" i ")
-                .addCriterion("has_crystal", hasItem(Items.EXPERIENCE_BOTTLE))
+                .addCriterion("has_crystal", hasItem(reg.get("xp_crystal")))
                 .build(withConditions(consumer).flag("xp_storage_augment"), this.modid + ":" + folder + "/" + name(result));
     }
 
@@ -741,6 +741,17 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .patternLine("RPR")
                 .patternLine("DLD")
                 .addCriterion("has_potato", hasItem(Tags.Items.CROPS_POTATO))
+                .build(consumer, this.modid + ":" + folder + "/" + name(result));
+
+        result = reg.get("xp_crystal");
+        ShapedRecipeBuilder.shapedRecipe(result)
+                .key('B', Items.EXPERIENCE_BOTTLE)
+                .key('E', Tags.Items.GEMS_EMERALD)
+                .key('L', Tags.Items.GEMS_LAPIS)
+                .patternLine(" L ")
+                .patternLine("EBE")
+                .patternLine(" L ")
+                .addCriterion("has_experience_bottle", hasItem(Items.EXPERIENCE_BOTTLE))
                 .build(consumer, this.modid + ":" + folder + "/" + name(result));
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("phytogro"), 8)

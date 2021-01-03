@@ -6,6 +6,7 @@ import cofh.lib.tileentity.ITileCallback;
 import cofh.lib.util.IConveyableData;
 import cofh.lib.util.Utils;
 import cofh.lib.util.control.ISecurable;
+import cofh.lib.util.helpers.XpHelper;
 import cofh.lib.xp.XpStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -130,14 +131,16 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
         return false;
     }
 
-    public boolean claimXP(Vector3d pos) {
+    public boolean claimXP(PlayerEntity player) {
 
         if (getXpStorage() != null) {
-            spawnXpOrbs(getXpStorage().getStored(), pos);
+            int xp = getXpStorage().getStored();
+            XpHelper.addXPToPlayer(player, xp);
             getXpStorage().clear();
             return true;
         }
         return false;
+
     }
 
     public void spawnXpOrbs(int xp, Vector3d pos) {

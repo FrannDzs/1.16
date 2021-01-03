@@ -25,9 +25,9 @@ import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 
 public class XpCrystalItem extends XpContainerItem implements IMultiModeItem {
 
-    public XpCrystalItem(Properties builder, int fluidCapacity) {
+    public XpCrystalItem(Properties builder, int xpCapacity) {
 
-        super(builder, fluidCapacity);
+        super(builder, xpCapacity);
 
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("stored"), (stack, world, living) -> ((float) getStoredXp(stack)) / getCapacityXP(stack));
     }

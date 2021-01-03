@@ -1,5 +1,6 @@
 package cofh.lib.xp;
 
+import cofh.lib.item.IContainerItem;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerXpEvent;
 
 import static cofh.lib.util.constants.NBTTags.TAG_XP;
 
-public interface IXpContainerItem {
+public interface IXpContainerItem extends IContainerItem {
 
     int getCapacityXP(ItemStack stack);
 

@@ -337,7 +337,7 @@ public class FluidHelper {
 
     /**
      * Attempts to interact the item with an IFluidHandler.
-     * Interaction will always try and fill the item first, if this fails it will attempt to drain the item.
+     * Interaction will always try and drain the item first, if this fails it will attempt to fill the item.
      *
      * @param stack   The stack to interact with.
      * @param handler The Handler to fill / drain.
@@ -347,7 +347,7 @@ public class FluidHelper {
      */
     public static boolean interactWithHandler(ItemStack stack, IFluidHandler handler, PlayerEntity player, Hand hand) {
 
-        return fillItemFromHandler(stack, handler, player, hand) || drainItemToHandler(stack, handler, player, hand);
+        return drainItemToHandler(stack, handler, player, hand) || fillItemFromHandler(stack, handler, player, hand);
     }
     // endregion
 
