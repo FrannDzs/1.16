@@ -1,12 +1,14 @@
 package cofh.thermal.innovation.item;
 
 import cofh.core.item.EnergyContainerItem;
-import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
+import cofh.lib.util.filter.IFilter;
+import cofh.lib.util.filter.ItemFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
@@ -30,6 +32,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.WeakHashMap;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
@@ -39,6 +42,8 @@ import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
 public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
+
+    protected static final WeakHashMap<ItemStack, IFilter<ItemStack>> FILTERS = new WeakHashMap<>();
 
     protected static final int RADIUS = 4;
     protected static final int REACH = 64;
@@ -121,28 +126,27 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         int radius = getRadius(stack);
         int radSq = radius * radius;
 
-        // TODO: Filter
         AxisAlignedBB area = new AxisAlignedBB(player.getPosition().add(-radius, -radius, -radius), player.getPosition().add(1 + radius, 1 + radius, 1 + radius));
         List<ItemEntity> items = worldIn.getEntitiesWithinAABB(ItemEntity.class, area, EntityPredicates.IS_ALIVE);
-        //ItemFilterWrapper wrapper = new ItemFilterWrapper(stack, getFilterSize(stack));
 
         if (Utils.isClientWorld(worldIn)) {
             for (ItemEntity item : items) {
                 if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
                     continue;
                 }
-                if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) {
                     worldIn.addParticle(RedstoneParticleData.REDSTONE_DUST, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
                 }
             }
         } else {
+            Predicate<ItemStack> filter = getFilter(stack);
             int itemCount = 0;
             for (ItemEntity item : items) {
                 if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
                     continue;
                 }
                 if (item.getThrowerId() == null || !item.getThrowerId().equals(player.getUniqueID()) || item.age >= PICKUP_DELAY) {
-                    if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq && filter.test(item.getItem())) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;
@@ -162,7 +166,17 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     // region HELPERS
-    // TODO: Filter
+    protected static Predicate<ItemStack> getFilter(ItemStack stack) {
+
+        IFilter<ItemStack> ret = FILTERS.get(stack);
+        if (ret != null) {
+            return ret.getRules();
+        }
+        // TODO: Read from NBT
+        FILTERS.put(stack, ItemFilter.readFromNBT(stack.getTag()));
+        return FILTERS.get(stack).getRules();
+    }
+
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
 
         if (Utils.isFakePlayer(player)) {
@@ -172,7 +186,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             // TODO: Filter GUI
             //            player.openGui(ThermalInnovation.instance, GuiHandler.MAGNET_FILTER_ID, world, 0, 0, 0);
         } else if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
-            RayTraceResult traceResult = RayTracer.retrace(player, REACH);
+            BlockRayTraceResult traceResult = RayTracer.retrace(player, REACH);
             if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
                 return false;
             }
@@ -180,22 +194,22 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             int radSq = radius * radius;
 
             World world = player.getEntityWorld();
-            BlockPos pos = ((BlockRayTraceResult) traceResult).getPos();
+            BlockPos pos = traceResult.getPos();
 
             AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -radius, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
             List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, EntityPredicates.IS_ALIVE);
-            // ItemFilterWrapper wrapper = new ItemFilterWrapper(stack, getFilterSize(stack));
 
             if (Utils.isClientWorld(world)) {
                 for (ItemEntity item : items) {
-                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {// && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {
                         world.addParticle(ParticleTypes.PORTAL, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
                     }
                 }
             } else {
+                Predicate<ItemStack> filter = getFilter(stack);
                 int itemCount = 0;
                 for (ItemEntity item : items) {
-                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq && filter.test(item.getItem())) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;
@@ -288,6 +302,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         if (energyExcess > 0) {
             setEnergyStored(container, getMaxEnergyStored(container));
         }
+        FILTERS.remove(container);
     }
     // endregion
 

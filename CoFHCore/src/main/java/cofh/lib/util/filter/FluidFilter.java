@@ -1,10 +1,10 @@
 package cofh.lib.util.filter;
 
+import cofh.core.util.helpers.FluidHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -12,16 +12,26 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static cofh.lib.util.constants.NBTTags.TAG_TANK;
-import static cofh.lib.util.constants.NBTTags.TAG_TANK_INV;
+import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class FluidFilter implements IFilter<FluidStack>, INBTSerializable<CompoundNBT> {
+public class FluidFilter implements IFilter<FluidStack> {
+
+    public static FluidFilter EMPTY_FILTER = new FluidFilter(0) {
+
+        @Override
+        public Predicate<FluidStack> getRules() {
+
+            return ALWAYS_ALLOW;
+        }
+    };
+    public static Predicate<FluidStack> ALWAYS_ALLOW = (stack) -> true;
 
     protected List<FluidStack> fluids;
     protected Predicate<FluidStack> rules;
 
-    protected boolean allowlist = true;
+    protected boolean allowlist = false;
+    protected boolean checkNBT = false;
 
     public FluidFilter(int size) {
 
@@ -39,14 +49,41 @@ public class FluidFilter implements IFilter<FluidStack>, INBTSerializable<Compou
             for (FluidStack fluid : fluids) {
                 fluidSet.add(fluid.getFluid());
             }
-            rules = stack -> allowlist == fluidSet.contains(stack.getFluid());
+            rules = stack -> {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                if (allowlist != fluidSet.contains(stack.getFluid())) {
+                    return false;
+                }
+                if (checkNBT) {
+                    for (FluidStack fluid : fluids) {
+                        if (FluidHelper.fluidsEqual(stack, fluid)) {
+                            return allowlist;
+                        }
+                    }
+                }
+                return true;
+            };
         }
         return rules;
     }
 
-    public FluidFilter read(CompoundNBT nbt) {
+    public static IFilter<FluidStack> readFromNBT(CompoundNBT nbt) {
 
-        ListNBT list = nbt.getList(TAG_TANK_INV, TAG_COMPOUND);
+        if (nbt == null || !nbt.contains(TAG_FILTER)) {
+            return EMPTY_FILTER;
+        }
+        return new FluidFilter(0).read(nbt);
+    }
+
+    public IFilter<FluidStack> read(CompoundNBT nbt) {
+
+        CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
+        if (this == EMPTY_FILTER || subTag.isEmpty()) {
+            return EMPTY_FILTER;
+        }
+        ListNBT list = subTag.getList(TAG_TANK_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT tankTag = list.getCompound(i);
             int tank = tankTag.getByte(TAG_TANK);
@@ -59,9 +96,10 @@ public class FluidFilter implements IFilter<FluidStack>, INBTSerializable<Compou
 
     public CompoundNBT write(CompoundNBT nbt) {
 
-        if (fluids.size() <= 0) {
+        if (this == EMPTY_FILTER || fluids.size() <= 0) {
             return nbt;
         }
+        CompoundNBT subTag = new CompoundNBT();
         ListNBT list = new ListNBT();
         for (int i = 0; i < fluids.size(); ++i) {
             if (!fluids.get(i).isEmpty()) {
@@ -72,21 +110,10 @@ public class FluidFilter implements IFilter<FluidStack>, INBTSerializable<Compou
             }
         }
         if (!list.isEmpty()) {
-            nbt.put(TAG_TANK_INV, list);
+            subTag.put(TAG_TANK_INV, list);
+            nbt.put(TAG_FILTER, subTag);
         }
         return nbt;
-    }
-
-    @Override
-    public CompoundNBT serializeNBT() {
-
-        return write(new CompoundNBT());
-    }
-
-    @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-
-        read(nbt);
     }
 
 }

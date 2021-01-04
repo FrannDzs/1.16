@@ -1,5 +1,7 @@
 package cofh.thermal.core.tileentity.device;
 
+import cofh.lib.util.filter.IFilter;
+import cofh.lib.util.filter.ItemFilter;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
@@ -52,6 +54,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     };
 
     protected XpStorage xpStorage;
+    protected IFilter<ItemStack> filter = ItemFilter.EMPTY_FILTER;
 
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
@@ -136,8 +139,13 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         IItemHandler handler = inventory.getHandler(ACCESSIBLE);
         List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, VALID_ITEM_ENTITY);
 
+        Predicate<ItemStack> filterRules = filter.getRules();
+
         for (ItemEntity item : items) {
             ItemStack entityStack = item.getItem();
+            if (!filterRules.test(entityStack)) {
+                continue;
+            }
             entityStack = InventoryHelper.insertStackIntoInventory(handler, entityStack, false);
             if (entityStack.isEmpty()) {
                 item.remove();
@@ -195,6 +203,9 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         super.read(state, nbt);
 
         xpStorage.read(nbt);
+        filter = filter.read(nbt);
+
+        filter.read(nbt);
     }
 
     @Override
@@ -203,6 +214,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         super.write(nbt);
 
         xpStorage.write(nbt);
+        filter.write(nbt);
 
         return nbt;
     }
