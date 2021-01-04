@@ -179,7 +179,7 @@ public class BaseMachineRecipe implements IMachineRecipe {
     @Override
     public float getXp(IMachineInventory inventory) {
 
-        return experience * inventory.getExperienceMod();
+        return experience * inventory.getXpMod();
     }
     // endregion
 }

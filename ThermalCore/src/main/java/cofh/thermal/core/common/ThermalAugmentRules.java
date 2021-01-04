@@ -32,7 +32,7 @@ public class ThermalAugmentRules {
                 TAG_AUGMENT_AREA_RADIUS,
                 TAG_AUGMENT_AREA_REACH,
 
-                TAG_AUGMENT_DYNAMO_PRODUCTION,
+                TAG_AUGMENT_DYNAMO_POWER,
 
                 TAG_AUGMENT_MACHINE_POWER,
                 TAG_AUGMENT_MACHINE_PRIMARY,
@@ -45,12 +45,12 @@ public class ThermalAugmentRules {
         ATTR_MULT.addAll(Arrays.asList(
                 TAG_AUGMENT_BASE_MOD,
 
-                TAG_AUGMENT_ENERGY_STORAGE,
-                TAG_AUGMENT_ENERGY_XFER,
+                TAG_AUGMENT_RF_STORAGE,
+                TAG_AUGMENT_RF_XFER,
 
                 TAG_AUGMENT_FLUID_STORAGE,
 
-                TAG_AUGMENT_DYNAMO_EFFICIENCY,
+                TAG_AUGMENT_DYNAMO_ENERGY,
 
                 TAG_AUGMENT_MACHINE_CATALYST,
                 TAG_AUGMENT_MACHINE_ENERGY,
@@ -60,8 +60,8 @@ public class ThermalAugmentRules {
         ATTR_MAX.addAll(Arrays.asList(
                 TAG_AUGMENT_BASE_MOD,
 
-                TAG_AUGMENT_ENERGY_STORAGE,
-                TAG_AUGMENT_ENERGY_XFER,
+                TAG_AUGMENT_RF_STORAGE,
+                TAG_AUGMENT_RF_XFER,
 
                 TAG_AUGMENT_FLUID_STORAGE,
 

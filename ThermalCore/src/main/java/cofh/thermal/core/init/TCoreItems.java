@@ -353,30 +353,30 @@ public class TCoreItems {
         registerItem("rf_coil_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 4.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 4.0F)
+                        .mod(TAG_AUGMENT_RF_STORAGE, 4.0F)
+                        .mod(TAG_AUGMENT_RF_XFER, 4.0F)
                         .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
 
         registerItem("rf_coil_storage_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 6.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 2.0F)
+                        .mod(TAG_AUGMENT_RF_STORAGE, 6.0F)
+                        .mod(TAG_AUGMENT_RF_XFER, 2.0F)
                         .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
 
         registerItem("rf_coil_xfer_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 2.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 6.0F)
+                        .mod(TAG_AUGMENT_RF_STORAGE, 2.0F)
+                        .mod(TAG_AUGMENT_RF_XFER, 6.0F)
                         .build()).setShowInGroups(getFlag(FLAG_STORAGE_AUGMENTS)));
 
         registerItem("rf_coil_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_ENERGY_STORAGE, 8.0F)
-                        .mod(TAG_AUGMENT_ENERGY_XFER, 8.0F)
-                        .mod(TAG_AUGMENT_ENERGY_CREATIVE, 1.0F)
+                        .mod(TAG_AUGMENT_RF_STORAGE, 8.0F)
+                        .mod(TAG_AUGMENT_RF_XFER, 8.0F)
+                        .mod(TAG_AUGMENT_RF_CREATIVE, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
 
         registerItem("fluid_tank_augment", () -> new AugmentItem(new Item.Properties().group(group),
@@ -421,7 +421,7 @@ public class TCoreItems {
         registerItem("machine_cycle_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_MACHINE)
-                        .mod(TAG_AUGMENT_FEATURE_RECYCLE, 1.0F)
+                        .mod(TAG_AUGMENT_FEATURE_CYCLE_PROCESS, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
     }
 
@@ -432,14 +432,14 @@ public class TCoreItems {
         registerItem("dynamo_output_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_DYNAMO)
-                        .mod(TAG_AUGMENT_DYNAMO_PRODUCTION, 1.0F)
-                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 0.9F)
+                        .mod(TAG_AUGMENT_DYNAMO_POWER, 1.0F)
+                        .mod(TAG_AUGMENT_DYNAMO_ENERGY, 0.9F)
                         .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
 
         registerItem("dynamo_fuel_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_DYNAMO)
-                        .mod(TAG_AUGMENT_DYNAMO_EFFICIENCY, 1.10F)
+                        .mod(TAG_AUGMENT_DYNAMO_ENERGY, 1.10F)
                         .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
     }
 

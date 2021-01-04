@@ -18,7 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -43,7 +42,8 @@ import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
 public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
-    protected static final WeakHashMap<ItemStack, IFilter<ItemStack>> FILTERS = new WeakHashMap<>();
+    protected static final int MAP_CAPACITY = 64;
+    protected static final WeakHashMap<ItemStack, IFilter<ItemStack>> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
 
     protected static final int RADIUS = 4;
     protected static final int REACH = 64;
@@ -139,14 +139,14 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                 }
             }
         } else {
-            Predicate<ItemStack> filter = getFilter(stack);
+            Predicate<ItemStack> filter = getFilterRules(stack);
             int itemCount = 0;
             for (ItemEntity item : items) {
-                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
+                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT) || !filter.test(item.getItem())) {
                     continue;
                 }
                 if (item.getThrowerId() == null || !item.getThrowerId().equals(player.getUniqueID()) || item.age >= PICKUP_DELAY) {
-                    if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq && filter.test(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;
@@ -162,19 +162,26 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     @Override
     public boolean isCreative(ItemStack stack) {
 
-        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
+        return getPropertyWithDefault(stack, TAG_AUGMENT_RF_CREATIVE, 0.0F) > 0;
     }
 
     // region HELPERS
-    protected static Predicate<ItemStack> getFilter(ItemStack stack) {
+    protected static IFilter<ItemStack> getFilter(ItemStack stack) {
 
         IFilter<ItemStack> ret = FILTERS.get(stack);
         if (ret != null) {
-            return ret.getRules();
+            return ret;
         }
-        // TODO: Read from NBT
+        if (FILTERS.size() > MAP_CAPACITY) {
+            FILTERS.clear();
+        }
         FILTERS.put(stack, ItemFilter.readFromNBT(stack.getTag()));
-        return FILTERS.get(stack).getRules();
+        return FILTERS.get(stack);
+    }
+
+    protected static Predicate<ItemStack> getFilterRules(ItemStack stack) {
+
+        return getFilter(stack).getRules();
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -202,14 +209,17 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             if (Utils.isClientWorld(world)) {
                 for (ItemEntity item : items) {
                     if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {
-                        world.addParticle(ParticleTypes.PORTAL, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
+                        world.addParticle(RedstoneParticleData.REDSTONE_DUST, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
                     }
                 }
             } else {
-                Predicate<ItemStack> filter = getFilter(stack);
+                Predicate<ItemStack> filter = getFilterRules(stack);
                 int itemCount = 0;
                 for (ItemEntity item : items) {
-                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq && filter.test(item.getItem())) {
+                    if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT) || !filter.test(item.getItem())) {
+                        continue;
+                    }
+                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;
@@ -242,9 +252,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
 
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
     }
     // endregion
 
@@ -253,7 +263,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     public int getExtract(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_XFER, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
         return Math.round(extract * mod * base);
     }
 
@@ -261,7 +271,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     public int getReceive(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_XFER, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
         return Math.round(receive * mod * base);
     }
 
@@ -269,7 +279,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     public int getMaxEnergyStored(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_STORAGE, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_STORAGE, 1.0F);
         return getMaxStored(container, Math.round(maxEnergy * mod * base));
     }
     // endregion

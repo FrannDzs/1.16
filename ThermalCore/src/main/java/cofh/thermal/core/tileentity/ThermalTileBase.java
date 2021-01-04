@@ -607,11 +607,11 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         redstoneControlFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_RS_CONTROL) > 0;
 
         baseMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_BASE_MOD), baseMod);
-        energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_STORAGE), energyStorageMod);
-        energyXferMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_XFER), energyXferMod);
+        energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_RF_STORAGE), energyStorageMod);
+        energyXferMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_RF_XFER), energyXferMod);
         fluidStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_FLUID_STORAGE), fluidStorageMod);
 
-        creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_ENERGY_CREATIVE) > 0;
+        creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_RF_CREATIVE) > 0;
         creativeFluid |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
     }
 

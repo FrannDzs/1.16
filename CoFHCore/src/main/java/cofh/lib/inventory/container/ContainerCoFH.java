@@ -72,9 +72,12 @@ public abstract class ContainerCoFH extends Container {
         return 8;
     }
 
-    protected abstract int getPlayerInventoryVerticalOffset();
+    protected int getPlayerInventoryVerticalOffset() {
 
-    protected abstract int getSizeTileInventory();
+        return 84;
+    }
+
+    protected abstract int getInventorySize();
 
     protected boolean supportsShiftClick(PlayerEntity player, int index) {
 
@@ -84,8 +87,8 @@ public abstract class ContainerCoFH extends Container {
     protected boolean performMerge(int index, ItemStack stack) {
 
         // TODO: Consider reverting or allowing augment shift-click in some cases.
-        int invBase = getSizeTileInventory();
-        // int invBase = getSizeTileInventory() - getNumAugmentSlots();
+        int invBase = getInventorySize();
+        // int invBase = getInventorySize() - getNumAugmentSlots();
         int invFull = inventorySlots.size();
         int invHotbar = invFull - 9;
         int invPlayer = invHotbar - 27;

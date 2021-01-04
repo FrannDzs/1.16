@@ -438,7 +438,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected float primaryMod = 1.0F;
     protected float secondaryMod = 1.0F;
     protected float energyMod = 1.0F;
-    protected float experienceMod = 1.0F;
+    protected float xpMod = 1.0F;
     protected float catalystMod = 1.0F;
     protected float minOutputChance = 0.0F;
 
@@ -453,7 +453,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         primaryMod = 1.0F;
         secondaryMod = 1.0F;
         energyMod = 1.0F;
-        experienceMod = 1.0F;
+        xpMod = 1.0F;
         catalystMod = 1.0F;
         minOutputChance = 0.0F;
     }
@@ -470,7 +470,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         secondaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_SECONDARY);
 
         energyMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_ENERGY, 1.0F);
-        experienceMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_XP, 1.0F);
+        xpMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_XP, 1.0F);
         catalystMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_CATALYST, 1.0F);
 
         minOutputChance = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_MIN_OUTPUT), minOutputChance);
@@ -495,7 +495,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);
         secondaryMod = MathHelper.clamp(secondaryMod, scaleMin, scaleMax);
         energyMod = MathHelper.clamp(energyMod, scaleMin, scaleMax);
-        experienceMod = MathHelper.clamp(experienceMod, scaleMin, scaleMax);
+        xpMod = MathHelper.clamp(xpMod, scaleMin, scaleMax);
         catalystMod = MathHelper.clamp(catalystMod, scaleMin, scaleMax);
 
         processTick = baseProcessTick;
@@ -559,9 +559,9 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     }
 
     @Override
-    public final float getExperienceMod() {
+    public final float getXpMod() {
 
-        return experienceMod;
+        return xpMod;
     }
 
     @Override

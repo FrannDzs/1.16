@@ -105,7 +105,7 @@ public abstract class CatalyzedMachineRecipe extends BaseMachineRecipe {
 
         if (catalyzable && inventory.inputSlots().size() > catalystSlot) {
             IRecipeCatalyst catalyst = getCatalyst(inventory.inputSlots().get(catalystSlot).getItemStack());
-            return catalyst == null ? super.getXp(inventory) : Math.round(energy * catalyst.getExperienceMod() * inventory.getExperienceMod());
+            return catalyst == null ? super.getXp(inventory) : Math.round(energy * catalyst.getXpMod() * inventory.getXpMod());
         }
         return super.getXp(inventory);
     }

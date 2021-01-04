@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 import static cofh.lib.util.StorageGroup.*;
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.TANK_SMALL;
-import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_FEATURE_RECYCLE;
+import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_FEATURE_CYCLE_PROCESS;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_INSOLATOR_TILE;
@@ -65,7 +65,7 @@ public class MachineInsolatorTile extends MachineTileProcess {
 
         // Input Items
         int primaryCount = itemInputCounts.get(0);
-        if (recycleFeature) {
+        if (cyclicProcessingFeature) {
             boolean recycled = false;
             ItemStack input = inputSlot.getItemStack();
             for (ItemStorageCoFH slot : outputSlots()) {
@@ -116,14 +116,14 @@ public class MachineInsolatorTile extends MachineTileProcess {
     // endregion
 
     // region AUGMENTS
-    protected boolean recycleFeature = false;
+    protected boolean cyclicProcessingFeature = false;
 
     @Override
     protected void resetAttributes() {
 
         super.resetAttributes();
 
-        recycleFeature = false;
+        cyclicProcessingFeature = false;
     }
 
     @Override
@@ -131,7 +131,7 @@ public class MachineInsolatorTile extends MachineTileProcess {
 
         super.setAttributesFromAugment(augmentData);
 
-        recycleFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_RECYCLE) > 0;
+        cyclicProcessingFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_CYCLE_PROCESS) > 0;
     }
     // endregion
 }

@@ -28,13 +28,7 @@ public class TileContainer extends ContainerCoFH {
     }
 
     @Override
-    protected int getPlayerInventoryVerticalOffset() {
-
-        return 84;
-    }
-
-    @Override
-    protected int getSizeTileInventory() {
+    protected int getInventorySize() {
 
         return baseTile == null ? 0 : baseTile.invSize();
     }

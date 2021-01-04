@@ -17,7 +17,7 @@ public interface IRecipeCatalyst {
         return 1.0F;
     }
 
-    default float getExperienceMod() {
+    default float getXpMod() {
 
         return 1.0F;
     }

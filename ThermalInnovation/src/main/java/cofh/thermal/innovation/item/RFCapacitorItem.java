@@ -125,7 +125,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     @Override
     public boolean isCreative(ItemStack stack) {
 
-        return getPropertyWithDefault(stack, TAG_AUGMENT_ENERGY_CREATIVE, 0.0F) > 0;
+        return getPropertyWithDefault(stack, TAG_AUGMENT_RF_CREATIVE, 0.0F) > 0;
     }
 
     // region HELPERS
@@ -159,9 +159,9 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
             return;
         }
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_CREATIVE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
+        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
     }
     // endregion
 
@@ -170,7 +170,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     public int getExtract(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_XFER, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
         return Math.round(extract * mod * base);
     }
 
@@ -178,7 +178,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     public int getReceive(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_XFER, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
         return Math.round(receive * mod * base);
     }
 
@@ -186,7 +186,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     public int getMaxEnergyStored(ItemStack container) {
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_STORAGE, 1.0F);
+        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_STORAGE, 1.0F);
         return getMaxStored(container, Math.round(maxEnergy * mod * base));
     }
     // endregion

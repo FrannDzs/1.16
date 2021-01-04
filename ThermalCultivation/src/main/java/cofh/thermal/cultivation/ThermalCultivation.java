@@ -60,54 +60,54 @@ public class ThermalCultivation {
             {
                 float chance = 0.65F;
 
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_BARLEY), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_BARLEY), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_ONION), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_RADISH), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_RICE), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_SADIROOT), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_SPINACH), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_BARLEY));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_BARLEY));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_ONION));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_RADISH));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_RICE));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_SADIROOT));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_SPINACH));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_BELL_PEPPER), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_EGGPLANT), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_GREEN_BEAN), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_PEANUT), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_STRAWBERRY), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_TOMATO), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_BELL_PEPPER));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_EGGPLANT));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_GREEN_BEAN));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_PEANUT));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_STRAWBERRY));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_TOMATO));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_COFFEE), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_TEA), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_COFFEE));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_TEA));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_FROST_MELON), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_FROST_MELON));
             }
             {
                 float chance = 0.5F;
 
-                ComposterBlock.CHANCES.put(ITEMS.get(ID_FROST_MELON_SLICE), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(ID_FROST_MELON_SLICE));
             }
             // SEEDS
             {
                 float chance = 0.3F;
 
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_BARLEY)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_CORN)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_ONION)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_RADISH)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_RICE)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_SADIROOT)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_SPINACH)), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_BARLEY)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_CORN)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_ONION)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_RADISH)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_RICE)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_SADIROOT)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_SPINACH)));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_BELL_PEPPER)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_EGGPLANT)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_GREEN_BEAN)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_PEANUT)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_STRAWBERRY)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_TOMATO)), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_BELL_PEPPER)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_EGGPLANT)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_GREEN_BEAN)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_PEANUT)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_STRAWBERRY)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_TOMATO)));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_COFFEE)), chance);
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_TEA)), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_COFFEE)));
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_TEA)));
 
-                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_FROST_MELON)), chance);
+                ComposterBlock.registerCompostable(chance, ITEMS.get(seeds(ID_FROST_MELON)));
             }
             HoeItem.HOE_LOOKUP.put(BLOCKS.get(ID_PHYTOSOIL), BLOCKS.get(ID_PHYTOSOIL_TILLED).getDefaultState());
         });
