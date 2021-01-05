@@ -128,13 +128,13 @@ public class NBTTags {
     public static final String TAG_AUGMENT_DYNAMO_POWER = "DynamoPower";
 
     // Machine-Specific
-    public static final String TAG_AUGMENT_MACHINE_PRIMARY = "MachinePrimary";
-    public static final String TAG_AUGMENT_MACHINE_SECONDARY = "MachineSecondary";
     public static final String TAG_AUGMENT_MACHINE_MIN_OUTPUT = "MachineMin";
+    public static final String TAG_AUGMENT_MACHINE_PRIMARY = "MachinePri";
+    public static final String TAG_AUGMENT_MACHINE_SECONDARY = "MachineSec";
 
+    public static final String TAG_AUGMENT_MACHINE_CATALYST = "MachineCat";
+    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MachineEnergyergy";
     public static final String TAG_AUGMENT_MACHINE_POWER = "MachinePower";
-    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MachineEnergy";
-    public static final String TAG_AUGMENT_MACHINE_CATALYST = "MachineCatalyst";
     public static final String TAG_AUGMENT_MACHINE_XP = "MachineXp";
     // endregion
 }

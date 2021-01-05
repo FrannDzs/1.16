@@ -301,37 +301,37 @@
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AEDpt": "Profondità massima",
-  "info.thermal.augment.attr.AERad": "Raggio massimo",
-  "info.thermal.augment.attr.AERch": "Raggiunta massima",
+  "info.thermal.augment.attr.AreaDepth": "Profondità massima",
+  "info.thermal.augment.attr.AreaRadius": "Raggio massimo",
+  "info.thermal.augment.attr.AreaReach": "Raggiunta massima",
 
   "info.thermal.augment.attr.BaseMod": "Fattore di scala",
 
-  "info.thermal.augment.attr.DynProd": "Output massimo",
-  "info.thermal.augment.attr.DynEff": "Energia del carburante",
+  "info.thermal.augment.attr.DynamoPower": "Output massimo",
+  "info.thermal.augment.attr.DynamoEnergy": "Energia del carburante",
 
-  "info.thermal.augment.attr.FlMax": "Capacità del serbatoio",
+  "info.thermal.augment.attr.FluidMax": "Capacità del serbatoio",
 
-  "info.thermal.augment.attr.MchCat": "Uso dei catalisti",
-  "info.thermal.augment.attr.MchEn": "Energia di processo",
-  "info.thermal.augment.attr.MchPri": "Prodotto primario",
-  "info.thermal.augment.attr.MchPwr": "Energia massima",
-  "info.thermal.augment.attr.MchSec": "Prodotto secondario",
-  "info.thermal.augment.attr.MchXp": "Modificatore XP",
+  "info.thermal.augment.attr.MachineCat": "Uso dei catalisti",
+  "info.thermal.augment.attr.MachineEnergy": "Energia di processo",
+  "info.thermal.augment.attr.MachinePri": "Prodotto primario",
+  "info.thermal.augment.attr.MachinePower": "Energia massima",
+  "info.thermal.augment.attr.MachineSec": "Prodotto secondario",
+  "info.thermal.augment.attr.MachineXp": "Modificatore XP",
 
-  "info.thermal.augment.attr.PotAmp": "Livello dell'effetto",
-  "info.thermal.augment.attr.PotDur": "Durata dell'effetto",
+  "info.thermal.augment.attr.PotionAmp": "Livello dell'effetto",
+  "info.thermal.augment.attr.PotionDur": "Durata dell'effetto",
 
   "info.thermal.augment.attr.RFMax": "Capacità RF",
   "info.thermal.augment.attr.RFXfer": "Transferimento RF",
 
-  "info.thermal.augment.type.AEAug": "Effetto area",
-  "info.thermal.augment.type.DynAug": "Dinamo",
-  "info.thermal.augment.type.FlAug": "Fluido",
-  "info.thermal.augment.type.MchAug": "Macchinario",
-  "info.thermal.augment.type.PotAug": "Pozione",
+  "info.thermal.augment.type.AreaAug": "Effetto area",
+  "info.thermal.augment.type.DynamoAug": "Dinamo",
+  "info.thermal.augment.type.FluidAug": "Fluido",
+  "info.thermal.augment.type.MachineAug": "Macchinario",
+  "info.thermal.augment.type.PotionAug": "Pozione",
   "info.thermal.augment.type.RFAug": "Flusso di redstone",
-  "info.thermal.augment.type.UpgAug": "Potenziamento",
+  "info.thermal.augment.type.UpgradeAug": "Potenziamento",
 
   "info.thermal.augment.maximized": "Non impila; valore più alto utilizzato.",
 

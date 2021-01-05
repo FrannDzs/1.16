@@ -1,4 +1,4 @@
-package cofh.thermal.core.block;
+package cofh.lib.block.impl;
 
 import net.minecraft.block.AttachedStemBlock;
 import net.minecraft.block.Block;

@@ -1,33 +1,33 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "III",
+    "IXI",
     "GCG",
-    "XPX"
+    "IPI"
   ],
   "key": {
     "C": {
-      "item": "minecraft:crafting_table"
+      "item": "minecraft:hopper"
     },
     "G": {
       "tag": "forge:glass"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:ingots/tin"
     },
     "P": {
-      "item": "thermal:rf_coil"
+      "item": "thermal:redstone_servo"
     },
     "X": {
-      "tag": "minecraft:planks"
+      "tag": "forge:ender_pearls"
     }
   },
   "result": {
-    "item": "thermal:tinker_bench"
+    "item": "thermal:device_collector"
   },
   "conditions": [
     {
-      "flag": "tinker_bench",
+      "flag": "device_collector",
       "type": "thermal:flag"
     }
   ]

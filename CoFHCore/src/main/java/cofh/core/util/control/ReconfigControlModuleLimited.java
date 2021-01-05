@@ -1,4 +1,4 @@
-package cofh.thermal.core.util.control;
+package cofh.core.util.control;
 
 import cofh.core.network.packet.server.SideConfigPacket;
 import cofh.core.util.control.IReconfigurableTile;
@@ -10,14 +10,14 @@ import java.util.function.BooleanSupplier;
 
 import static cofh.lib.util.control.IReconfigurable.SideConfig.*;
 
-public class CellReconfigControlModule extends ReconfigControlModule {
+public class ReconfigControlModuleLimited extends ReconfigControlModule {
 
-    public CellReconfigControlModule(IReconfigurableTile tile) {
+    public ReconfigControlModuleLimited(IReconfigurableTile tile) {
 
         super(tile);
     }
 
-    public CellReconfigControlModule(IReconfigurableTile tile, BooleanSupplier enabled) {
+    public ReconfigControlModuleLimited(IReconfigurableTile tile, BooleanSupplier enabled) {
 
         super(tile, enabled);
     }

@@ -1,33 +1,33 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "III",
+    "IXI",
     "GCG",
-    "XPX"
+    "IPI"
   ],
   "key": {
     "C": {
-      "item": "minecraft:crafting_table"
+      "item": "minecraft:piston"
     },
     "G": {
       "tag": "forge:glass"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:ingots/invar"
     },
     "P": {
-      "item": "thermal:rf_coil"
+      "item": "thermal:redstone_servo"
     },
     "X": {
-      "tag": "minecraft:planks"
+      "tag": "forge:gears/constantan"
     }
   },
   "result": {
-    "item": "thermal:tinker_bench"
+    "item": "thermal:device_rock_gen"
   },
   "conditions": [
     {
-      "flag": "tinker_bench",
+      "flag": "device_rock_gen",
       "type": "thermal:flag"
     }
   ]

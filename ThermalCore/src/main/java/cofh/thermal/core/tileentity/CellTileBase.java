@@ -3,8 +3,8 @@ package cofh.thermal.core.tileentity;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.IReconfigurableTile;
 import cofh.core.util.control.ReconfigControlModule;
+import cofh.core.util.control.ReconfigControlModuleLimited;
 import cofh.lib.util.helpers.MathHelper;
-import cofh.thermal.core.util.control.CellReconfigControlModule;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +35,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
     protected int prevLight;
 
-    protected ReconfigControlModule reconfigControl = new CellReconfigControlModule(this);
+    protected ReconfigControlModule reconfigControl = new ReconfigControlModuleLimited(this);
 
     public CellTileBase(TileEntityType<?> tileEntityTypeIn) {
 

@@ -1,4 +1,4 @@
-package cofh.thermal.core.block;
+package cofh.lib.block.impl;
 
 import net.minecraft.block.*;
 import net.minecraft.pathfinding.PathType;

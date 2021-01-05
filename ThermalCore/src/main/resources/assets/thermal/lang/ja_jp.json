@@ -301,37 +301,37 @@
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AEDpt": "最大深度",
-  "info.thermal.augment.attr.AERad": "最大半径",
-  "info.thermal.augment.attr.AERch": "最大範囲",
+  "info.thermal.augment.attr.AreaDepth": "最大深度",
+  "info.thermal.augment.attr.AreaRadius": "最大半径",
+  "info.thermal.augment.attr.AreaReach": "最大範囲",
 
   "info.thermal.augment.attr.BaseMod": "拡縮係数",
 
-  "info.thermal.augment.attr.DynProd": "最大出力",
-  "info.thermal.augment.attr.DynEff": "燃料効率",
+  "info.thermal.augment.attr.DynamoPower": "最大出力",
+  "info.thermal.augment.attr.DynamoEnergy": "燃料効率",
 
-  "info.thermal.augment.attr.FlMax": "タンク容量",
+  "info.thermal.augment.attr.FluidMax": "タンク容量",
 
-  "info.thermal.augment.attr.MchCat": "触媒消費量",
-  "info.thermal.augment.attr.MchEn": "エネルギー消費",
-  "info.thermal.augment.attr.MchPri": "主生産物",
-  "info.thermal.augment.attr.MchPwr": "最大効率",
-  "info.thermal.augment.attr.MchSec": "副次生産物",
-  "info.thermal.augment.attr.MchXp": "経験値モディファイアー",
+  "info.thermal.augment.attr.MachineCat": "触媒消費量",
+  "info.thermal.augment.attr.MachineEnergy": "エネルギー消費",
+  "info.thermal.augment.attr.MachinePri": "主生産物",
+  "info.thermal.augment.attr.MachinePower": "最大効率",
+  "info.thermal.augment.attr.MachineSec": "副次生産物",
+  "info.thermal.augment.attr.MachineXp": "経験値モディファイアー",
 
-  "info.thermal.augment.attr.PotAmp": "効果レベル",
-  "info.thermal.augment.attr.PotDur": "効果時間",
+  "info.thermal.augment.attr.PotionAmp": "効果レベル",
+  "info.thermal.augment.attr.PotionDur": "効果時間",
 
   "info.thermal.augment.attr.RFMax": "RF容量",
   "info.thermal.augment.attr.RFXfer": "RF入出力量",
 
-  "info.thermal.augment.type.AEAug": "効果範囲",
-  "info.thermal.augment.type.DynAug": "ダイナモ",
-  "info.thermal.augment.type.FlAug": "流体",
-  "info.thermal.augment.type.MchAug": "マシン",
-  "info.thermal.augment.type.PotAug": "ポーション",
+  "info.thermal.augment.type.AreaAug": "効果範囲",
+  "info.thermal.augment.type.DynamoAug": "ダイナモ",
+  "info.thermal.augment.type.FluidAug": "流体",
+  "info.thermal.augment.type.MachineAug": "マシン",
+  "info.thermal.augment.type.PotionAug": "ポーション",
   "info.thermal.augment.type.RFAug": "レッドストーンフラックス",
-  "info.thermal.augment.type.UpgAug": "アップグレード",
+  "info.thermal.augment.type.UpgradeAug": "アップグレード",
 
   "info.thermal.augment.maximized": "スタック不可・最高値が使用されます。",
 

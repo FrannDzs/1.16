@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SIS",
-    "GXG",
-    "SPS"
+    "IXI",
+    "GCG",
+    "IPI"
   ],
   "key": {
-    "S": {
-      "tag": "forge:ingots/silver"
+    "C": {
+      "item": "minecraft:glass_bottle"
     },
     "G": {
       "tag": "forge:glass"
     },
     "I": {
-      "tag": "forge:gears/constantan"
+      "tag": "forge:ingots/silver"
     },
     "P": {
       "item": "thermal:redstone_servo"
     },
     "X": {
-      "item": "minecraft:glass_bottle"
+      "tag": "forge:gears/constantan"
     }
   },
   "result": {

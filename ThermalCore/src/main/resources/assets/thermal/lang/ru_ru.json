@@ -283,37 +283,37 @@
   "_comment": "Thermal Core - Расширения",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AEDpt": "Максимальная глубина",
-  "info.thermal.augment.attr.AERad": "Максимальный радиус",
-  "info.thermal.augment.attr.AERch": "Максимальный охват",
+  "info.thermal.augment.attr.AreaDepth": "Максимальная глубина",
+  "info.thermal.augment.attr.AreaRadius": "Максимальный радиус",
+  "info.thermal.augment.attr.AreaReach": "Максимальный охват",
 
   "info.thermal.augment.attr.BaseMod": "Коэффициент масштаба",
 
-  "info.thermal.augment.attr.DynProd": "Максимальный выход",
-  "info.thermal.augment.attr.DynEff": "Энергия топлива",
+  "info.thermal.augment.attr.DynamoPower": "Максимальный выход",
+  "info.thermal.augment.attr.DynamoEnergy": "Энергия топлива",
 
-  "info.thermal.augment.attr.FlMax": "Ёмкость бака",
+  "info.thermal.augment.attr.FluidMax": "Ёмкость бака",
 
-  "info.thermal.augment.attr.MchCat": "Использование катализатора",
-  "info.thermal.augment.attr.MchEn": "Скорость и энергия",
-  "info.thermal.augment.attr.MchPri": "Основной продукт",
-  "info.thermal.augment.attr.MchPwr": "Максимальное потребление",
-  "info.thermal.augment.attr.MchSec": "Вторичный продукт",
-  "info.thermal.augment.attr.MchXp": "Модификатор опыта",
+  "info.thermal.augment.attr.MachineCat": "Использование катализатора",
+  "info.thermal.augment.attr.MachineEnergy": "Скорость и энергия",
+  "info.thermal.augment.attr.MachinePri": "Основной продукт",
+  "info.thermal.augment.attr.MachinePower": "Максимальное потребление",
+  "info.thermal.augment.attr.MachineSec": "Вторичный продукт",
+  "info.thermal.augment.attr.MachineXp": "Модификатор опыта",
 
-  "info.thermal.augment.attr.PotAmp": "Уровень эффекта",
-  "info.thermal.augment.attr.PotDur": "Длительность эффекта",
+  "info.thermal.augment.attr.PotionAmp": "Уровень эффекта",
+  "info.thermal.augment.attr.PotionDur": "Длительность эффекта",
 
   "info.thermal.augment.attr.RFMax": "Хранит RF",
   "info.thermal.augment.attr.RFXfer": "Передаёт RF",
 
-  "info.thermal.augment.type.AEAug": "Эффект области",
-  "info.thermal.augment.type.DynAug": "Генератор",
-  "info.thermal.augment.type.FlAug": "Жидкость",
-  "info.thermal.augment.type.MchAug": "Механизм",
-  "info.thermal.augment.type.PotAug": "Зелье",
+  "info.thermal.augment.type.AreaAug": "Эффект области",
+  "info.thermal.augment.type.DynamoAug": "Генератор",
+  "info.thermal.augment.type.FluidAug": "Жидкость",
+  "info.thermal.augment.type.MachineAug": "Механизм",
+  "info.thermal.augment.type.PotionAug": "Зелье",
   "info.thermal.augment.type.RFAug": "Redstone Flux",
-  "info.thermal.augment.type.UpgAug": "Обновление",
+  "info.thermal.augment.type.UpgradeAug": "Обновление",
 
   "info.thermal.augment.maximized": "Можно установить только одно.",
 

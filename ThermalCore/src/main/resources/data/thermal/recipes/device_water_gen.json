@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CIC",
-    "GXG",
-    "CPC"
+    "IXI",
+    "GCG",
+    "IPI"
   ],
   "key": {
     "C": {
-      "tag": "forge:ingots/copper"
+      "item": "minecraft:bucket"
     },
     "G": {
       "tag": "forge:glass"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:ingots/copper"
     },
     "P": {
       "item": "thermal:redstone_servo"
     },
     "X": {
-      "item": "minecraft:bucket"
+      "tag": "forge:ingots/iron"
     }
   },
   "result": {

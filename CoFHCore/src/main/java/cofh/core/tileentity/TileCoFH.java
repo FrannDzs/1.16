@@ -3,6 +3,7 @@ package cofh.core.tileentity;
 import cofh.core.network.packet.client.TileGuiPacket;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.tileentity.ITileCallback;
+import cofh.lib.tileentity.ITilePacketHandler;
 import cofh.lib.util.IConveyableData;
 import cofh.lib.util.Utils;
 import cofh.lib.util.control.ISecurable;
@@ -18,7 +19,6 @@ import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -33,7 +33,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class TileCoFH extends TileEntity implements ITileCallback, IConveyableData {
+public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHandler, IConveyableData {
 
     protected int numPlayersUsing;
 
@@ -209,56 +209,6 @@ public class TileCoFH extends TileEntity implements ITileCallback, IConveyableDa
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
 
         read(this.cachedBlockState, pkt.getNbtCompound());
-    }
-
-    // CONFIG
-    public PacketBuffer getConfigPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public void handleConfigPacket(PacketBuffer buffer) {
-
-    }
-
-    // CONTROL
-    public PacketBuffer getControlPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public void handleControlPacket(PacketBuffer buffer) {
-
-    }
-
-    // GUI
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public void handleGuiPacket(PacketBuffer buffer) {
-
-    }
-
-    // REDSTONE
-    public void handleRedstonePacket(PacketBuffer buffer) {
-
-    }
-
-    public PacketBuffer getRedstonePacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    // STATE
-    public PacketBuffer getStatePacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    public void handleStatePacket(PacketBuffer buffer) {
-
     }
 
     public void setActive(boolean active) {

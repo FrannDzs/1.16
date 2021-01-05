@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "WXW",
+    "IXI",
     "GCG",
-    "WPW"
+    "IPI"
   ],
   "key": {
     "C": {
@@ -12,14 +12,14 @@
     "G": {
       "tag": "forge:glass"
     },
+    "I": {
+      "tag": "minecraft:planks"
+    },
     "P": {
       "item": "thermal:redstone_servo"
     },
     "X": {
       "tag": "forge:gears/iron"
-    },
-    "W": {
-      "tag": "minecraft:planks"
     }
   },
   "result": {
