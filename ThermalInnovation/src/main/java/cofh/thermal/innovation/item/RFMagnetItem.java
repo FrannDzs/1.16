@@ -100,6 +100,14 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
         ItemStack stack = playerIn.getHeldItem(handIn);
+
+        //        if (playerIn.isSneaking()) {
+        //            if (Utils.isClientWorld(worldIn)) {
+        //                return ActionResult.resultSuccess(stack);
+        //            }
+        //            NetworkHooks.openGui((ServerPlayerEntity) playerIn);
+        //        }
+
         return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
     }
 

@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class ItemFilter implements IFilter<ItemStack> {
+public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
 
     public static ItemFilter EMPTY_FILTER = new ItemFilter(0) {
 
@@ -30,7 +30,7 @@ public class ItemFilter implements IFilter<ItemStack> {
     protected List<ItemStack> items;
     protected Predicate<ItemStack> rules;
 
-    protected boolean allowlist = false;
+    protected boolean allowList = false;
     protected boolean checkNBT = false;
 
     public ItemFilter(int size) {
@@ -39,6 +39,11 @@ public class ItemFilter implements IFilter<ItemStack> {
         for (int i = 0; i < size; ++i) {
             items.add(ItemStack.EMPTY);
         }
+    }
+
+    public int size() {
+
+        return items.size();
     }
 
     @Override
@@ -53,13 +58,13 @@ public class ItemFilter implements IFilter<ItemStack> {
                 if (stack.isEmpty()) {
                     return false;
                 }
-                if (allowlist != itemSet.contains(stack.getItem())) {
+                if (allowList != itemSet.contains(stack.getItem())) {
                     return false;
                 }
                 if (checkNBT) {
                     for (ItemStack item : items) {
                         if (ItemHelper.itemsEqualWithTags(stack, item)) {
-                            return allowlist;
+                            return allowList;
                         }
                     }
                 }
@@ -116,4 +121,31 @@ public class ItemFilter implements IFilter<ItemStack> {
         return nbt;
     }
 
+    // region IFilterOptions
+    @Override
+    public boolean getAllowList() {
+
+        return allowList;
+    }
+
+    @Override
+    public boolean setAllowList(boolean allowList) {
+
+        this.allowList = allowList;
+        return true;
+    }
+
+    @Override
+    public boolean getCheckNBT() {
+
+        return checkNBT;
+    }
+
+    @Override
+    public boolean setCheckNBT(boolean checkNBT) {
+
+        this.checkNBT = checkNBT;
+        return true;
+    }
+    // endregion
 }

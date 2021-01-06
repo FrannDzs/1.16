@@ -22,15 +22,6 @@ public class ItemInvWrapper implements IInventory {
         this.eventHandler = eventHandler;
     }
 
-    // TODO: Variant w/ pre-determined NBT info on ItemStack.
-    //    public ItemInvWrapper setInvContainer(ItemStack invContainer, int size) {
-    //
-    //        this.invContainer = invContainer;
-    //        this.stackList = NonNullList.withSize(size, ItemStack.EMPTY);
-    //        readFromContainerInv(contents);
-    //        return this;
-    //    }
-
     public ItemInvWrapper setInvContainer(ItemStack invContainer, List<ItemStack> contents, int size) {
 
         this.invContainer = invContainer;

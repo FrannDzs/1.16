@@ -1,7 +1,9 @@
 package cofh.core;
 
+import cofh.core.client.gui.ItemFilterScreen;
 import cofh.core.command.CoFHCommand;
 import cofh.core.compat.quark.QuarkFlags;
+import cofh.core.event.ArmorEvents;
 import cofh.core.init.*;
 import cofh.core.network.packet.client.*;
 import cofh.core.network.packet.server.*;
@@ -15,8 +17,10 @@ import cofh.lib.loot.TileNBTSync;
 import cofh.lib.network.PacketHandler;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
@@ -35,6 +39,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.references.CoreReferences.ITEM_FILTER_CONTAINER;
 
 @Mod(ID_COFH_CORE)
 public class CoFHCore {
@@ -47,6 +52,7 @@ public class CoFHCore {
     public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_COFH_CORE);
 
+    public static final DeferredRegisterCoFH<ContainerType<?>> CONTAINERS = DeferredRegisterCoFH.create(ForgeRegistries.CONTAINERS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Enchantment> ENCHANTMENTS = DeferredRegisterCoFH.create(ForgeRegistries.ENCHANTMENTS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<ParticleType<?>> PARTICLES = DeferredRegisterCoFH.create(ForgeRegistries.PARTICLE_TYPES, ID_COFH_CORE);
@@ -67,6 +73,7 @@ public class CoFHCore {
         FLUIDS.register(modEventBus);
         ITEMS.register(modEventBus);
 
+        CONTAINERS.register(modEventBus);
         EFFECTS.register(modEventBus);
         ENCHANTMENTS.register(modEventBus);
         // PARTICLES.register(modEventBus);
@@ -78,6 +85,7 @@ public class CoFHCore {
         CoreFluids.register();
         CoreItems.register();
 
+        CoreContainers.register();
         CoreEffects.register();
         CoreEnchantments.register();
         // CoreParticles.register();
@@ -116,12 +124,15 @@ public class CoFHCore {
 
         event.enqueueWork(TileNBTSync::setup);
 
+        ArmorEvents.setup();
         QuarkFlags.setup();
 
-        // AttributeEvents.setup();
+        event.enqueueWork(TileNBTSync::setup);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+
+        ScreenManager.registerFactory(ITEM_FILTER_CONTAINER, ItemFilterScreen::new);
 
         CoreKeys.register();
 

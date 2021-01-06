@@ -1,8 +1,10 @@
 package cofh.lib.util.references;
 
+import cofh.core.inventory.container.ItemFilterContainer;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
@@ -33,6 +35,11 @@ public class CoreReferences {
 
     @ObjectHolder(ID_LIGHTNING_AIR)
     public static final Block LIGHTNING_AIR = null;
+    // endregion
+
+    // region CONTAINERS
+    @ObjectHolder(ID_CONTAINER_ITEM_FILTER)
+    public static final ContainerType<ItemFilterContainer> ITEM_FILTER_CONTAINER = null;
     // endregion
 
     // region FLUIDS

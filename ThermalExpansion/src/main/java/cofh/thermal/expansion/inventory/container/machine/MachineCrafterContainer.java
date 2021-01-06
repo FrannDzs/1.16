@@ -98,7 +98,7 @@ public class MachineCrafterContainer extends TileContainer {
     @Override
     protected boolean performMerge(int index, ItemStack stack) {
 
-        int invBase = getInventorySize() - getNumAugmentSlots() - 9 - 1;
+        int invBase = getSizeInventory() - getNumAugmentSlots() - 9 - 1;
         int invFull = inventorySlots.size();
         int invHotbar = invFull - 9;
         int invPlayer = invHotbar - 27;
