@@ -5,6 +5,7 @@ import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.ProxyUtils;
 import cofh.lib.network.packet.IPacketClient;
 import cofh.lib.network.packet.PacketBase;
+import cofh.lib.tileentity.ITilePacketHandler;
 import cofh.lib.util.Utils;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -34,8 +35,8 @@ public class TileGuiPacket extends PacketBase implements IPacketClient {
             return;
         }
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TileCoFH) {
-            ((TileCoFH) tile).handleGuiPacket(buffer);
+        if (tile instanceof ITilePacketHandler) {
+            ((ITilePacketHandler) tile).handleGuiPacket(buffer);
         }
     }
 

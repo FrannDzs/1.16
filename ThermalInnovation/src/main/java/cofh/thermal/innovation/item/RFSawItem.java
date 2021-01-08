@@ -1,8 +1,8 @@
 package cofh.thermal.innovation.item;
 
 import cofh.core.item.EnergyContainerItem;
-import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.capability.CapabilityAreaEffect;
 import cofh.lib.capability.IAreaEffect;
 import cofh.lib.energy.EnergyContainerItemWrapper;

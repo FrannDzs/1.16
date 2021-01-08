@@ -1,7 +1,9 @@
 package cofh.lib.block;
 
+import cofh.lib.tileentity.ITileCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -26,7 +28,11 @@ public interface IWrenchable extends IForgeBlock {
      */
     default boolean canWrench(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 
-        return true;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof ITileCallback) {
+            return ((ITileCallback) tile).canPlayerChange(player);
+        }
+        return false;
     }
 
 }

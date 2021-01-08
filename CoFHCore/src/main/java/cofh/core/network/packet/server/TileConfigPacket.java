@@ -4,6 +4,7 @@ import cofh.core.CoFHCore;
 import cofh.core.tileentity.TileCoFH;
 import cofh.lib.network.packet.IPacketServer;
 import cofh.lib.network.packet.PacketBase;
+import cofh.lib.tileentity.ITilePacketHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -31,8 +32,8 @@ public class TileConfigPacket extends PacketBase implements IPacketServer {
             return;
         }
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TileCoFH) {
-            ((TileCoFH) tile).handleConfigPacket(buffer);
+        if (tile instanceof ITilePacketHandler) {
+            ((ITilePacketHandler) tile).handleConfigPacket(buffer);
         }
     }
 

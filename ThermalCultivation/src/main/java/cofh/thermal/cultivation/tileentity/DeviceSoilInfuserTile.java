@@ -1,9 +1,9 @@
 package cofh.thermal.cultivation.tileentity;
 
 import cofh.core.util.helpers.EnergyHelper;
+import cofh.lib.block.impl.SoilBlock;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
-import cofh.lib.block.impl.SoilBlock;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import net.minecraft.block.BlockState;

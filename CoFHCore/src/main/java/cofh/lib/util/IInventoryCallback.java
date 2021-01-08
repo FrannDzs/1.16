@@ -20,4 +20,9 @@ public interface IInventoryCallback {
         return false;
     }
 
+    default boolean clearEnergy(int coil) {
+
+        return false;
+    }
+
 }

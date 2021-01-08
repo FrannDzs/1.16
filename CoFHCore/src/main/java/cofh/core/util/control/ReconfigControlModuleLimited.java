@@ -1,8 +1,6 @@
 package cofh.core.util.control;
 
 import cofh.core.network.packet.server.SideConfigPacket;
-import cofh.core.util.control.IReconfigurableTile;
-import cofh.core.util.control.ReconfigControlModule;
 import cofh.lib.util.Utils;
 import net.minecraft.util.Direction;
 

@@ -81,7 +81,7 @@ public class XpContainerItem extends ItemCoFH implements IXpContainerItem {
         int xp;
         int curLevel = player.experienceLevel;
 
-        if (player.isSneaking()) {
+        if (player.isSecondaryUseActive()) {
             if (getExtraPlayerXp(player) > 0) {
                 xp = Math.min(getTotalXpForLevel(player.experienceLevel + 1) - getTotalXpForLevel(player.experienceLevel) - getExtraPlayerXp(player), getStoredXp(stack));
             } else {

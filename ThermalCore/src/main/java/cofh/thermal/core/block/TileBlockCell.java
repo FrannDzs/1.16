@@ -2,6 +2,7 @@ package cofh.thermal.core.block;
 
 import cofh.core.block.TileBlock4Way;
 import cofh.core.tileentity.TileCoFH;
+import cofh.lib.tileentity.ITileCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -29,8 +30,8 @@ public class TileBlockCell extends TileBlock4Way {
             return state.getLightValue();
         }
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TileCoFH) {
-            return ((TileCoFH) tile).getLightValue();
+        if (tile instanceof ITileCallback) {
+            return ((ITileCallback) tile).getLightValue();
         }
         return state.getLightValue();
     }

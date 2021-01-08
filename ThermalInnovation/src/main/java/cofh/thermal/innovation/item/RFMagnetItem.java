@@ -15,6 +15,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -28,6 +29,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -43,7 +45,7 @@ import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
     protected static final int MAP_CAPACITY = 64;
-    protected static final WeakHashMap<ItemStack, IFilter<ItemStack>> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
+    protected static final WeakHashMap<ItemStack, IFilter> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
 
     protected static final int RADIUS = 4;
     protected static final int REACH = 64;
@@ -100,14 +102,6 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
         ItemStack stack = playerIn.getHeldItem(handIn);
-
-        //        if (playerIn.isSneaking()) {
-        //            if (Utils.isClientWorld(worldIn)) {
-        //                return ActionResult.resultSuccess(stack);
-        //            }
-        //            NetworkHooks.openGui((ServerPlayerEntity) playerIn);
-        //        }
-
         return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
     }
 
@@ -174,9 +168,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     // region HELPERS
-    protected static IFilter<ItemStack> getFilter(ItemStack stack) {
+    protected static IFilter getFilter(ItemStack stack) {
 
-        IFilter<ItemStack> ret = FILTERS.get(stack);
+        IFilter ret = FILTERS.get(stack);
         if (ret != null) {
             return ret;
         }
@@ -189,7 +183,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
     protected static Predicate<ItemStack> getFilterRules(ItemStack stack) {
 
-        return getFilter(stack).getRules();
+        return getFilter(stack).getItemRules();
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -198,8 +192,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             return false;
         }
         if (player.isSecondaryUseActive()) {
-            // TODO: Filter GUI
-            //            player.openGui(ThermalInnovation.instance, GuiHandler.MAGNET_FILTER_ID, world, 0, 0, 0);
+            if (player instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(stack));
+            }
         } else if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
             BlockRayTraceResult traceResult = RayTracer.retrace(player, REACH);
             if (traceResult.getType() != RayTraceResult.Type.BLOCK) {

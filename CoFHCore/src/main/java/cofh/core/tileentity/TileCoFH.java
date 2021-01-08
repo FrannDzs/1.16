@@ -6,7 +6,6 @@ import cofh.lib.tileentity.ITileCallback;
 import cofh.lib.tileentity.ITilePacketHandler;
 import cofh.lib.util.IConveyableData;
 import cofh.lib.util.Utils;
-import cofh.lib.util.control.ISecurable;
 import cofh.lib.util.helpers.XpHelper;
 import cofh.lib.xp.XpStorage;
 import net.minecraft.block.Block;
@@ -16,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.IContainerListener;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -85,20 +83,6 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
         return this;
     }
 
-    public int getComparatorInputOverride() {
-
-        return 0;
-    }
-
-    public int getLightValue() {
-
-        return 0;
-    }
-
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-    }
-
     public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 
         return getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(handler -> FluidHelper.interactWithHandler(player.getHeldItem(hand), handler, player, hand)).orElse(false);
@@ -111,24 +95,9 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
     // endregion
 
     // region GUI
-    public boolean canOpenGui() {
-
-        return this instanceof INamedContainerProvider;
-    }
-
-    public boolean canPlayerChange(PlayerEntity player) {
-
-        return !(this instanceof ISecurable) || ((ISecurable) this).canAccess(player);
-    }
-
     public boolean playerWithinDistance(PlayerEntity player, double distanceSq) {
 
         return pos.distanceSq(player.getPositionVec(), true) <= distanceSq;
-    }
-
-    public boolean clearEnergy(int coil) {
-
-        return false;
     }
 
     public boolean claimXP(PlayerEntity player) {

@@ -1,10 +1,12 @@
 package cofh.lib.block;
 
+import cofh.lib.tileentity.ITileCallback;
 import cofh.lib.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -34,7 +36,11 @@ public interface IDismantleable extends IForgeBlock {
      */
     default boolean canDismantle(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 
-        return true;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof ITileCallback) {
+            return ((ITileCallback) tile).canPlayerChange(player);
+        }
+        return false;
     }
 
 }

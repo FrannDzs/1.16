@@ -1,8 +1,8 @@
 package cofh.thermal.innovation.item;
 
 import cofh.core.item.FluidContainerItem;
-import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.ProxyUtils;
+import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.capability.CapabilityArchery;
 import cofh.lib.capability.IArcheryAmmoItem;

@@ -23,10 +23,10 @@ public class ItemFilterContainer extends ContainerCoFH implements IFilterOptions
 
         super(ITEM_FILTER_CONTAINER, windowId, inventory, player);
 
-        int slots = filter.size();
-
         filterStack = player.getHeldItemMainhand();
         filter = (ItemFilter) ItemFilter.readFromNBT(filterStack.getTag());
+
+        int slots = filter.size();
         filterInventory = new ItemInvWrapper(this, slots);
 
         int rows = MathHelper.clamp(slots / 3, 1, 3);
@@ -50,7 +50,7 @@ public class ItemFilterContainer extends ContainerCoFH implements IFilterOptions
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
 
-        return false;
+        return true;
     }
 
     @Override

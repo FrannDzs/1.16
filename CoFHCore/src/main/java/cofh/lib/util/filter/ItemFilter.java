@@ -1,12 +1,19 @@
 package cofh.lib.util.filter;
 
+import cofh.core.inventory.container.ItemFilterContainer;
 import cofh.lib.util.helpers.ItemHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,17 +22,16 @@ import java.util.function.Predicate;
 import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
+public class ItemFilter implements IFilter {
 
     public static ItemFilter EMPTY_FILTER = new ItemFilter(0) {
 
         @Override
-        public Predicate<ItemStack> getRules() {
+        public Predicate<ItemStack> getItemRules() {
 
-            return ALWAYS_ALLOW;
+            return ALWAYS_ALLOW_ITEM;
         }
     };
-    public static Predicate<ItemStack> ALWAYS_ALLOW = (stack) -> true;
 
     protected List<ItemStack> items;
     protected Predicate<ItemStack> rules;
@@ -46,8 +52,16 @@ public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
         return items.size();
     }
 
+    public static IFilter readFromNBT(CompoundNBT nbt) {
+
+        if (nbt == null || !nbt.contains(TAG_FILTER)) {
+            // return EMPTY_FILTER;
+        }
+        return new ItemFilter(12).read(nbt);
+    }
+
     @Override
-    public Predicate<ItemStack> getRules() {
+    public Predicate<ItemStack> getItemRules() {
 
         if (rules == null) {
             Set<Item> itemSet = new ObjectOpenHashSet<>();
@@ -74,20 +88,14 @@ public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
         return rules;
     }
 
-    public static IFilter<ItemStack> readFromNBT(CompoundNBT nbt) {
-
-        if (nbt == null || !nbt.contains(TAG_FILTER)) {
-            return EMPTY_FILTER;
-        }
-        return new ItemFilter(0).read(nbt);
-    }
-
-    public IFilter<ItemStack> read(CompoundNBT nbt) {
+    @Override
+    public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-            return EMPTY_FILTER;
-        }
+        // TODO: Re-add.
+        //        if (this == EMPTY_FILTER || subTag.isEmpty()) {
+        //            return EMPTY_FILTER;
+        //        }
         ListNBT list = subTag.getList(TAG_ITEM_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT slotTag = list.getCompound(i);
@@ -99,6 +107,7 @@ public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
         return this;
     }
 
+    @Override
     public CompoundNBT write(CompoundNBT nbt) {
 
         if (this == EMPTY_FILTER || items.size() <= 0) {
@@ -146,6 +155,22 @@ public class ItemFilter implements IFilter<ItemStack>, IFilterOptions {
 
         this.checkNBT = checkNBT;
         return true;
+    }
+    // endregion
+
+    // region INamedContainerProvider
+    @Override
+    public ITextComponent getDisplayName() {
+
+        // TODO: Localize
+        return new StringTextComponent("Item Filter");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
+
+        return new ItemFilterContainer(i, inventory, player);
     }
     // endregion
 }

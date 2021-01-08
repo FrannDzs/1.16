@@ -54,7 +54,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     };
 
     protected XpStorage xpStorage;
-    protected IFilter<ItemStack> filter = ItemFilter.EMPTY_FILTER;
+    protected IFilter filter = ItemFilter.EMPTY_FILTER;
 
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
@@ -139,7 +139,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         IItemHandler handler = inventory.getHandler(ACCESSIBLE);
         List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, VALID_ITEM_ENTITY);
 
-        Predicate<ItemStack> filterRules = filter.getRules();
+        Predicate<ItemStack> filterRules = filter.getItemRules();
 
         for (ItemEntity item : items) {
             ItemStack entityStack = item.getItem();

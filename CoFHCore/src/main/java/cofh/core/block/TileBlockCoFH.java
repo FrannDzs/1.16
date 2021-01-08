@@ -4,6 +4,7 @@ import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.block.IDismantleable;
 import cofh.lib.item.IPlacementItem;
+import cofh.lib.tileentity.ITileCallback;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.SecurityHelper;
@@ -126,7 +127,7 @@ public class TileBlockCoFH extends Block implements IDismantleable {
     public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
 
         TileEntity tile = worldIn.getTileEntity(pos);
-        return tile instanceof TileCoFH ? ((TileCoFH) tile).getComparatorInputOverride() : super.getComparatorInputOverride(blockState, worldIn, pos);
+        return tile instanceof ITileCallback ? ((ITileCallback) tile).getComparatorInputOverride() : super.getComparatorInputOverride(blockState, worldIn, pos);
     }
 
     @Override
@@ -134,8 +135,8 @@ public class TileBlockCoFH extends Block implements IDismantleable {
 
         ItemStack stack = super.getItem(worldIn, pos, state);
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof TileCoFH) {
-            ((TileCoFH) tile).createItemStackTag(stack);
+        if (tile instanceof ITileCallback) {
+            ((ITileCallback) tile).createItemStackTag(stack);
         }
         return stack;
     }

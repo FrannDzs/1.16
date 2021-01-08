@@ -2,11 +2,17 @@ package cofh.lib.util.filter;
 
 import cofh.core.util.helpers.FluidHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,12 +21,12 @@ import java.util.function.Predicate;
 import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class FluidFilter implements IFilter<FluidStack> {
+public class FluidFilter implements IFilter {
 
     public static FluidFilter EMPTY_FILTER = new FluidFilter(0) {
 
         @Override
-        public Predicate<FluidStack> getRules() {
+        public Predicate<FluidStack> getFluidRules() {
 
             return ALWAYS_ALLOW;
         }
@@ -30,7 +36,7 @@ public class FluidFilter implements IFilter<FluidStack> {
     protected List<FluidStack> fluids;
     protected Predicate<FluidStack> rules;
 
-    protected boolean allowlist = false;
+    protected boolean allowList = false;
     protected boolean checkNBT = false;
 
     public FluidFilter(int size) {
@@ -42,7 +48,7 @@ public class FluidFilter implements IFilter<FluidStack> {
     }
 
     @Override
-    public Predicate<FluidStack> getRules() {
+    public Predicate<FluidStack> getFluidRules() {
 
         if (rules == null) {
             Set<Fluid> fluidSet = new ObjectOpenHashSet<>();
@@ -53,13 +59,13 @@ public class FluidFilter implements IFilter<FluidStack> {
                 if (stack.isEmpty()) {
                     return false;
                 }
-                if (allowlist != fluidSet.contains(stack.getFluid())) {
+                if (allowList != fluidSet.contains(stack.getFluid())) {
                     return false;
                 }
                 if (checkNBT) {
                     for (FluidStack fluid : fluids) {
                         if (FluidHelper.fluidsEqual(stack, fluid)) {
-                            return allowlist;
+                            return allowList;
                         }
                     }
                 }
@@ -69,7 +75,7 @@ public class FluidFilter implements IFilter<FluidStack> {
         return rules;
     }
 
-    public static IFilter<FluidStack> readFromNBT(CompoundNBT nbt) {
+    public static IFilter readFromNBT(CompoundNBT nbt) {
 
         if (nbt == null || !nbt.contains(TAG_FILTER)) {
             return EMPTY_FILTER;
@@ -77,12 +83,14 @@ public class FluidFilter implements IFilter<FluidStack> {
         return new FluidFilter(0).read(nbt);
     }
 
-    public IFilter<FluidStack> read(CompoundNBT nbt) {
+    @Override
+    public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-            return EMPTY_FILTER;
-        }
+        // TODO: Re-add.
+        //        if (this == EMPTY_FILTER || subTag.isEmpty()) {
+        //            return EMPTY_FILTER;
+        //        }
         ListNBT list = subTag.getList(TAG_TANK_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT tankTag = list.getCompound(i);
@@ -94,6 +102,7 @@ public class FluidFilter implements IFilter<FluidStack> {
         return this;
     }
 
+    @Override
     public CompoundNBT write(CompoundNBT nbt) {
 
         if (this == EMPTY_FILTER || fluids.size() <= 0) {
@@ -116,4 +125,48 @@ public class FluidFilter implements IFilter<FluidStack> {
         return nbt;
     }
 
+    // region IFilterOptions
+    @Override
+    public boolean getAllowList() {
+
+        return allowList;
+    }
+
+    @Override
+    public boolean setAllowList(boolean allowList) {
+
+        this.allowList = allowList;
+        return true;
+    }
+
+    @Override
+    public boolean getCheckNBT() {
+
+        return checkNBT;
+    }
+
+    @Override
+    public boolean setCheckNBT(boolean checkNBT) {
+
+        this.checkNBT = checkNBT;
+        return true;
+    }
+    // endregion
+
+    // region INamedContainerProvider
+    @Override
+    public ITextComponent getDisplayName() {
+
+        // TODO: Localize
+        return new StringTextComponent("Fluid Filter");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
+
+        return null;
+        // return new ItemFilterContainer(i, inventory, player);
+    }
+    // endregion
 }
