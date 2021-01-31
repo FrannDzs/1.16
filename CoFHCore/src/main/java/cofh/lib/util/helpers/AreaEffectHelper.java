@@ -33,7 +33,7 @@ public class AreaEffectHelper {
 
     public static boolean validAreaEffectItem(ItemStack stack) {
 
-        return stack.getCapability(AREA_EFFECT_ITEM_CAPABILITY).isPresent() || stack.getItem() instanceof ToolItem || stack.getItem() instanceof HoeItem;
+        return stack.getCapability(AREA_EFFECT_ITEM_CAPABILITY).isPresent() || stack.getItem() instanceof ToolItem;
     }
 
     public static boolean validAreaEffectMiningItem(ItemStack stack) {

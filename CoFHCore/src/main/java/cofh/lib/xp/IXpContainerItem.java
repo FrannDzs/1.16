@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.event.entity.player.PlayerXpEvent;
 
 import static cofh.lib.util.constants.NBTTags.TAG_XP;
 
@@ -38,17 +37,14 @@ public interface IXpContainerItem extends IContainerItem {
         return totalXP;
     }
 
-    static boolean storeXpOrb(PlayerXpEvent.PickupXp event, ItemStack stack) {
+    static boolean storeXpOrb(PlayerEntity player, ExperienceOrbEntity orb, ItemStack stack) {
 
         IXpContainerItem item = (IXpContainerItem) stack.getItem();
-        ExperienceOrbEntity orb = event.getOrb();
         int toAdd = Math.min(item.getSpaceXP(stack), orb.xpValue);
 
         if (toAdd > 0) {
             stack.setAnimationsToGo(5);
-            PlayerEntity player = event.getPlayer();
             player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.1F, (MathHelper.RANDOM.nextFloat() - MathHelper.RANDOM.nextFloat()) * 0.35F + 0.9F);
-
             item.modifyXp(stack, toAdd);
             orb.xpValue -= toAdd;
             return true;

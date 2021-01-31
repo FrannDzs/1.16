@@ -87,6 +87,18 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
         generated(reg.getSup("blizz_rod"), RESOURCES);
         generated(reg.getSup("blizz_powder"), RESOURCES);
 
+        generated(reg.getSup("creosote_bucket"), RESOURCES);
+        generated(reg.getSup("crude_oil_bucket"), RESOURCES);
+        generated(reg.getSup("heavy_oil_bucket"), RESOURCES);
+        generated(reg.getSup("light_oil_bucket"), RESOURCES);
+        generated(reg.getSup("refined_fuel_bucket"), RESOURCES);
+
+        generated(reg.getSup("latex_bucket"), RESOURCES);
+        generated(reg.getSup("resin_bucket"), RESOURCES);
+        generated(reg.getSup("sap_bucket"), RESOURCES);
+        generated(reg.getSup("syrup_bucket"), RESOURCES);
+        generated(reg.getSup("tree_oil_bucket"), RESOURCES);
+
         metalSet(reg, "copper");
         metalSet(reg, "lead");
         metalSet(reg, "nickel");

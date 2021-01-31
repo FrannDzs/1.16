@@ -9,7 +9,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
@@ -80,17 +80,16 @@ public class FluidFilter implements IFilter {
         if (nbt == null || !nbt.contains(TAG_FILTER)) {
             return EMPTY_FILTER;
         }
-        return new FluidFilter(0).read(nbt);
+        return new FluidFilter(12);
     }
 
     @Override
     public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        // TODO: Re-add.
-        //        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-        //            return EMPTY_FILTER;
-        //        }
+        if (this == EMPTY_FILTER || subTag.isEmpty()) {
+            return EMPTY_FILTER;
+        }
         ListNBT list = subTag.getList(TAG_TANK_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT tankTag = list.getCompound(i);
@@ -157,8 +156,7 @@ public class FluidFilter implements IFilter {
     @Override
     public ITextComponent getDisplayName() {
 
-        // TODO: Localize
-        return new StringTextComponent("Fluid Filter");
+        return new TranslationTextComponent("info.cofh.filter");
     }
 
     @Nullable

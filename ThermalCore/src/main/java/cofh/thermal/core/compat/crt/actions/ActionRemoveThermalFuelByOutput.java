@@ -53,13 +53,13 @@ public class ActionRemoveThermalFuelByOutput extends ActionRecipeBase {
             }
 
             boolean valid = true;
-            for (int i = 0; i < fuel.getInputItems().size(); i++) {
+            for (int i = 0; i < fuel.getInputItems().size(); ++i) {
                 if (!IIngredient.fromIngredient(fuel.getInputItems().get(i)).matches(outputs[i])) {
                     valid = false;
                     break;
                 }
             }
-            for (int i = 0; i < fuel.getInputFluids().size(); i++) {
+            for (int i = 0; i < fuel.getInputFluids().size(); ++i) {
                 if (!fluids[i].containsOther(new MCFluidStackMutable(fuel.getInputFluids().get(i))) && !new MCFluidStackMutable(fuel.getInputFluids().get(i)).containsOther(fluids[i])) {
                     valid = false;
                     break;

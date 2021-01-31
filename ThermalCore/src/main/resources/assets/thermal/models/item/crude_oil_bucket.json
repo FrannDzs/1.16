@@ -1,5 +1,6 @@
 {
-  "parent": "forge:item/bucket",
-  "loader": "forge:bucket",
-  "fluid": "thermal:crude_oil"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "thermal:item/resources/crude_oil_bucket"
+  }
 }

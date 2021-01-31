@@ -108,7 +108,7 @@ public class InventoryHelper {
                     break;
                 }
                 Slot slot = slots.get(i);
-                if (slot instanceof SlotFalseCopy) {
+                if (slot instanceof SlotFalseCopy || !slot.isItemValid(stack)) {
                     i += iterOrder;
                     continue;
                 }

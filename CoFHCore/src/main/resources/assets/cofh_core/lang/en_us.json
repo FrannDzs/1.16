@@ -68,6 +68,12 @@
   "info.cofh.energy_stored": "Energy Stored",
   "info.cofh.energy_use": "Energy Use",
 
+  "info.cofh.filter": "Filter",
+  "info.cofh.filter.allowlist.0": "Deny List",
+  "info.cofh.filter.allowlist.1": "Allow List",
+  "info.cofh.filter.checkNBT.0": "Ignore NBT",
+  "info.cofh.filter.checkNBT.1": "Match NBT",
+
   "info.cofh.configuration": "Configuration",
   "info.cofh.transfer_in_disabled": "Auto-Input Disabled",
   "info.cofh.transfer_in_enabled": "Auto-Input Enabled",

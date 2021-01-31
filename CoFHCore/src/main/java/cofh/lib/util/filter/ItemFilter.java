@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ItemFilter implements IFilter {
         if (nbt == null || !nbt.contains(TAG_FILTER)) {
             // return EMPTY_FILTER;
         }
-        return new ItemFilter(12).read(nbt);
+        return new ItemFilter(12);
     }
 
     @Override
@@ -92,10 +92,9 @@ public class ItemFilter implements IFilter {
     public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        // TODO: Re-add.
-        //        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-        //            return EMPTY_FILTER;
-        //        }
+        if (this == EMPTY_FILTER || subTag.isEmpty()) {
+            return EMPTY_FILTER;
+        }
         ListNBT list = subTag.getList(TAG_ITEM_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT slotTag = list.getCompound(i);
@@ -162,8 +161,7 @@ public class ItemFilter implements IFilter {
     @Override
     public ITextComponent getDisplayName() {
 
-        // TODO: Localize
-        return new StringTextComponent("Item Filter");
+        return new TranslationTextComponent("info.cofh.filter");
     }
 
     @Nullable

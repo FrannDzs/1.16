@@ -1,6 +1,12 @@
 package cofh.lib.util.helpers;
 
+import cofh.lib.xp.IXpContainerItem;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+
+import static cofh.lib.util.constants.NBTTags.TAG_XP_TIMER;
 
 public class XpHelper {
 
@@ -59,6 +65,20 @@ public class XpHelper {
             player.experienceLevel = 0;
             player.experience = 0.0F;
             player.experienceTotal = 0;
+        }
+    }
+
+    public static void attemptStoreXP(PlayerEntity player, ExperienceOrbEntity orb) {
+
+        // Xp Storage Items
+        if (player.world.getGameTime() - player.getPersistentData().getLong(TAG_XP_TIMER) <= 40) {
+            PlayerInventory inventory = player.inventory;
+            for (int i = 0; i < inventory.getSizeInventory(); ++i) {
+                ItemStack stack = inventory.getStackInSlot(i);
+                if (stack.getItem() instanceof IXpContainerItem && IXpContainerItem.storeXpOrb(player, orb, stack)) {
+                    break;
+                }
+            }
         }
     }
 

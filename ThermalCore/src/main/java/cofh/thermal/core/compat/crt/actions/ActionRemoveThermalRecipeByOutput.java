@@ -53,13 +53,13 @@ public class ActionRemoveThermalRecipeByOutput extends ActionRecipeBase {
             }
 
             boolean valid = true;
-            for (int i = 0; i < recipe.getOutputItems().size(); i++) {
+            for (int i = 0; i < recipe.getOutputItems().size(); ++i) {
                 if (!outputs[i].matches(new MCItemStackMutable(recipe.getOutputItems().get(i)))) {
                     valid = false;
                     break;
                 }
             }
-            for (int i = 0; i < recipe.getOutputFluids().size(); i++) {
+            for (int i = 0; i < recipe.getOutputFluids().size(); ++i) {
                 if (!fluids[i].containsOther(new MCFluidStackMutable(recipe.getOutputFluids().get(i))) && !new MCFluidStackMutable(recipe.getOutputFluids().get(i)).containsOther(fluids[i])) {
                     valid = false;
                     break;

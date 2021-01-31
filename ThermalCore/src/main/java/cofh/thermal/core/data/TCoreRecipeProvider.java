@@ -759,7 +759,7 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addIngredient(fromTags(ItemTagsCoFH.GEMS_APATITE, ItemTagsCoFH.DUSTS_APATITE))
                 .addIngredient(fromTags(ItemTagsCoFH.GEMS_APATITE, ItemTagsCoFH.DUSTS_APATITE))
                 .addIngredient(fromTags(ItemTagsCoFH.GEMS_NITER, ItemTagsCoFH.DUSTS_NITER))
-                .addCriterion("has_apatite", hasItem(reg.get("apatite")))
+                .addCriterion("has_apatite", hasItem(ItemTagsCoFH.GEMS_APATITE))
                 .build(consumer, ID_THERMAL + ":phytogro_8");
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("phytogro"), 4)
@@ -767,7 +767,7 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addIngredient(Items.BONE_MEAL)
                 .addIngredient(fromTags(ItemTagsCoFH.GEMS_APATITE, ItemTagsCoFH.DUSTS_APATITE))
                 .addIngredient(fromTags(ItemTagsCoFH.GEMS_NITER, ItemTagsCoFH.DUSTS_NITER))
-                .addCriterion("has_apatite", hasItem(reg.get("apatite")))
+                .addCriterion("has_apatite", hasItem(ItemTagsCoFH.GEMS_APATITE))
                 .build(consumer, ID_THERMAL + ":phytogro_4");
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("phytogro"), 2)
@@ -794,8 +794,8 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(Items.CYAN_DYE)
-                .addIngredient(reg.get("apatite"))
-                .addCriterion("has_apatite", hasItem(reg.get("apatite")))
+                .addIngredient(ItemTagsCoFH.GEMS_APATITE)
+                .addCriterion("has_apatite", hasItem(ItemTagsCoFH.GEMS_APATITE))
                 .build(consumer, ID_THERMAL + ":cyan_dye_from_apatite");
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("rubber"), 3)

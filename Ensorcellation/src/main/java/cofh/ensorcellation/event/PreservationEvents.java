@@ -2,6 +2,7 @@ package cofh.ensorcellation.event;
 
 import cofh.ensorcellation.enchantment.override.MendingEnchantmentAlt;
 import cofh.ensorcellation.init.EnsorcConfig;
+import cofh.lib.util.helpers.XpHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -106,6 +107,7 @@ public class PreservationEvents {
         player.xpCooldown = 2;
         player.onItemPickup(orb, 1);
 
+        XpHelper.attemptStoreXP(player, orb);
         if (orb.xpValue > 0) {
             player.giveExperiencePoints(orb.xpValue);
         }
