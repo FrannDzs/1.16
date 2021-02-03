@@ -1,6 +1,8 @@
 package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
+import cofh.lib.util.Utils;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.enchantment.Enchantment;
@@ -18,7 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.Set;
 
-import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.TAG_STORED_ENCHANTMENTS;
 import static cofh.lib.util.helpers.StringHelper.*;
 import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
@@ -27,6 +29,16 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = ID_COFH_CORE)
 public class CoreClientEvents {
+
+    private static final Set<String> NAMESPACES = new ObjectOpenHashSet<>();
+
+    static {
+        NAMESPACES.add(ID_COFH_CORE);
+        NAMESPACES.add(ID_ARCHERS_PARADOX);
+        NAMESPACES.add(ID_ENSORCELLATION);
+        NAMESPACES.add(ID_REDSTONE_ARSENAL);
+        NAMESPACES.add(ID_THERMAL);
+    }
 
     private CoreClientEvents() {
 
@@ -40,10 +52,11 @@ public class CoreClientEvents {
             return;
         }
         ItemStack stack = event.getItemStack();
-        if (CoreConfig.enableItemDescriptions) {
-            String infoKey = stack.getItem().getTranslationKey(stack) + ".desc";
+
+        if (CoreConfig.enableItemDescriptions && NAMESPACES.contains(Utils.getItemNamespace(stack.getItem()))) {
+            String infoKey = stack.getTranslationKey() + ".desc";
             if (canLocalize(infoKey)) {
-                event.getToolTip().add(1, getInfoTextComponent(infoKey));
+                tooltip.add(1, getInfoTextComponent(infoKey));
             }
         }
         if (CoreConfig.enableEnchantmentDescriptions) {
@@ -54,7 +67,7 @@ public class CoreClientEvents {
                     if (ench != null && ench.getRegistryName() != null) {
                         String enchKey = ench.getName() + ".desc";
                         if (canLocalize(enchKey)) {
-                            event.getToolTip().add(getInfoTextComponent(enchKey));
+                            tooltip.add(getInfoTextComponent(enchKey));
                         }
                     }
                 }
@@ -67,27 +80,26 @@ public class CoreClientEvents {
             Set<ResourceLocation> itemTags = item.getTags();
 
             if (!blockTags.isEmpty() || !itemTags.isEmpty()) {
-                List<ITextComponent> lines = event.getToolTip();
                 if (Screen.hasControlDown()) {
                     if (!blockTags.isEmpty()) {
-                        lines.add(getTextComponent("info.cofh.block_tags").mergeStyle(GRAY));
+                        tooltip.add(getTextComponent("info.cofh.block_tags").mergeStyle(GRAY));
                         blockTags.stream()
                                 .map(Object::toString)
                                 .map(s -> "  " + s)
                                 .map(t -> getTextComponent(t).mergeStyle(DARK_GRAY))
-                                .forEach(lines::add);
+                                .forEach(tooltip::add);
                     }
 
                     if (!itemTags.isEmpty()) {
-                        lines.add(getTextComponent("info.cofh.item_tags").mergeStyle(GRAY));
+                        tooltip.add(getTextComponent("info.cofh.item_tags").mergeStyle(GRAY));
                         itemTags.stream()
                                 .map(Object::toString)
                                 .map(s -> "  " + s)
                                 .map(t -> getTextComponent(t).mergeStyle(DARK_GRAY))
-                                .forEach(lines::add);
+                                .forEach(tooltip::add);
                     }
                 } else {
-                    lines.add(getTextComponent("info.cofh.hold_ctrl_for_tags").mergeStyle(GRAY));
+                    tooltip.add(getTextComponent("info.cofh.hold_ctrl_for_tags").mergeStyle(GRAY));
                 }
             }
         }

@@ -19,8 +19,10 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -38,6 +40,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -337,4 +340,25 @@ public class Utils {
         }
     }
 
+    // region NAMESPACE
+    public static String getItemNamespace(Item item) {
+
+        return item.getRegistryName() == null ? "" : item.getRegistryName().getNamespace();
+    }
+
+    public static String getItemNamespace(ItemStack stack) {
+
+        return stack.getItem().getRegistryName() == null ? "" : stack.getItem().getRegistryName().getNamespace();
+    }
+
+    public static String getFluidNamespace(Fluid fluid) {
+
+        return fluid.getRegistryName() == null ? "" : fluid.getRegistryName().getNamespace();
+    }
+
+    public static String getFluidNamespace(FluidStack stack) {
+
+        return stack.getFluid().getRegistryName() == null ? "" : stack.getFluid().getRegistryName().getNamespace();
+    }
+    // endregion
 }
