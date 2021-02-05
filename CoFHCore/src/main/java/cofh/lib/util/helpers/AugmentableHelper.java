@@ -79,9 +79,22 @@ public class AugmentableHelper {
         subTag.putFloat(attribute, mod);
     }
 
+    public static void setAttributeFromAugmentString(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
+
+        String mod = getAttributeModString(augmentData, attribute);
+        if (!mod.isEmpty()) {
+            subTag.putString(attribute, mod);
+        }
+    }
+
     public static float getAttributeMod(CompoundNBT augmentData, String key) {
 
         return augmentData.getFloat(key);
+    }
+
+    public static String getAttributeModString(CompoundNBT augmentData, String key) {
+
+        return augmentData.getString(key);
     }
 
     public static float getAttributeModWithDefault(CompoundNBT augmentData, String key, float defaultValue) {
@@ -89,11 +102,23 @@ public class AugmentableHelper {
         return augmentData.contains(key) ? augmentData.getFloat(key) : defaultValue;
     }
 
+    public static String getAttributeModWithDefault(CompoundNBT augmentData, String key, String defaultValue) {
+
+        return augmentData.contains(key) ? augmentData.getString(key) : defaultValue;
+    }
+
     public static float getPropertyWithDefault(ItemStack container, String key, float defaultValue) {
 
         CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
         return subTag == null ? defaultValue : getAttributeModWithDefault(subTag, key, defaultValue);
     }
+
+    public static String getPropertyWithDefault(ItemStack container, String key, String defaultValue) {
+
+        CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
+        return subTag == null ? defaultValue : getAttributeModWithDefault(subTag, key, defaultValue);
+    }
+
     // endregion
 
     // region INTERNAL HELPERS

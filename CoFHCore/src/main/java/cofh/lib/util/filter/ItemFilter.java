@@ -24,14 +24,9 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public class ItemFilter implements IFilter {
 
-    public static ItemFilter EMPTY_FILTER = new ItemFilter(0) {
+    public static final int SIZE = 9;
 
-        @Override
-        public Predicate<ItemStack> getItemRules() {
-
-            return ALWAYS_ALLOW_ITEM;
-        }
-    };
+    public static final IFilterFactory<ItemFilter> ITEM_FILTER_FACTORY = nbt -> (ItemFilter) new ItemFilter(SIZE).read(nbt);
 
     protected List<ItemStack> items;
     protected Predicate<ItemStack> rules;
@@ -52,13 +47,20 @@ public class ItemFilter implements IFilter {
         return items.size();
     }
 
-    public static IFilter readFromNBT(CompoundNBT nbt) {
+    public List<ItemStack> getItems() {
 
-        if (nbt == null || !nbt.contains(TAG_FILTER)) {
-            // return EMPTY_FILTER;
-        }
-        return new ItemFilter(12);
+        return items;
     }
+
+    public void setItems(List<ItemStack> items) {
+
+        this.items = items;
+    }
+
+    //    public static IFilter readFromNBT(CompoundNBT nbt) {
+    //
+    //        return new ItemFilter(SIZE).read(nbt);
+    //    }
 
     @Override
     public Predicate<ItemStack> getItemRules() {
@@ -92,9 +94,6 @@ public class ItemFilter implements IFilter {
     public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-            return EMPTY_FILTER;
-        }
         ListNBT list = subTag.getList(TAG_ITEM_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT slotTag = list.getCompound(i);
@@ -103,15 +102,14 @@ public class ItemFilter implements IFilter {
                 items.set(slot, ItemStack.read(slotTag));
             }
         }
+        allowList = subTag.getBoolean(TAG_FILTER_OPT_LIST);
+        checkNBT = subTag.getBoolean(TAG_FILTER_OPT_NBT);
         return this;
     }
 
     @Override
     public CompoundNBT write(CompoundNBT nbt) {
 
-        if (this == EMPTY_FILTER || items.size() <= 0) {
-            return nbt;
-        }
         CompoundNBT subTag = new CompoundNBT();
         ListNBT list = new ListNBT();
         for (int i = 0; i < items.size(); ++i) {
@@ -122,10 +120,12 @@ public class ItemFilter implements IFilter {
                 list.add(slotTag);
             }
         }
-        if (!list.isEmpty()) {
-            subTag.put(TAG_ITEM_INV, list);
-            nbt.put(TAG_FILTER, subTag);
-        }
+        subTag.put(TAG_ITEM_INV, list);
+
+        subTag.putBoolean(TAG_FILTER_OPT_LIST, allowList);
+        subTag.putBoolean(TAG_FILTER_OPT_NBT, checkNBT);
+
+        nbt.put(TAG_FILTER, subTag);
         return nbt;
     }
 
@@ -161,7 +161,7 @@ public class ItemFilter implements IFilter {
     @Override
     public ITextComponent getDisplayName() {
 
-        return new TranslationTextComponent("info.cofh.filter");
+        return new TranslationTextComponent("info.cofh.item_filter");
     }
 
     @Nullable

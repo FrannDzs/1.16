@@ -21,6 +21,7 @@ import java.util.List;
 
 public abstract class ContainerCoFH extends Container {
 
+    protected boolean allowSwap = true;
     protected boolean falseSlotSupport = true;
     protected boolean syncing = false;
 
@@ -147,6 +148,9 @@ public abstract class ContainerCoFH extends Container {
     @Override
     public ItemStack slotClick(int index, int dragType, ClickType clickTypeIn, PlayerEntity player) {
 
+        if (clickTypeIn == ClickType.SWAP && !allowSwap) {
+            return ItemStack.EMPTY;
+        }
         if (falseSlotSupport) {
             Slot slot = index < 0 ? null : inventorySlots.get(index);
             if (slot instanceof SlotFalseCopy) {

@@ -43,6 +43,8 @@ public class TinkerBenchContainer extends TileContainer {
         this.tile = (TinkerBenchTile) world.getTileEntity(pos);
         InvWrapperCoFH tileInv = new InvWrapperCoFH(this.tile.getItemInv());
 
+        allowSwap = false;
+
         tinkerSlot = new SlotCoFH(tileInv, 0, 44, 26) {
 
             @Override

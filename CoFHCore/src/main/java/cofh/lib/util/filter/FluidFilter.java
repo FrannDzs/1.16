@@ -23,15 +23,9 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public class FluidFilter implements IFilter {
 
-    public static FluidFilter EMPTY_FILTER = new FluidFilter(0) {
+    public static final int SIZE = 9;
 
-        @Override
-        public Predicate<FluidStack> getFluidRules() {
-
-            return ALWAYS_ALLOW;
-        }
-    };
-    public static Predicate<FluidStack> ALWAYS_ALLOW = (stack) -> true;
+    public static final IFilterFactory<FluidFilter> FLUID_FILTER_FACTORY = nbt -> (FluidFilter) new FluidFilter(SIZE).read(nbt);
 
     protected List<FluidStack> fluids;
     protected Predicate<FluidStack> rules;
@@ -45,6 +39,21 @@ public class FluidFilter implements IFilter {
         for (int i = 0; i < size; ++i) {
             fluids.add(FluidStack.EMPTY);
         }
+    }
+
+    public int size() {
+
+        return fluids.size();
+    }
+
+    public List<FluidStack> getFluids() {
+
+        return fluids;
+    }
+
+    public void setFluids(List<FluidStack> fluids) {
+
+        this.fluids = fluids;
     }
 
     @Override
@@ -75,21 +84,10 @@ public class FluidFilter implements IFilter {
         return rules;
     }
 
-    public static IFilter readFromNBT(CompoundNBT nbt) {
-
-        if (nbt == null || !nbt.contains(TAG_FILTER)) {
-            return EMPTY_FILTER;
-        }
-        return new FluidFilter(12);
-    }
-
     @Override
     public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
-        if (this == EMPTY_FILTER || subTag.isEmpty()) {
-            return EMPTY_FILTER;
-        }
         ListNBT list = subTag.getList(TAG_TANK_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT tankTag = list.getCompound(i);
@@ -98,15 +96,14 @@ public class FluidFilter implements IFilter {
                 fluids.set(tank, FluidStack.loadFluidStackFromNBT(tankTag));
             }
         }
+        allowList = subTag.getBoolean(TAG_FILTER_OPT_LIST);
+        checkNBT = subTag.getBoolean(TAG_FILTER_OPT_NBT);
         return this;
     }
 
     @Override
     public CompoundNBT write(CompoundNBT nbt) {
 
-        if (this == EMPTY_FILTER || fluids.size() <= 0) {
-            return nbt;
-        }
         CompoundNBT subTag = new CompoundNBT();
         ListNBT list = new ListNBT();
         for (int i = 0; i < fluids.size(); ++i) {
@@ -117,10 +114,12 @@ public class FluidFilter implements IFilter {
                 list.add(tankTag);
             }
         }
-        if (!list.isEmpty()) {
-            subTag.put(TAG_TANK_INV, list);
-            nbt.put(TAG_FILTER, subTag);
-        }
+        subTag.put(TAG_TANK_INV, list);
+
+        subTag.putBoolean(TAG_FILTER_OPT_LIST, allowList);
+        subTag.putBoolean(TAG_FILTER_OPT_NBT, checkNBT);
+
+        nbt.put(TAG_FILTER, subTag);
         return nbt;
     }
 
@@ -156,7 +155,7 @@ public class FluidFilter implements IFilter {
     @Override
     public ITextComponent getDisplayName() {
 
-        return new TranslationTextComponent("info.cofh.filter");
+        return new TranslationTextComponent("info.cofh.fluid_filter");
     }
 
     @Nullable
@@ -164,7 +163,7 @@ public class FluidFilter implements IFilter {
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
 
         return null;
-        // return new ItemFilterContainer(i, inventory, player);
+        // return new FluidFilterContainer(i, inventory, player);
     }
     // endregion
 }

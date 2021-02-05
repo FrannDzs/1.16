@@ -45,6 +45,7 @@ public class ThermalFlags {
     public static String FLAG_AREA_AUGMENTS = "area_augments";
     public static String FLAG_CREATIVE_AUGMENTS = "creative_augments";
     public static String FLAG_DYNAMO_AUGMENTS = "dynamo_augments";
+    public static String FLAG_FILTER_AUGMENTS = "filter_augments";
     public static String FLAG_MACHINE_AUGMENTS = "machine_augments";
     public static String FLAG_POTION_AUGMENTS = "potion_augments";
     public static String FLAG_STORAGE_AUGMENTS = "storage_augments";

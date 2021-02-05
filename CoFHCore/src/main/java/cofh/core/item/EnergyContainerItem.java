@@ -41,9 +41,10 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         boolean creative = isCreative(stack);
-        tooltip.add(creative
-                ? getTextComponent("info.cofh.infinite_source")
-                : getTextComponent(localize("info.cofh.energy") + ": " + getScaledNumber(getEnergyStored(stack)) + " / " + getScaledNumber(getMaxEnergyStored(stack)) + " RF"));
+        tooltip.add(getTextComponent(localize("info.cofh.energy") + ": "
+                + (creative ?
+                localize("info.cofh.infinite") :
+                getScaledNumber(getEnergyStored(stack)) + " / " + getScaledNumber(getMaxEnergyStored(stack)) + " RF")));
 
         addEnergyTooltip(stack, worldIn, tooltip, flagIn, getExtract(stack), getReceive(stack), creative);
     }

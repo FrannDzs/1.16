@@ -1,7 +1,7 @@
 package cofh.thermal.core.tileentity.device;
 
+import cofh.lib.util.filter.EmptyFilter;
 import cofh.lib.util.filter.IFilter;
-import cofh.lib.util.filter.ItemFilter;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
@@ -54,7 +54,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     };
 
     protected XpStorage xpStorage;
-    protected IFilter filter = ItemFilter.EMPTY_FILTER;
+    protected IFilter filter = EmptyFilter.INSTANCE;
 
     protected static final int RADIUS = 4;
     public int radius = RADIUS;

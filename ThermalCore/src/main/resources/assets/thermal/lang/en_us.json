@@ -328,6 +328,7 @@
   "info.thermal.augment.type.AreaAug": "Area Effect",
   "info.thermal.augment.type.DynamoAug": "Dynamo",
   "info.thermal.augment.type.FluidAug": "Fluid",
+  "info.thermal.augment.type.FilterAug": "Filter",
   "info.thermal.augment.type.MachineAug": "Machine",
   "info.thermal.augment.type.PotionAug": "Potion",
   "info.thermal.augment.type.RFAug": "Redstone Flux",
@@ -349,6 +350,8 @@
 
   "item.thermal.fluid_tank_creative_augment": "Creative Tank Construction",
   "item.thermal.fluid_tank_creative_augment.desc": "Functionally unlimited fluid.",
+
+  "item.thermal.item_filter_augment": "Item Filter",
 
   "item.thermal.machine_catalyst_augment": "Catalytic Reclamation Chamber",
   "item.thermal.machine_cycle_augment": "Cyclical Processing",

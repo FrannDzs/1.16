@@ -29,6 +29,7 @@ public class NBTTags {
     public static final String TAG_COOLANT = "Coolant";
     public static final String TAG_COOLANT_MAX = "CoolantMax";
     public static final String TAG_CREATIVE = "Creative";
+    public static final String TAG_DIRTY = "Dirty";
     public static final String TAG_ENCHANTMENTS = "Enchantments";
     public static final String TAG_ENTITY = "EntityTag";
     public static final String TAG_ENERGY = "Energy";
@@ -37,6 +38,9 @@ public class NBTTags {
     public static final String TAG_ENERGY_SEND = "EnergySend";
     public static final String TAG_FACING = "Facing";
     public static final String TAG_FILTER = "Filter";
+    public static final String TAG_FILTER_OPT_LIST = "AllowList";
+    public static final String TAG_FILTER_OPT_NBT = "CheckNBT";
+    public static final String TAG_FILTER_OPT_TAG = "CheckTag";
     public static final String TAG_FLUID = "Fluid";
     public static final String TAG_FLUID_NAME = "FluidName";
     public static final String TAG_FUEL = "Fuel";
@@ -99,6 +103,7 @@ public class NBTTags {
     public static final String TAG_AUGMENT_TYPE_MACHINE = "MachineAug";
     public static final String TAG_AUGMENT_TYPE_DYNAMO = "DynamoAug";
     public static final String TAG_AUGMENT_TYPE_AREA_EFFECT = "AreaAug";
+    public static final String TAG_AUGMENT_TYPE_FILTER = "FilterAug";
     public static final String TAG_AUGMENT_TYPE_POTION = "PotionAug";
 
     // General
@@ -118,6 +123,8 @@ public class NBTTags {
     public static final String TAG_AUGMENT_FEATURE_RS_CONTROL = "EnableRSControl";
     public static final String TAG_AUGMENT_FEATURE_SIDE_CONFIG = "EnableReconfig";
     public static final String TAG_AUGMENT_FEATURE_XP_STORAGE = "EnableXpStorage";
+
+    public static final String TAG_AUGMENT_FILTER_TYPE = "FilterType";
 
     public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotionAmp";
     public static final String TAG_AUGMENT_POTION_DURATION = "PotionDur";

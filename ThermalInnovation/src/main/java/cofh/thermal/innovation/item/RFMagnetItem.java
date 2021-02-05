@@ -7,8 +7,9 @@ import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
+import cofh.lib.util.filter.EmptyFilter;
+import cofh.lib.util.filter.FilterRegistry;
 import cofh.lib.util.filter.IFilter;
-import cofh.lib.util.filter.ItemFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
@@ -44,7 +45,7 @@ import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
 public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
-    protected static final int MAP_CAPACITY = 64;
+    protected static final int MAP_CAPACITY = 128;
     protected static final WeakHashMap<ItemStack, IFilter> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
 
     protected static final int RADIUS = 4;
@@ -168,22 +169,41 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     // region HELPERS
-    protected static IFilter getFilter(ItemStack stack) {
+    protected IFilter getFilter(ItemStack stack) {
 
-        IFilter ret = FILTERS.get(stack);
-        if (ret != null) {
-            return ret;
+        String filterType = getFilterType(stack);
+        if (filterType.isEmpty()) {
+            return EmptyFilter.INSTANCE;
+        }
+        if (isDirty(stack)) {
+            FILTERS.remove(stack);
+            clearDirty(stack);
+        } else {
+            IFilter ret = FILTERS.get(stack);
+            if (ret != null) {
+                return ret;
+            }
         }
         if (FILTERS.size() > MAP_CAPACITY) {
             FILTERS.clear();
         }
-        FILTERS.put(stack, ItemFilter.readFromNBT(stack.getTag()));
+        FILTERS.put(stack, FilterRegistry.getFilter(filterType, stack.getTag()));
         return FILTERS.get(stack);
     }
 
-    protected static Predicate<ItemStack> getFilterRules(ItemStack stack) {
+    protected Predicate<ItemStack> getFilterRules(ItemStack stack) {
 
         return getFilter(stack).getItemRules();
+    }
+
+    protected boolean hasFilter(ItemStack stack) {
+
+        return !getFilterType(stack).isEmpty();
+    }
+
+    protected String getFilterType(ItemStack stack) {
+
+        return getPropertyWithDefault(stack, TAG_AUGMENT_FILTER_TYPE, "");
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -192,9 +212,11 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             return false;
         }
         if (player.isSecondaryUseActive()) {
-            if (player instanceof ServerPlayerEntity) {
+            if (player instanceof ServerPlayerEntity && hasFilter(stack)) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(stack));
+                return true;
             }
+            return false;
         } else if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
             BlockRayTraceResult traceResult = RayTracer.retrace(player, REACH);
             if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
@@ -258,6 +280,8 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
+
+        setAttributeFromAugmentString(subTag, augmentData, TAG_AUGMENT_FILTER_TYPE);
     }
     // endregion
 
@@ -311,9 +335,14 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
             }
             setAttributesFromAugment(container, augmentData);
         }
+        // Energy Excess
         int energyExcess = getEnergyStored(container) - getMaxEnergyStored(container);
         if (energyExcess > 0) {
             setEnergyStored(container, getMaxEnergyStored(container));
+        }
+        // Filter Reset
+        if (!hasFilter(container)) {
+            container.getOrCreateTag().remove(TAG_FILTER);
         }
         FILTERS.remove(container);
     }

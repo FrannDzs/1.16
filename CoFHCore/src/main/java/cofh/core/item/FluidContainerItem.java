@@ -50,9 +50,11 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
         if (!fluid.isEmpty()) {
             tooltip.add(StringHelper.getFluidName(fluid));
         }
-        tooltip.add(isCreative(stack)
-                ? getTextComponent("info.cofh.infinite_source")
-                : getTextComponent(localize("info.cofh.amount") + ": " + format(fluid.getAmount()) + " / " + format(getCapacity(stack)) + " mB"));
+        boolean creative = isCreative(stack);
+        tooltip.add(getTextComponent(localize("info.cofh.amount") + ": "
+                + (creative ?
+                localize("info.cofh.infinite") :
+                format(fluid.getAmount()) + " / " + format(getCapacity(stack)) + " mB")));
 
         if (hasPotionTag(fluid)) {
             tooltip.add(getEmptyLine());

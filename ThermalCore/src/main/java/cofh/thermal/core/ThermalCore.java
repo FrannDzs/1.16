@@ -105,6 +105,7 @@ public class ThermalCore {
         setFlag(FLAG_RESOURCE_NICKEL, true);
 
         setFlag(FLAG_AREA_AUGMENTS, true);
+        setFlag(FLAG_FILTER_AUGMENTS, true);
         setFlag(FLAG_STORAGE_AUGMENTS, true);
         setFlag(FLAG_UPGRADE_AUGMENTS, true);
 

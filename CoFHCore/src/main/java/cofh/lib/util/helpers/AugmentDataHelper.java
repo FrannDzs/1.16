@@ -68,6 +68,12 @@ public class AugmentDataHelper {
             return this;
         }
 
+        public Builder feature(String mod, String value) {
+
+            augmentData.putString(mod, value);
+            return this;
+        }
+
     }
     // endregion
 }

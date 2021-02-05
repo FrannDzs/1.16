@@ -5,7 +5,6 @@ import cofh.lib.entity.AbstractGrenadeEntity;
 import cofh.lib.item.ArmorMaterialCoFH;
 import cofh.lib.util.constants.ToolTypes;
 import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.thermal.core.common.ThermalItemGroups;
 import cofh.thermal.core.entity.item.*;
 import cofh.thermal.core.entity.projectile.*;
 import cofh.thermal.core.item.*;
@@ -72,7 +71,7 @@ public class TCoreItems {
     // region HELPERS
     private static void registerResources() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("sawdust", group);
         registerItem("coal_coke", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(3200));
@@ -107,7 +106,7 @@ public class TCoreItems {
 
     private static void registerParts() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("redstone_servo", group);
         registerItem("rf_coil", group);
@@ -119,7 +118,7 @@ public class TCoreItems {
 
     private static void registerMaterials() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("ender_pearl_dust", group);
 
@@ -154,7 +153,7 @@ public class TCoreItems {
 
     private static void registerTools() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_TOOLS;
+        ItemGroup group = THERMAL_TOOLS;
 
         registerItem("wrench", () -> new WrenchItem(new Item.Properties().maxStackSize(1).group(group).addToolType(ToolTypes.WRENCH, 1)));
         registerItem("redprint", () -> new RedprintItem(new Item.Properties().maxStackSize(1).group(group)));
@@ -307,12 +306,13 @@ public class TCoreItems {
         registerMachineAugments();
         registerDynamoAugments();
         registerAreaAugments();
+        registerFilterAugments();
         registerPotionAugments();
     }
 
     private static void registerUpgradeAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
         final float[] upgradeMods = new float[]{1.0F, 2.0F, 3.0F, 4.0F, 6.0F, 8.5F};
         // final float[] upgradeMods = new float[]{1.0F, 1.5F, 2.0F, 2.5F, 3.0F, 3.5F};
 
@@ -328,7 +328,7 @@ public class TCoreItems {
 
     private static void registerFeatureAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("rs_control_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -348,7 +348,7 @@ public class TCoreItems {
 
     private static void registerStorageAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("rf_coil_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -395,7 +395,7 @@ public class TCoreItems {
 
     private static void registerMachineAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("machine_speed_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -427,7 +427,7 @@ public class TCoreItems {
 
     private static void registerDynamoAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("dynamo_output_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -445,7 +445,7 @@ public class TCoreItems {
 
     private static void registerAreaAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("area_radius_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -454,9 +454,20 @@ public class TCoreItems {
                         .build()).setShowInGroups(getFlag(FLAG_AREA_AUGMENTS)));
     }
 
+    private static void registerFilterAugments() {
+
+        ItemGroup group = THERMAL_ITEMS;
+
+        registerItem("item_filter_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_FILTER)
+                        .feature(TAG_AUGMENT_FILTER_TYPE, "item_filter")
+                        .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
+    }
+
     private static void registerPotionAugments() {
 
-        ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+        ItemGroup group = THERMAL_ITEMS;
 
         registerItem("potion_amplifier_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
