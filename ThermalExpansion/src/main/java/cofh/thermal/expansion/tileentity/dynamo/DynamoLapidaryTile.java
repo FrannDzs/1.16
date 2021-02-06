@@ -16,7 +16,7 @@ import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_LAPIDARY_TILE;
 
 public class DynamoLapidaryTile extends DynamoTileBase {
 
-    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(LapidaryFuelManager.instance()::validFuel);
+    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(item -> filter.valid(item) && LapidaryFuelManager.instance().validFuel(item));
 
     public DynamoLapidaryTile() {
 

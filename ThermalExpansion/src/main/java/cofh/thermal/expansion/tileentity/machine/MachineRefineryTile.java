@@ -22,7 +22,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_REFINERY_TILE;
 public class MachineRefineryTile extends MachineTileProcess {
 
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_SMALL, RefineryRecipeManager.instance()::validRecipe);
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_SMALL, fluid -> filter.valid(fluid) && RefineryRecipeManager.instance().validRecipe(fluid));
     protected FluidStorageCoFH outputTankA = new FluidStorageCoFH(TANK_MEDIUM);
     protected FluidStorageCoFH outputTankB = new FluidStorageCoFH(TANK_MEDIUM);
 

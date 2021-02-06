@@ -23,8 +23,8 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_PRESS_TILE;
 
 public class MachinePressTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PressRecipeManager.instance()::validInput);
-    protected ItemStorageCoFH dieSlot = new ItemStorageCoFH(PressRecipeManager.instance()::validDie);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && PressRecipeManager.instance().validInput(item));
+    protected ItemStorageCoFH dieSlot = new ItemStorageCoFH(item -> filter.valid(item) && PressRecipeManager.instance().validDie(item));
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_SMALL);
 

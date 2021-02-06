@@ -22,7 +22,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_CENTRIFUGE_TILE
 
 public class MachineCentrifugeTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(CentrifugeRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && CentrifugeRecipeManager.instance().validRecipe(item));
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_SMALL);
 
     public MachineCentrifugeTile() {

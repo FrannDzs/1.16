@@ -17,7 +17,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_PULVERIZER_TILE
 
 public class MachinePulverizerTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PulverizerRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && PulverizerRecipeManager.instance().validRecipe(item));
     protected ItemStorageCoFH catalystSlot = new ItemStorageCoFH(PulverizerRecipeManager.instance()::validCatalyst);
 
     public MachinePulverizerTile() {

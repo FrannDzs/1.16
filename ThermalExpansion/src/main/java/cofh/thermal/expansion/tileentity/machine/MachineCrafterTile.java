@@ -47,7 +47,7 @@ public class MachineCrafterTile extends MachineTileProcess {
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
     protected ItemStorageCoFH resultSlot = new ItemStorageCoFH();
 
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, (fluid) -> CrafterRecipeManager.instance().validFluid(fluid, curRecipe));
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, fluid -> filter.valid(fluid) && CrafterRecipeManager.instance().validFluid(fluid, curRecipe));
 
     public MachineCrafterTile() {
 

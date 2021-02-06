@@ -27,7 +27,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_INSOLATOR_TILE;
 
 public class MachineInsolatorTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(InsolatorRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && InsolatorRecipeManager.instance().validRecipe(item));
     protected ItemStorageCoFH catalystSlot = new ItemStorageCoFH(InsolatorRecipeManager.instance()::validCatalyst);
     protected FluidStorageCoFH waterTank = new FluidStorageCoFH(TANK_SMALL, FluidHelper.IS_WATER);
 

@@ -7,8 +7,8 @@ import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
-import cofh.lib.util.filter.EmptyFilter;
-import cofh.lib.util.filter.FilterRegistry;
+import cofh.core.util.filter.EmptyFilter;
+import cofh.core.util.filter.FilterRegistry;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
@@ -203,7 +203,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
     protected String getFilterType(ItemStack stack) {
 
-        return getPropertyWithDefault(stack, TAG_AUGMENT_FILTER_TYPE, "");
+        return getPropertyWithDefault(stack, TAG_FILTER_TYPE, "");
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -281,7 +281,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
 
-        setAttributeFromAugmentString(subTag, augmentData, TAG_AUGMENT_FILTER_TYPE);
+        setAttributeFromAugmentString(subTag, augmentData, TAG_FILTER_TYPE);
     }
     // endregion
 

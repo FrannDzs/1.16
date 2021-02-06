@@ -16,7 +16,7 @@ import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_NUMISMATIC_TILE;
 
 public class DynamoNumismaticTile extends DynamoTileBase {
 
-    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(NumismaticFuelManager.instance()::validFuel);
+    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(item -> filter.valid(item) && NumismaticFuelManager.instance().validFuel(item));
 
     public DynamoNumismaticTile() {
 

@@ -27,7 +27,7 @@ import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_MAGMATIC_TILE;
 
 public class DynamoMagmaticTile extends DynamoTileBase {
 
-    protected FluidStorageCoFH fuelTank = new FluidStorageCoFH(TANK_SMALL, MagmaticFuelManager.instance()::validFuel);
+    protected FluidStorageCoFH fuelTank = new FluidStorageCoFH(TANK_SMALL, fluid -> filter.valid(fluid) && MagmaticFuelManager.instance().validFuel(fluid));
 
     public DynamoMagmaticTile() {
 

@@ -44,8 +44,8 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
 
     protected static final int TICK_RATE = 60;
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PotionDiffuserManager.instance()::validBoost);
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, FluidHelper::hasPotionTag);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && PotionDiffuserManager.instance().validBoost(item));
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, fluid -> filter.valid(fluid) && FluidHelper.hasPotionTag(fluid));
 
     protected static final int FLUID_AMOUNT = 25;
     protected static final int RADIUS = 4;

@@ -16,7 +16,7 @@ import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_STIRLING_TILE;
 
 public class DynamoStirlingTile extends DynamoTileBase {
 
-    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(StirlingFuelManager.instance()::validFuel);
+    protected ItemStorageCoFH fuelSlot = new ItemStorageCoFH(item -> filter.valid(item) && StirlingFuelManager.instance().validFuel(item));
 
     public DynamoStirlingTile() {
 

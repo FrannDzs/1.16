@@ -16,7 +16,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_SAWMILL_TILE;
 
 public class MachineSawmillTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(SawmillRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && SawmillRecipeManager.instance().validRecipe(item));
 
     public MachineSawmillTile() {
 

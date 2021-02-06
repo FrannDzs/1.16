@@ -27,7 +27,7 @@ import static cofh.thermal.expansion.init.TExpReferences.DYNAMO_COMPRESSION_TILE
 
 public class DynamoCompressionTile extends DynamoTileBase {
 
-    protected FluidStorageCoFH fuelTank = new FluidStorageCoFH(TANK_SMALL, CompressionFuelManager.instance()::validFuel);
+    protected FluidStorageCoFH fuelTank = new FluidStorageCoFH(TANK_SMALL, fluid -> filter.valid(fluid) && CompressionFuelManager.instance().validFuel(fluid));
 
     public DynamoCompressionTile() {
 

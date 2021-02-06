@@ -45,7 +45,7 @@ public class DeviceTreeExtractorTile extends DeviceTileBase implements ITickable
     protected static final int NUM_LEAVES = 3;
     protected static final int TICK_RATE = 500;
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(TreeExtractorManager.instance()::validBoost);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && TreeExtractorManager.instance().validBoost(item));
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
 
     protected boolean cached;

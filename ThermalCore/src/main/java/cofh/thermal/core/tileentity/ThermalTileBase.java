@@ -5,6 +5,7 @@ import cofh.core.network.packet.client.TileRedstonePacket;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.*;
+import cofh.core.util.filter.EmptyFilter;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.fluid.ManagedTankInv;
@@ -13,6 +14,7 @@ import cofh.lib.inventory.ManagedItemInv;
 import cofh.lib.item.IAugmentableItem;
 import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
+import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.core.common.ThermalConfig;
@@ -69,6 +71,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected static final int BASE_XP_STORAGE = 2500;
 
     protected TimeTracker timeTracker = new TimeTracker();
+    protected IFilter filter = EmptyFilter.INSTANCE;
     protected ManagedItemInv inventory = new ManagedItemInv(this, TAG_ITEM_INV);
     protected ManagedTankInv tankInv = new ManagedTankInv(this, TAG_TANK_INV);
     protected EnergyStorageCoFH energyStorage = new EnergyStorageCoFH(0);

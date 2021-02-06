@@ -41,6 +41,7 @@ public class NBTTags {
     public static final String TAG_FILTER_OPT_LIST = "AllowList";
     public static final String TAG_FILTER_OPT_NBT = "CheckNBT";
     public static final String TAG_FILTER_OPT_TAG = "CheckTag";
+    public static final String TAG_FILTER_TYPE = "FilterType";
     public static final String TAG_FLUID = "Fluid";
     public static final String TAG_FLUID_NAME = "FluidName";
     public static final String TAG_FUEL = "Fuel";
@@ -123,8 +124,6 @@ public class NBTTags {
     public static final String TAG_AUGMENT_FEATURE_RS_CONTROL = "EnableRSControl";
     public static final String TAG_AUGMENT_FEATURE_SIDE_CONFIG = "EnableReconfig";
     public static final String TAG_AUGMENT_FEATURE_XP_STORAGE = "EnableXpStorage";
-
-    public static final String TAG_AUGMENT_FILTER_TYPE = "FilterType";
 
     public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotionAmp";
     public static final String TAG_AUGMENT_POTION_DURATION = "PotionDur";

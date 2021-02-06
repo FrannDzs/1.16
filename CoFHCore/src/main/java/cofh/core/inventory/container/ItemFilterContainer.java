@@ -1,11 +1,11 @@
 package cofh.core.inventory.container;
 
+import cofh.core.util.filter.ItemFilter;
 import cofh.lib.inventory.ItemInvWrapper;
 import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.lib.inventory.container.slot.SlotFalseCopy;
 import cofh.lib.inventory.container.slot.SlotLocked;
 import cofh.lib.util.filter.IFilterOptions;
-import cofh.lib.util.filter.ItemFilter;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -28,7 +28,7 @@ public class ItemFilterContainer extends ContainerCoFH implements IFilterOptions
         allowSwap = false;
 
         filterStack = player.getHeldItemMainhand();
-        filter = ItemFilter.ITEM_FILTER_FACTORY.createFilter(filterStack.getTag());
+        filter = ItemFilter.FACTORY.createFilter(filterStack.getTag());
 
         int slots = filter.size();
         filterInventory = new ItemInvWrapper(this, slots);

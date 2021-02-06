@@ -38,6 +38,9 @@ public class CoreReferences {
     // endregion
 
     // region CONTAINERS
+    //    @ObjectHolder(ID_CONTAINER_FLUID_FILTER)
+    //    public static final ContainerType<ItemFilterContainer> FLUID_FILTER_CONTAINER = null;
+
     @ObjectHolder(ID_CONTAINER_ITEM_FILTER)
     public static final ContainerType<ItemFilterContainer> ITEM_FILTER_CONTAINER = null;
     // endregion

@@ -22,7 +22,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_PYROLYZER_TILE;
 
 public class MachinePyrolyzerTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(PyrolyzerRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && PyrolyzerRecipeManager.instance().validRecipe(item));
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_SMALL);
 
     public MachinePyrolyzerTile() {

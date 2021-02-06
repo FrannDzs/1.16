@@ -18,7 +18,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_FURNACE_TILE;
 
 public class MachineFurnaceTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(FurnaceRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && FurnaceRecipeManager.instance().validRecipe(item));
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
 
     public MachineFurnaceTile() {

@@ -22,9 +22,9 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_CHILLER_TILE;
 
 public class MachineChillerTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(ChillerRecipeManager.instance()::validItem);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && ChillerRecipeManager.instance().validItem(item));
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, ChillerRecipeManager.instance()::validFluid);
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, fluid -> filter.valid(fluid) && ChillerRecipeManager.instance().validFluid(fluid));
 
     public MachineChillerTile() {
 

@@ -26,9 +26,9 @@ public class MachineSmelterTile extends MachineTileProcess {
 
         super(MACHINE_SMELTER_TILE);
 
-        inputSlots[0] = new ItemStorageCoFH((item) -> SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[1].getItemStack()) && !itemsEqual(item, inputSlots[2].getItemStack()));
-        inputSlots[1] = new ItemStorageCoFH((item) -> SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[0].getItemStack()) && !itemsEqual(item, inputSlots[2].getItemStack()));
-        inputSlots[2] = new ItemStorageCoFH((item) -> SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[0].getItemStack()) && !itemsEqual(item, inputSlots[1].getItemStack()));
+        inputSlots[0] = new ItemStorageCoFH(item -> filter.valid(item) && SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[1].getItemStack()) && !itemsEqual(item, inputSlots[2].getItemStack()));
+        inputSlots[1] = new ItemStorageCoFH(item -> filter.valid(item) && SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[0].getItemStack()) && !itemsEqual(item, inputSlots[2].getItemStack()));
+        inputSlots[2] = new ItemStorageCoFH(item -> filter.valid(item) && SmelterRecipeManager.instance().validItem(item) && !itemsEqual(item, inputSlots[0].getItemStack()) && !itemsEqual(item, inputSlots[1].getItemStack()));
 
         for (int i = 0; i < 3; ++i) {
             inventory.addSlot(inputSlots[i], INPUT);

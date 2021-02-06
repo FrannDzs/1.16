@@ -21,8 +21,8 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_BREWER_TILE;
 
 public class MachineBrewerTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(BrewerRecipeManager.instance()::validItem);
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_SMALL, BrewerRecipeManager.instance()::validFluid);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && BrewerRecipeManager.instance().validItem(item));
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_SMALL, fluid -> filter.valid(fluid) && BrewerRecipeManager.instance().validFluid(fluid));
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
 
     public MachineBrewerTile() {

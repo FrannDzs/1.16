@@ -23,6 +23,16 @@ public interface IFilter extends IFilterOptions, INBTSerializable<CompoundNBT>, 
         return ALWAYS_ALLOW_FLUID;
     }
 
+    default boolean valid(ItemStack item) {
+
+        return getItemRules().test(item);
+    }
+
+    default boolean valid(FluidStack fluid) {
+
+        return getFluidRules().test(fluid);
+    }
+
     IFilter read(CompoundNBT nbt);
 
     CompoundNBT write(CompoundNBT nbt);

@@ -35,7 +35,7 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
 
     public static final int BASE_CAPACITY = TANK_MEDIUM * 4;
 
-    protected FluidStorageCoFH fluidStorage = new FluidStorageAdjustable(TANK_MEDIUM * 4)
+    protected FluidStorageCoFH fluidStorage = new FluidStorageAdjustable(TANK_MEDIUM * 4, fluid -> filter.valid(fluid))
             .setTransferLimits(() -> amountInput, () -> amountOutput);
 
     public FluidCellTile() {

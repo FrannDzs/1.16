@@ -1,6 +1,7 @@
 package cofh.thermal.core.init;
 
 import cofh.core.item.*;
+import cofh.core.util.filter.FilterRegistry;
 import cofh.lib.entity.AbstractGrenadeEntity;
 import cofh.lib.item.ArmorMaterialCoFH;
 import cofh.lib.util.constants.ToolTypes;
@@ -458,10 +459,10 @@ public class TCoreItems {
 
         ItemGroup group = THERMAL_ITEMS;
 
-        registerItem("item_filter_augment", () -> new AugmentItem(new Item.Properties().group(group),
+        registerItem("filter_item_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_FILTER)
-                        .feature(TAG_AUGMENT_FILTER_TYPE, "item_filter")
+                        .feature(TAG_FILTER_TYPE, FilterRegistry.ITEM_FILTER_TYPE)
                         .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
     }
 

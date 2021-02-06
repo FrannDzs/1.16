@@ -21,9 +21,9 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_BOTTLER_TILE;
 
 public class MachineBottlerTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(BottlerRecipeManager.instance()::validItem);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && BottlerRecipeManager.instance().validItem(item));
     protected ItemStorageCoFH outputSlot = new ItemStorageCoFH();
-    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, BottlerRecipeManager.instance()::validFluid);
+    protected FluidStorageCoFH inputTank = new FluidStorageCoFH(TANK_MEDIUM, fluid -> filter.valid(fluid) && BottlerRecipeManager.instance().validFluid(fluid));
 
     public MachineBottlerTile() {
 

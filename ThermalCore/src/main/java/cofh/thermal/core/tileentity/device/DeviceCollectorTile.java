@@ -1,6 +1,6 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.lib.util.filter.EmptyFilter;
+import cofh.core.util.filter.EmptyFilter;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
@@ -65,7 +65,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
         super(DEVICE_COLLECTOR_TILE);
 
-        inventory.addSlots(ACCESSIBLE, 15);
+        inventory.addSlots(ACCESSIBLE, 15, item -> filter.valid(item));
 
         xpStorage = new XpStorage(getBaseXpStorage());
 

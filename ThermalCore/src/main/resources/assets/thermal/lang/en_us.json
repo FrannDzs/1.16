@@ -351,7 +351,8 @@
   "item.thermal.fluid_tank_creative_augment": "Creative Tank Construction",
   "item.thermal.fluid_tank_creative_augment.desc": "Functionally unlimited fluid.",
 
-  "item.thermal.item_filter_augment": "Item Filter",
+  "item.thermal.filter_fluid_augment": "Fluid Filter",
+  "item.thermal.filter_item_augment": "Item Filter",
 
   "item.thermal.machine_catalyst_augment": "Catalytic Reclamation Chamber",
   "item.thermal.machine_cycle_augment": "Cyclical Processing",

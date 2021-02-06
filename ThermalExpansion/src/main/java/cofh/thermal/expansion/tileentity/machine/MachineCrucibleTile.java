@@ -21,7 +21,7 @@ import static cofh.thermal.expansion.init.TExpReferences.MACHINE_CRUCIBLE_TILE;
 
 public class MachineCrucibleTile extends MachineTileProcess {
 
-    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(CrucibleRecipeManager.instance()::validRecipe);
+    protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(item -> filter.valid(item) && CrucibleRecipeManager.instance().validRecipe(item));
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
 
     public MachineCrucibleTile() {
