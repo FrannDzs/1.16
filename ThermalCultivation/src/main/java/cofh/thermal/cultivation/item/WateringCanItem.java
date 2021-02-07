@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.lang3.tuple.Triple;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,6 +49,8 @@ import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class WateringCanItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
+
+    private static final Set<Triple<BlockPos, BlockState, Block>> WATERED_BLOCKS = new ObjectOpenHashSet<>();
 
     protected static final int MB_PER_USE = 50;
 
@@ -162,11 +165,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
                     BlockState plantState = world.getBlockState(scan);
                     Block plant = plantState.getBlock();
                     if (plant instanceof IGrowable || plant instanceof IPlantable || EFFECTIVE_BLOCKS.contains(plant)) {
-                        if (plant.ticksRandomly(plantState)) {
-                            plant.randomTick(plantState, (ServerWorld) world, scan, world.rand);
-                        } else {
-                            world.getPendingBlockTicks().scheduleTick(scan, plant, 0);
-                        }
+                        WATERED_BLOCKS.add(Triple.of(new BlockPos(scan), plantState, plant));
                     }
                 }
             }
@@ -240,7 +239,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
     protected float getEffectiveness(ItemStack stack) {
 
-        return 0.30F * getBaseMod(stack) - 0.05F * getMode(stack);
+        return 0.40F * getBaseMod(stack) - 0.05F * getMode(stack);
     }
 
     protected float getBaseMod(ItemStack stack) {
@@ -322,4 +321,25 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         }
     }
     // endregion
+
+    public static void growPlants(World world) {
+
+        if (WATERED_BLOCKS.isEmpty()) {
+            return;
+        }
+        for (Triple<BlockPos, BlockState, Block> entry : WATERED_BLOCKS) {
+            BlockPos pos = entry.getLeft();
+            BlockState state = entry.getMiddle();
+            Block block = entry.getRight();
+
+            if (block.ticksRandomly(state)) {
+                block.randomTick(state, (ServerWorld) world, pos, world.rand);
+                world.notifyBlockUpdate(pos, state, state, 3);
+            } else {
+                world.getPendingBlockTicks().scheduleTick(pos, block, 0);
+            }
+        }
+        WATERED_BLOCKS.clear();
+    }
+
 }

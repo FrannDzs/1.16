@@ -160,6 +160,8 @@ public class ItemFilter implements IFilter {
         return new TranslationTextComponent("info.cofh.item_filter");
     }
 
+    // TODO: Change to callback handler, send filter into container
+
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
