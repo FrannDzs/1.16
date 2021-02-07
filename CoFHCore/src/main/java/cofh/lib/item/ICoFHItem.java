@@ -12,7 +12,6 @@ import net.minecraftforge.common.extensions.IForgeItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.lib.util.constants.NBTTags.TAG_DIRTY;
 import static cofh.lib.util.helpers.StringHelper.*;
 
 /**
@@ -23,25 +22,6 @@ public interface ICoFHItem extends IForgeItem {
     default boolean isCreative(ItemStack stack) {
 
         return false;
-    }
-
-    default boolean isDirty(ItemStack stack) {
-
-        return stack.getTag() != null && stack.getTag().getBoolean(TAG_DIRTY);
-    }
-
-    default void clearDirty(ItemStack stack) {
-
-        if (stack.getTag() != null) {
-            stack.getTag().remove(TAG_DIRTY);
-        }
-    }
-
-    default void markDirty(ItemStack stack) {
-
-        if (stack.getTag() != null) {
-            stack.getOrCreateTag().putBoolean(TAG_DIRTY, true);
-        }
     }
 
     @Override

@@ -27,32 +27,6 @@ public class EmptyFilter implements IFilter {
         return nbt;
     }
 
-    // region IFilterOptions
-    @Override
-    public boolean getAllowList() {
-
-        return false;
-    }
-
-    @Override
-    public boolean setAllowList(boolean allowList) {
-
-        return false;
-    }
-
-    @Override
-    public boolean getCheckNBT() {
-
-        return false;
-    }
-
-    @Override
-    public boolean setCheckNBT(boolean checkNBT) {
-
-        return false;
-    }
-    // endregion
-
     // region INamedContainerProvider
     @Override
     public ITextComponent getDisplayName() {

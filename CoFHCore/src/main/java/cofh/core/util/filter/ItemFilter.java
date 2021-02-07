@@ -3,6 +3,7 @@ package cofh.core.util.filter;
 import cofh.core.inventory.container.ItemFilterContainer;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterFactory;
+import cofh.lib.util.filter.IFilterOptions;
 import cofh.lib.util.helpers.ItemHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +25,7 @@ import java.util.function.Predicate;
 import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class ItemFilter implements IFilter {
+public class ItemFilter implements IFilter, IFilterOptions {
 
     public static final int SIZE = 9;
     public static final IFilterFactory<ItemFilter> FACTORY = nbt -> (ItemFilter) new ItemFilter(SIZE).read(nbt);
@@ -166,7 +167,7 @@ public class ItemFilter implements IFilter {
     @Override
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
 
-        return new ItemFilterContainer(i, inventory, player);
+        return new ItemFilterContainer(i, this, inventory, player);
     }
     // endregion
 }

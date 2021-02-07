@@ -3,6 +3,7 @@ package cofh.core.util.filter;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterFactory;
+import cofh.lib.util.filter.IFilterOptions;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,7 +24,7 @@ import java.util.function.Predicate;
 import static cofh.lib.util.constants.NBTTags.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public class FluidFilter implements IFilter {
+public class FluidFilter implements IFilter, IFilterOptions {
 
     public static final int SIZE = 9;
     public static final IFilterFactory<FluidFilter> FACTORY = nbt -> (FluidFilter) new FluidFilter(SIZE).read(nbt);

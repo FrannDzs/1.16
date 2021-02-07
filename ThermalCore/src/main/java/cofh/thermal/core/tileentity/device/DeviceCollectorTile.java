@@ -1,7 +1,5 @@
 package cofh.thermal.core.tileentity.device;
 
-import cofh.core.util.filter.EmptyFilter;
-import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
@@ -54,7 +52,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     };
 
     protected XpStorage xpStorage;
-    protected IFilter filter = EmptyFilter.INSTANCE;
 
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
@@ -140,7 +137,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, area, VALID_ITEM_ENTITY);
 
         Predicate<ItemStack> filterRules = filter.getItemRules();
-
         for (ItemEntity item : items) {
             ItemStack entityStack = item.getItem();
             if (!filterRules.test(entityStack)) {
@@ -203,9 +199,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         super.read(state, nbt);
 
         xpStorage.read(nbt);
-        filter = filter.read(nbt);
-
-        filter.read(nbt);
     }
 
     @Override
@@ -214,7 +207,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         super.write(nbt);
 
         xpStorage.write(nbt);
-        filter.write(nbt);
 
         return nbt;
     }

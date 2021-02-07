@@ -71,10 +71,10 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected static final int BASE_XP_STORAGE = 2500;
 
     protected TimeTracker timeTracker = new TimeTracker();
-    protected IFilter filter = EmptyFilter.INSTANCE;
     protected ManagedItemInv inventory = new ManagedItemInv(this, TAG_ITEM_INV);
     protected ManagedTankInv tankInv = new ManagedTankInv(this, TAG_TANK_INV);
     protected EnergyStorageCoFH energyStorage = new EnergyStorageCoFH(0);
+    protected IFilter filter = EmptyFilter.INSTANCE;
 
     protected SecurityControlModule securityControl = new SecurityControlModule(this);
     protected RedstoneControlModule redstoneControl = new RedstoneControlModule(this);
@@ -518,6 +518,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         tankInv.read(nbt);
         energyStorage.read(nbt);
+        filter.read(nbt);
 
         securityControl.read(nbt);
         redstoneControl.read(nbt);
@@ -538,6 +539,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         inventory.write(nbt);
         tankInv.write(nbt);
         getEnergyStorage().write(nbt);
+        filter.write(nbt);
 
         securityControl.write(nbt);
         redstoneControl.write(nbt);

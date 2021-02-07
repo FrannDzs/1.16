@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.Predicate;
 
-public interface IFilter extends IFilterOptions, INBTSerializable<CompoundNBT>, INamedContainerProvider {
+public interface IFilter extends INBTSerializable<CompoundNBT>, INamedContainerProvider {
 
     Predicate<ItemStack> ALWAYS_ALLOW_ITEM = (stack) -> true;
     Predicate<FluidStack> ALWAYS_ALLOW_FLUID = (stack) -> true;
