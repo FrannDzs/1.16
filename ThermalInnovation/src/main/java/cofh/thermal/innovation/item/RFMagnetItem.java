@@ -39,9 +39,6 @@ import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
 public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
-    //    protected static final int MAP_CAPACITY = 128;
-    //    protected static final WeakHashMap<ItemStack, IFilter> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
-
     protected static final int RADIUS = 4;
     protected static final int REACH = 64;
 
@@ -136,10 +133,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                 }
             }
         } else {
-            // Predicate<ItemStack> filterRules = getFilter(stack).getItemRules();
             int itemCount = 0;
             for (ItemEntity item : items) {
-                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) { // || !filterRules.test(item.getItem())) {
+                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
                     continue;
                 }
                 if (item.getThrowerId() == null || !item.getThrowerId().equals(player.getUniqueID()) || item.age >= PICKUP_DELAY) {
@@ -163,46 +159,12 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     // region HELPERS
-    //    protected IFilter getFilter(ItemStack stack) {
-    //
-    //        String filterType = getFilterType(stack);
-    //        if (filterType.isEmpty()) {
-    //            return EmptyFilter.INSTANCE;
-    //        }
-    //        IFilter ret = FILTERS.get(stack);
-    //        if (ret != null) {
-    //            return ret;
-    //        }
-    //        if (FILTERS.size() > MAP_CAPACITY) {
-    //            FILTERS.clear();
-    //        }
-    //        FILTERS.put(stack, FilterRegistry.getFilter(filterType, stack.getTag()));
-    //        return FILTERS.get(stack);
-    //    }
-    //
-    //    protected boolean hasFilter(ItemStack stack) {
-    //
-    //        return !getFilterType(stack).isEmpty();
-    //    }
-    //
-    //    protected String getFilterType(ItemStack stack) {
-    //
-    //        return getPropertyWithDefault(stack, TAG_FILTER_TYPE, "");
-    //    }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
 
         if (Utils.isFakePlayer(player)) {
             return false;
         }
-        //        if (player.isSecondaryUseActive()) {
-        //            if (player instanceof ServerPlayerEntity && hasFilter(stack)) {
-        //                NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(stack));
-        //                return true;
-        //            }
-        //            return false;
-        //        } else
-
         if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
             BlockRayTraceResult traceResult = RayTracer.retrace(player, REACH);
             if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
@@ -224,10 +186,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                     }
                 }
             } else {
-                // Predicate<ItemStack> filterRules = getFilter(stack).getItemRules();
                 int itemCount = 0;
                 for (ItemEntity item : items) {
-                    if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) { // || !filterRules.test(item.getItem())) {
+                    if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
                         continue;
                     }
                     if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {
@@ -266,8 +227,6 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
-
-        // setAttributeFromAugmentString(subTag, augmentData, TAG_FILTER_TYPE);
     }
     // endregion
 
@@ -326,11 +285,6 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         if (energyExcess > 0) {
             setEnergyStored(container, getMaxEnergyStored(container));
         }
-        // Filter Reset
-        //        if (!hasFilter(container)) {
-        //            container.getOrCreateTag().remove(TAG_FILTER);
-        //        }
-        //        FILTERS.remove(container);
     }
     // endregion
 

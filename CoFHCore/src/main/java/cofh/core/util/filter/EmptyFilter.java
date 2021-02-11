@@ -1,7 +1,6 @@
 package cofh.core.util.filter;
 
 import cofh.lib.util.filter.IFilter;
-import cofh.lib.util.filter.IFilterFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -13,7 +12,6 @@ import javax.annotation.Nullable;
 public class EmptyFilter implements IFilter {
 
     public static final EmptyFilter INSTANCE = new EmptyFilter();
-    public static final IFilterFactory<EmptyFilter> FACTORY = nbt -> INSTANCE;
 
     @Override
     public IFilter read(CompoundNBT nbt) {

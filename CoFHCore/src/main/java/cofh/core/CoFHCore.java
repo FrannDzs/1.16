@@ -1,6 +1,5 @@
 package cofh.core;
 
-import cofh.core.client.gui.ItemFilterScreen;
 import cofh.core.command.CoFHCommand;
 import cofh.core.compat.quark.QuarkFlags;
 import cofh.core.event.ArmorEvents;
@@ -17,7 +16,6 @@ import cofh.lib.loot.TileNBTSync;
 import cofh.lib.network.PacketHandler;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
@@ -39,7 +37,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static cofh.lib.util.constants.Constants.*;
-import static cofh.lib.util.references.CoreReferences.ITEM_FILTER_CONTAINER;
 
 @Mod(ID_COFH_CORE)
 public class CoFHCore {
@@ -85,7 +82,6 @@ public class CoFHCore {
         CoreFluids.register();
         CoreItems.register();
 
-        CoreContainers.register();
         CoreEffects.register();
         CoreEnchantments.register();
         // CoreParticles.register();
@@ -131,8 +127,6 @@ public class CoFHCore {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-
-        ScreenManager.registerFactory(ITEM_FILTER_CONTAINER, ItemFilterScreen::new);
 
         CoreKeys.register();
 

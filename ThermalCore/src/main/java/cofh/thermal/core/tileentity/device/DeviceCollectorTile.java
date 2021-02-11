@@ -5,8 +5,6 @@ import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.core.tileentity.DeviceTileBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,11 +12,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.items.IItemHandler;
@@ -26,7 +22,6 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import static cofh.core.client.renderer.model.ModelUtils.UNDERLAY;
@@ -164,63 +159,11 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     }
     // endregion
 
-    // region GUI
-    @Override
-    public XpStorage getXpStorage() {
-
-        return xpStorage;
-    }
-    // endregion
-
-    // region NETWORK
-    @Override
-    public PacketBuffer getGuiPacket(PacketBuffer buffer) {
-
-        super.getGuiPacket(buffer);
-
-        xpStorage.writeToBuffer(buffer);
-
-        return buffer;
-    }
-
-    @Override
-    public void handleGuiPacket(PacketBuffer buffer) {
-
-        super.handleGuiPacket(buffer);
-
-        xpStorage.readFromBuffer(buffer);
-    }
-    // endregion
-
-    // region NBT
-    @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-
-        super.read(state, nbt);
-
-        xpStorage.read(nbt);
-    }
-
-    @Override
-    public CompoundNBT write(CompoundNBT nbt) {
-
-        super.write(nbt);
-
-        xpStorage.write(nbt);
-
-        return nbt;
-    }
-    // endregion
-
     // region AUGMENTS
-    protected boolean xpStorageFeature = defaultXpStorageState();
-
     @Override
     protected void resetAttributes() {
 
         super.resetAttributes();
-
-        xpStorageFeature = defaultXpStorageState();
 
         radius = RADIUS;
     }
@@ -230,23 +173,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
         super.setAttributesFromAugment(augmentData);
 
-        xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
-
         radius += getAttributeMod(augmentData, TAG_AUGMENT_AREA_RADIUS);
-    }
-
-    @Override
-    protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
-
-        super.finalizeAttributes(enchantmentMap);
-
-        float holdingMod = getHoldingMod(enchantmentMap);
-
-        int storedXp = xpStorage.getStored();
-        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
-        if (xpStorage.getStored() < storedXp) {
-            spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
-        }
     }
     // endregion
 }

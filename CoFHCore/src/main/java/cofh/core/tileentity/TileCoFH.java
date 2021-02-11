@@ -7,6 +7,7 @@ import cofh.lib.tileentity.ITilePacketHandler;
 import cofh.lib.util.IConveyableData;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.XpHelper;
+import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -102,7 +103,7 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
 
     public boolean claimXP(PlayerEntity player) {
 
-        if (getXpStorage() != null) {
+        if (!getXpStorage().isEmpty()) {
             int xp = getXpStorage().getStored();
             XpHelper.addXPToPlayer(player, xp);
             getXpStorage().clear();
@@ -126,7 +127,7 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
 
     public XpStorage getXpStorage() {
 
-        return null;
+        return EmptyXpStorage.INSTANCE;
     }
     // endregion
 

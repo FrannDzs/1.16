@@ -6,17 +6,21 @@ import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.*;
 import cofh.core.util.filter.EmptyFilter;
+import cofh.lib.energy.EmptyEnergyStorage;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.fluid.ManagedTankInv;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.inventory.ManagedItemInv;
 import cofh.lib.item.IAugmentableItem;
+import cofh.lib.util.EmptyTimeTracker;
 import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.MathHelper;
+import cofh.lib.xp.EmptyXpStorage;
+import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.util.IThermalInventory;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -35,6 +39,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -70,10 +75,11 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected static final int BASE_PROCESS_TICK = 20;
     protected static final int BASE_XP_STORAGE = 2500;
 
-    protected TimeTracker timeTracker = new TimeTracker();
+    protected TimeTracker timeTracker = EmptyTimeTracker.INSTANCE;
     protected ManagedItemInv inventory = new ManagedItemInv(this, TAG_ITEM_INV);
     protected ManagedTankInv tankInv = new ManagedTankInv(this, TAG_TANK_INV);
-    protected EnergyStorageCoFH energyStorage = new EnergyStorageCoFH(0);
+    protected EnergyStorageCoFH energyStorage = EmptyEnergyStorage.INSTANCE;
+    protected XpStorage xpStorage = EmptyXpStorage.INSTANCE;
     protected IFilter filter = EmptyFilter.INSTANCE;
 
     protected SecurityControlModule securityControl = new SecurityControlModule(this);
@@ -315,6 +321,12 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         return energyStorage;
     }
 
+    @Override
+    public XpStorage getXpStorage() {
+
+        return xpStorage;
+    }
+
     public FluidStack getRenderFluid() {
 
         return renderFluid;
@@ -435,6 +447,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         buffer.writeFluidStack(renderFluid);
 
         energyStorage.writeToBuffer(buffer);
+        xpStorage.writeToBuffer(buffer);
 
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             buffer.writeFluidStack(tankInv.get(i));
@@ -451,6 +464,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         renderFluid = buffer.readFluidStack();
 
         energyStorage.readFromBuffer(buffer);
+        xpStorage.readFromBuffer(buffer);
 
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             tankInv.set(i, buffer.readFluidStack());
@@ -518,6 +532,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         tankInv.read(nbt);
         energyStorage.read(nbt);
+        xpStorage.read(nbt);
         filter.read(nbt);
 
         securityControl.read(nbt);
@@ -539,6 +554,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         inventory.write(nbt);
         tankInv.write(nbt);
         getEnergyStorage().write(nbt);
+        getXpStorage().write(nbt);
         filter.write(nbt);
 
         securityControl.write(nbt);
@@ -553,6 +569,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     // region AUGMENTS
     protected boolean redstoneControlFeature = defaultRedstoneControlState();
+    protected boolean xpStorageFeature = defaultXpStorageState();
 
     protected boolean creativeEnergy = false;
     protected boolean creativeFluid = false;
@@ -560,8 +577,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected float baseMod = 1.0F;
     protected float energyStorageMod = 1.0F;
     protected float energyXferMod = 1.0F;
-    protected float itemStorageMod = 1.0F;
     protected float fluidStorageMod = 1.0F;
+    protected float itemStorageMod = 1.0F;
 
     /**
      * This should be called AFTER all other slots have been added.
@@ -597,6 +614,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected void resetAttributes() {
 
         redstoneControlFeature = defaultRedstoneControlState();
+        xpStorageFeature = defaultXpStorageState();
 
         baseMod = 1.0F;
         energyStorageMod = 1.0F;
@@ -610,6 +628,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
 
         redstoneControlFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_RS_CONTROL) > 0;
+        xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
 
         baseMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_BASE_MOD), baseMod);
         energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_RF_STORAGE), energyStorageMod);
@@ -629,15 +648,21 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         energyStorageMod = holdingMod * MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
         energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
-        itemStorageMod = holdingMod * MathHelper.clamp(itemStorageMod, scaleMin, scaleMax);
         fluidStorageMod = holdingMod * MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
+        itemStorageMod = holdingMod * MathHelper.clamp(itemStorageMod, scaleMin, scaleMax);
 
-        energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod()).setCreative(() -> creativeEnergy);
         for (int i = 0; i < inventory.getSlots(); ++i) {
             inventory.getSlot(i).applyModifiers(getItemStorageMod());
         }
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             tankInv.getTank(i).applyModifiers(getFluidStorageMod()).setCreative(() -> creativeFluid);
+        }
+        energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod()).setCreative(() -> creativeEnergy);
+
+        int storedXp = xpStorage.getStored();
+        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
+        if (storedXp > 0 && xpStorage.getStored() < storedXp) {
+            spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
     }
 
@@ -672,14 +697,19 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         return energyXferMod * baseMod;
     }
 
+    protected float getFluidStorageMod() {
+
+        return fluidStorageMod * baseMod;
+    }
+
     protected float getItemStorageMod() {
 
         return itemStorageMod * baseMod;
     }
 
-    protected float getFluidStorageMod() {
+    protected float getXpStorageMod() {
 
-        return fluidStorageMod * baseMod;
+        return baseMod;
     }
 
     protected float getAttributeMod(CompoundNBT augmentData, String key) {

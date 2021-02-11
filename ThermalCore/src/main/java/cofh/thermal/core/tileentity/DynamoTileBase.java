@@ -2,6 +2,7 @@ package cofh.thermal.core.tileentity;
 
 import cofh.core.tileentity.TileCoFH;
 import cofh.lib.energy.EnergyStorageCoFH;
+import cofh.lib.util.TimeTracker;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
@@ -43,6 +44,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
     public DynamoTileBase(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
+        timeTracker = new TimeTracker();
         energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), 0, getBaseEnergyXfer());
     }
 

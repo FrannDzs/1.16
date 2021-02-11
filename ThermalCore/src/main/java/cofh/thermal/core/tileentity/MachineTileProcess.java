@@ -4,6 +4,7 @@ import cofh.core.network.packet.client.TileStatePacket;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.xp.XpStorage;
@@ -17,7 +18,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -37,8 +37,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected List<Integer> itemInputCounts = new ArrayList<>();
     protected List<Integer> fluidInputCounts = new ArrayList<>();
 
-    protected XpStorage xpStorage;
-
     protected int process;
     protected int processMax;
 
@@ -48,6 +46,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     public MachineTileProcess(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
+        timeTracker = new TimeTracker();
         energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), getBaseEnergyXfer());
         xpStorage = new XpStorage(getBaseXpStorage());
     }
@@ -330,12 +329,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
     // region GUI
     @Override
-    public XpStorage getXpStorage() {
-
-        return xpStorage;
-    }
-
-    @Override
     public int getCurSpeed() {
 
         return isActive ? processTick : 0;
@@ -381,8 +374,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.getGuiPacket(buffer);
 
-        xpStorage.writeToBuffer(buffer);
-
         buffer.writeInt(process);
         buffer.writeInt(processMax);
         buffer.writeInt(processTick);
@@ -394,8 +385,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     public void handleGuiPacket(PacketBuffer buffer) {
 
         super.handleGuiPacket(buffer);
-
-        xpStorage.readFromBuffer(buffer);
 
         process = buffer.readInt();
         processMax = buffer.readInt();
@@ -409,8 +398,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.read(state, nbt);
 
-        xpStorage.read(nbt);
-
         process = nbt.getInt(TAG_PROCESS);
         processMax = nbt.getInt(TAG_PROCESS_MAX);
         processTick = nbt.getInt(TAG_PROCESS_TICK);
@@ -421,8 +408,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.write(nbt);
 
-        xpStorage.write(nbt);
-
         nbt.putInt(TAG_PROCESS, process);
         nbt.putInt(TAG_PROCESS_MAX, processMax);
         nbt.putInt(TAG_PROCESS_TICK, processTick);
@@ -432,8 +417,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     // endregion
 
     // region AUGMENTS
-    protected boolean xpStorageFeature = defaultXpStorageState();
-
     protected float processMod = 1.0F;
     protected float primaryMod = 1.0F;
     protected float secondaryMod = 1.0F;
@@ -446,8 +429,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected void resetAttributes() {
 
         super.resetAttributes();
-
-        xpStorageFeature = defaultXpStorageState();
 
         processMod = 1.0F;
         primaryMod = 1.0F;
@@ -462,8 +443,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
 
         super.setAttributesFromAugment(augmentData);
-
-        xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
 
         processMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_POWER);
         primaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_PRIMARY);
@@ -484,13 +463,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
-        float holdingMod = getHoldingMod(enchantmentMap);
-
-        int storedXp = xpStorage.getStored();
-        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
-        if (xpStorage.getStored() < storedXp) {
-            spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
-        }
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);
         secondaryMod = MathHelper.clamp(secondaryMod, scaleMin, scaleMax);

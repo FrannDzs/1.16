@@ -179,7 +179,7 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
 
         generated(reg.getSup("area_radius_augment"), AUGMENTS);
 
-        // generated(reg.getSup("filter_fluid_augment"), AUGMENTS);
+        generated(reg.getSup("filter_fluid_augment"), AUGMENTS);
         generated(reg.getSup("filter_item_augment"), AUGMENTS);
 
         generated(reg.getSup("potion_amplifier_augment"), AUGMENTS);
