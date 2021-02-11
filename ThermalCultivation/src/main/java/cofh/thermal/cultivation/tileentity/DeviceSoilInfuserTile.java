@@ -23,6 +23,7 @@ import java.util.Map;
 
 import static cofh.lib.util.StorageGroup.INTERNAL;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.cultivation.init.TCulReferences.DEVICE_SOIL_INFUSER_TILE;
 

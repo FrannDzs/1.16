@@ -27,6 +27,7 @@ import java.util.function.Predicate;
 import static cofh.core.client.renderer.model.ModelUtils.UNDERLAY;
 import static cofh.lib.util.StorageGroup.ACCESSIBLE;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
 

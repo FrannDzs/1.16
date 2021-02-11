@@ -27,6 +27,8 @@ import java.util.Map;
 import static cofh.core.util.helpers.FluidHelper.fluidsEqual;
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
 import static cofh.lib.util.helpers.ItemHelper.cloneStack;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 

@@ -41,6 +41,7 @@ import static cofh.lib.util.StorageGroup.OUTPUT;
 import static cofh.lib.util.constants.Constants.DIRECTIONS;
 import static cofh.lib.util.constants.Constants.FACING_HORIZONTAL;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.lib.util.helpers.BlockHelper.*;
 
 public abstract class ReconfigurableTile4Way extends ThermalTileBase implements IReconfigurableTile, ITransferControllableTile {

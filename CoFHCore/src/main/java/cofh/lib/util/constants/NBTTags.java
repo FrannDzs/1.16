@@ -112,8 +112,12 @@ public class NBTTags {
     public static final String TAG_AUGMENT_RF_CREATIVE = "RFCreative";
     public static final String TAG_AUGMENT_RF_STORAGE = "RFMax";
     public static final String TAG_AUGMENT_RF_XFER = "RFXfer";
+
     public static final String TAG_AUGMENT_FLUID_CREATIVE = "FluidCreative";
     public static final String TAG_AUGMENT_FLUID_STORAGE = "FluidMax";
+
+    public static final String TAG_AUGMENT_ITEM_CREATIVE = "ItemCreative";
+    public static final String TAG_AUGMENT_ITEM_STORAGE = "ItemMax";
 
     public static final String TAG_AUGMENT_AREA_DEPTH = "AreaDepth";
     public static final String TAG_AUGMENT_AREA_RADIUS = "AreaRadius";

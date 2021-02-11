@@ -25,6 +25,8 @@ import java.util.Map;
 
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
 
 public abstract class DynamoTileBase extends ThermalTileBase implements ITickableTileEntity {
 
@@ -323,6 +325,8 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
+        energyStorage.applyModifiers(baseMod * processMod, baseMod * processMod);
+
         baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
         energyMod = MathHelper.clamp(energyMod, scaleMin, scaleMax);
 
@@ -333,18 +337,6 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
     protected final float getEnergyMod() {
 
         return energyMod;
-    }
-
-    @Override
-    protected float getEnergyStorageMod() {
-
-        return baseMod * processMod;
-    }
-
-    @Override
-    protected float getEnergyXferMod() {
-
-        return baseMod * processMod;
     }
     // endregion
 

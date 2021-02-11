@@ -18,7 +18,6 @@ import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.common.ThermalConfig;
@@ -64,8 +63,9 @@ import java.util.stream.Stream;
 import static cofh.core.util.helpers.GuiHelper.*;
 import static cofh.lib.util.StorageGroup.ACCESSIBLE;
 import static cofh.lib.util.StorageGroup.INTERNAL;
-import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.constants.Constants.ACTIVE;
 import static cofh.lib.util.constants.NBTTags.*;
+import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
@@ -568,17 +568,17 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     // endregion
 
     // region AUGMENTS
-    protected boolean redstoneControlFeature = defaultRedstoneControlState();
-    protected boolean xpStorageFeature = defaultXpStorageState();
+    protected boolean redstoneControlFeature = ThermalConfig.flagRSControl.get();
+    protected boolean xpStorageFeature = ThermalConfig.flagXPStorage.get();
 
     protected boolean creativeEnergy = false;
-    protected boolean creativeFluid = false;
+    protected boolean creativeTanks = false;
+    protected boolean creativeSlots = false;
 
     protected float baseMod = 1.0F;
-    protected float energyStorageMod = 1.0F;
-    protected float energyXferMod = 1.0F;
-    protected float fluidStorageMod = 1.0F;
-    protected float itemStorageMod = 1.0F;
+
+    // This is CLEARED after augments are finalized.
+    protected CompoundNBT augmentNBT = new CompoundNBT();
 
     /**
      * This should be called AFTER all other slots have been added.
@@ -586,7 +586,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
      *
      * @param numAugments Number of augment slots to add.
      */
-    protected void addAugmentSlots(int numAugments) {
+    protected final void addAugmentSlots(int numAugments) {
 
         for (int i = 0; i < numAugments; ++i) {
             ItemStorageCoFH slot = new ItemStorageCoFH(1, AugmentDataHelper::hasAugmentData);
@@ -596,7 +596,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         ((ArrayList<ItemStorageCoFH>) augments).trimToSize();
     }
 
-    protected void updateAugmentState() {
+    protected final void updateAugmentState() {
 
         resetAttributes();
         for (ItemStorageCoFH slot : augments) {
@@ -609,6 +609,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             setAttributesFromAugment(augmentData);
         }
         finalizeAttributes(EnchantmentHelper.deserializeEnchantments(enchantments));
+        augmentNBT = null;
     }
 
     protected void resetAttributes() {
@@ -616,13 +617,13 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         redstoneControlFeature = defaultRedstoneControlState();
         xpStorageFeature = defaultXpStorageState();
 
-        baseMod = 1.0F;
-        energyStorageMod = 1.0F;
-        energyXferMod = 1.0F;
-        fluidStorageMod = 1.0F;
-
         creativeEnergy = false;
-        creativeFluid = false;
+        creativeTanks = false;
+        creativeSlots = false;
+
+        baseMod = 1.0F;
+
+        augmentNBT = new CompoundNBT();
     }
 
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
@@ -630,37 +631,39 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         redstoneControlFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_RS_CONTROL) > 0;
         xpStorageFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_XP_STORAGE) > 0;
 
+        setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_BASE_MOD);
+        setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_RF_STORAGE);
+        setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_RF_XFER);
+        setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_FLUID_STORAGE);
+
         baseMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_BASE_MOD), baseMod);
-        energyStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_RF_STORAGE), energyStorageMod);
-        energyXferMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_RF_XFER), energyXferMod);
-        fluidStorageMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_FLUID_STORAGE), fluidStorageMod);
 
         creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_RF_CREATIVE) > 0;
-        creativeFluid |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
+        creativeTanks |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
     }
 
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
-        float scaleMin = AUG_SCALE_MIN;
-        float scaleMax = AUG_SCALE_MAX;
-
         float holdingMod = getHoldingMod(enchantmentMap);
 
-        energyStorageMod = holdingMod * MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
-        energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
-        fluidStorageMod = holdingMod * MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
-        itemStorageMod = holdingMod * MathHelper.clamp(itemStorageMod, scaleMin, scaleMax);
+        float energyStorageMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_RF_STORAGE, 1.0F);
+        float energyXferMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_RF_STORAGE, 1.0F);
+        float fluidStorageMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
+        float itemStorageMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_ITEM_STORAGE, 1.0F);
+        float xpStorageMod = holdingMod * baseMod;
 
-        for (int i = 0; i < inventory.getSlots(); ++i) {
-            inventory.getSlot(i).applyModifiers(getItemStorageMod());
-        }
+        energyStorage.applyModifiers(energyStorageMod, energyXferMod).setCreative(() -> creativeEnergy);
+
         for (int i = 0; i < tankInv.getTanks(); ++i) {
-            tankInv.getTank(i).applyModifiers(getFluidStorageMod()).setCreative(() -> creativeFluid);
+            tankInv.getTank(i).applyModifiers(fluidStorageMod).setCreative(() -> creativeTanks);
         }
-        energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod()).setCreative(() -> creativeEnergy);
+        for (int i = 0; i < inventory.getSlots(); ++i) {
+            inventory.getSlot(i).applyModifiers(itemStorageMod).setCreative(() -> creativeSlots);
+        }
 
+        // TODO: XP Storage improvement
         int storedXp = xpStorage.getStored();
-        xpStorage.applyModifiers(holdingMod * baseMod * (xpStorageFeature ? 1 : 0));
+        xpStorage.applyModifiers(xpStorageMod * (xpStorageFeature ? 1 : 0));
         if (storedXp > 0 && xpStorage.getStored() < storedXp) {
             spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
@@ -685,41 +688,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         int holding = enchantmentMap.getOrDefault(HOLDING, 0);
         return 1 + holding / 2F;
-    }
-
-    protected float getEnergyStorageMod() {
-
-        return energyStorageMod * baseMod;
-    }
-
-    protected float getEnergyXferMod() {
-
-        return energyXferMod * baseMod;
-    }
-
-    protected float getFluidStorageMod() {
-
-        return fluidStorageMod * baseMod;
-    }
-
-    protected float getItemStorageMod() {
-
-        return itemStorageMod * baseMod;
-    }
-
-    protected float getXpStorageMod() {
-
-        return baseMod;
-    }
-
-    protected float getAttributeMod(CompoundNBT augmentData, String key) {
-
-        return augmentData.getFloat(key);
-    }
-
-    protected float getAttributeModWithDefault(CompoundNBT augmentData, String key, float defaultValue) {
-
-        return augmentData.contains(key) ? augmentData.getFloat(key) : defaultValue;
     }
     // endregion
 
