@@ -9,6 +9,7 @@ import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.util.IMachineInventory;
+import cofh.thermal.core.util.MachineProperties;
 import cofh.thermal.core.util.recipes.internal.IMachineRecipe;
 import cofh.thermal.core.util.recipes.internal.IRecipeCatalyst;
 import net.minecraft.block.BlockState;
@@ -25,10 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import static cofh.core.util.helpers.FluidHelper.fluidsEqual;
-import static cofh.lib.util.constants.Constants.*;
+import static cofh.lib.util.constants.Constants.BASE_CHANCE;
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
-import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.helpers.ItemHelper.cloneStack;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 
@@ -187,6 +187,9 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
     protected boolean validateOutputs() {
 
+        if (curRecipe == null && !cacheRecipe()) {
+            return false;
+        }
         // ITEMS
         List<? extends ItemStorageCoFH> slotOutputs = outputSlots();
         List<ItemStack> recipeOutputItems = curRecipe.getOutputItems(this);
@@ -345,10 +348,10 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     @Override
     public double getEfficiency() {
 
-        if (getEnergyMod() <= 0) {
+        if (getMachineProperties().getEnergyMod() <= 0) {
             return Double.MAX_VALUE;
         }
-        return 1.0D / getEnergyMod();
+        return 1.0D / getMachineProperties().getEnergyMod();
     }
 
     @Override
@@ -419,26 +422,17 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
     // endregion
 
     // region AUGMENTS
-    protected float processMod = 1.0F;
-    protected float primaryMod = 1.0F;
-    protected float secondaryMod = 1.0F;
-    protected float energyMod = 1.0F;
-    protected float xpMod = 1.0F;
-    protected float catalystMod = 1.0F;
-    protected float minOutputChance = 0.0F;
+    protected MachineProperties machineProperties = new MachineProperties();
 
     @Override
     protected void resetAttributes() {
 
         super.resetAttributes();
 
-        processMod = 1.0F;
-        primaryMod = 1.0F;
-        secondaryMod = 1.0F;
-        energyMod = 1.0F;
-        xpMod = 1.0F;
-        catalystMod = 1.0F;
-        minOutputChance = 0.0F;
+        setAttribute(augmentNBT, TAG_AUGMENT_MACHINE_POWER, 1.0F);
+        setAttribute(augmentNBT, TAG_AUGMENT_MACHINE_SPEED, 1.0F);
+
+        machineProperties.resetAttributes();
     }
 
     @Override
@@ -446,33 +440,30 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         super.setAttributesFromAugment(augmentData);
 
-        processMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_POWER);
-        primaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_PRIMARY);
-        secondaryMod += getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_SECONDARY);
+        setAttributeFromAugmentAdd(augmentNBT, augmentData, TAG_AUGMENT_MACHINE_POWER);
+        setAttributeFromAugmentAdd(augmentNBT, augmentData, TAG_AUGMENT_MACHINE_SPEED);
 
-        energyMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_ENERGY, 1.0F);
-        xpMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_XP, 1.0F);
-        catalystMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_MACHINE_CATALYST, 1.0F);
-
-        minOutputChance = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_MACHINE_MIN_OUTPUT), minOutputChance);
+        machineProperties.setAttributesFromAugment(augmentData);
     }
 
     @Override
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
         super.finalizeAttributes(enchantmentMap);
+        float baseMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_BASE_MOD, 1.0F);
+        float powerMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_MACHINE_POWER, 1.0F);
+        float speedMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_MACHINE_SPEED, 1.0F);
+        float totalMod = baseMod * powerMod * speedMod;
 
-        float scaleMin = AUG_SCALE_MIN;
-        float scaleMax = AUG_SCALE_MAX;
+        machineProperties.finalizeAttributes();
+        processTick = baseProcessTick = Math.round(getBaseProcessTick() * totalMod);
+    }
+    // endregion
 
-        baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
-        primaryMod = MathHelper.clamp(primaryMod, scaleMin, scaleMax);
-        secondaryMod = MathHelper.clamp(secondaryMod, scaleMin, scaleMax);
-        energyMod = MathHelper.clamp(energyMod, scaleMin, scaleMax);
-        xpMod = MathHelper.clamp(xpMod, scaleMin, scaleMax);
-        catalystMod = MathHelper.clamp(catalystMod, scaleMin, scaleMax);
+    // region IMachineInventory
+    public MachineProperties getMachineProperties() {
 
-        processTick = baseProcessTick;
+        return machineProperties;
     }
     // endregion
 
@@ -510,44 +501,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
             }
         }
         super.onTankChange(tank);
-    }
-    // endregion
-
-    // region IMachineInventory
-    @Override
-    public final float getPrimaryMod() {
-
-        return primaryMod;
-    }
-
-    @Override
-    public final float getSecondaryMod() {
-
-        return secondaryMod;
-    }
-
-    @Override
-    public final float getEnergyMod() {
-
-        return energyMod;
-    }
-
-    @Override
-    public final float getXpMod() {
-
-        return xpMod;
-    }
-
-    @Override
-    public final float getMinOutputChance() {
-
-        return minOutputChance;
-    }
-
-    @Override
-    public final float getUseChance() {
-
-        return catalystMod;
     }
     // endregion
 }

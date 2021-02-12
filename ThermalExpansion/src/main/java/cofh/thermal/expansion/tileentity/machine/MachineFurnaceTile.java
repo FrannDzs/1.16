@@ -63,6 +63,9 @@ public class MachineFurnaceTile extends MachineTileProcess {
     @Override
     protected boolean validateOutputs() {
 
+        if (curRecipe == null && !cacheRecipe()) {
+            return false;
+        }
         ItemStack output = outputSlot.getItemStack();
         if (output.isEmpty()) {
             return true;

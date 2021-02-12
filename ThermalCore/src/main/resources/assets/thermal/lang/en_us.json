@@ -315,8 +315,9 @@
   "info.thermal.augment.attr.MachineCat": "Catalyst Usage",
   "info.thermal.augment.attr.MachineEnergy": "Process Energy",
   "info.thermal.augment.attr.MachinePri": "Primary Product",
-  "info.thermal.augment.attr.MachinePower": "Maximum Power",
+  "info.thermal.augment.attr.MachinePower": "Base Power",
   "info.thermal.augment.attr.MachineSec": "Secondary Product",
+  "info.thermal.augment.attr.MachineSpeed": "Maximum Power",
   "info.thermal.augment.attr.MachineXp": "XP Modifier",
 
   "info.thermal.augment.attr.PotionAmp": "Effect Level",
@@ -344,23 +345,32 @@
   "item.thermal.dynamo_steam_coil_augment": "Steam Boiler Conversion",
 
   "item.thermal.dynamo_fuel_augment": "Multi-cycle Injectors",
+  "item.thermal.dynamo_fuel_augment.desc": "Increases fuel efficiency.",
   "item.thermal.dynamo_output_augment": "Auxiliary Reaction Chamber",
+  "item.thermal.dynamo_output_augment.desc": "Increases generation rate but reduces efficiency",
 
   "item.thermal.fluid_tank_augment": "Expanded Tank Construction",
 
   "item.thermal.fluid_tank_creative_augment": "Creative Tank Construction",
   "item.thermal.fluid_tank_creative_augment.desc": "Functionally unlimited fluid.",
 
-  "item.thermal.filter_fluid_augment": "Fluid Filter",
-  "item.thermal.filter_fluid_augment.desc": "NYI",
-  "item.thermal.filter_item_augment": "Item Filter",
-  "item.thermal.filter_item_augment.desc": "NYI",
+  "item.thermal.fluid_filter_augment": "Fluid Filter",
+  "item.thermal.fluid_filter_augment.desc": "NYI",
+  "item.thermal.item_filter_augment": "Item Filter",
+  "item.thermal.item_filter_augment.desc": "NYI",
 
   "item.thermal.machine_catalyst_augment": "Catalytic Reclamation Chamber",
+  "item.thermal.machine_catalyst_creative_augment": "Creative Reclamation Chamber",
+  "item.thermal.machine_catalyst_creative_augment.desc": "No catalysts used.",
   "item.thermal.machine_cycle_augment": "Cyclical Processing",
   "item.thermal.machine_cycle_augment.desc": "Products may be transferred to input on process completion.",
+  "item.thermal.machine_efficiency_augment": "Flux Efficiency",
+  "item.thermal.machine_efficiency_augment.desc": "Increases RF efficiency but reduces process speed.",
+  "item.thermal.machine_efficiency_creative_augment": "Creative Flux Efficiency",
+  "item.thermal.machine_efficiency_creative_augment.desc": "No RF used, very fast processing.",
   "item.thermal.machine_output_augment": "Auxiliary Process Sieve",
   "item.thermal.machine_speed_augment": "Flux Linkage Amplifier",
+  "item.thermal.machine_speed_augment.desc": "Increases process speed but reduces RF efficiency.",
 
   "item.thermal.potion_amplifier_augment": "Alchemical Amplifier",
   "item.thermal.potion_duration_augment": "Alchemical Extender",

@@ -179,15 +179,18 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
 
         generated(reg.getSup("area_radius_augment"), AUGMENTS);
 
-        generated(reg.getSup("filter_fluid_augment"), AUGMENTS);
-        generated(reg.getSup("filter_item_augment"), AUGMENTS);
+        generated(reg.getSup("fluid_filter_augment"), AUGMENTS);
+        generated(reg.getSup("item_filter_augment"), AUGMENTS);
 
         generated(reg.getSup("potion_amplifier_augment"), AUGMENTS);
         generated(reg.getSup("potion_duration_augment"), AUGMENTS);
 
         generated(reg.getSup("machine_speed_augment"), AUGMENTS);
+        generated(reg.getSup("machine_efficiency_augment"), AUGMENTS);
+        generated(reg.getSup("machine_efficiency_creative_augment"), AUGMENTS);
         generated(reg.getSup("machine_output_augment"), AUGMENTS);
         generated(reg.getSup("machine_catalyst_augment"), AUGMENTS);
+        generated(reg.getSup("machine_catalyst_creative_augment"), AUGMENTS);
         generated(reg.getSup("machine_cycle_augment"), AUGMENTS);
 
         generated(reg.getSup("dynamo_output_augment"), AUGMENTS);

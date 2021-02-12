@@ -25,8 +25,7 @@ import java.util.Map;
 
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
-import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.*;
 
 public abstract class DynamoTileBase extends ThermalTileBase implements ITickableTileEntity {
 
@@ -293,7 +292,6 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
     // endregion
 
     // region AUGMENTS
-    protected float processMod = 1.0F;
     protected float energyMod = 1.0F;
 
     @Override
@@ -301,7 +299,8 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
         super.resetAttributes();
 
-        processMod = 1.0F;
+        setAttribute(augmentNBT, TAG_AUGMENT_DYNAMO_POWER, 1.0F);
+
         energyMod = 1.0F;
     }
 
@@ -310,7 +309,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
         super.setAttributesFromAugment(augmentData);
 
-        processMod += getAttributeMod(augmentData, TAG_AUGMENT_DYNAMO_POWER);
+        setAttributeFromAugmentAdd(augmentNBT, augmentData, TAG_AUGMENT_DYNAMO_POWER);
 
         energyMod *= getAttributeModWithDefault(augmentData, TAG_AUGMENT_DYNAMO_ENERGY, 1.0F);
     }
@@ -321,14 +320,14 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         creativeEnergy = false;
 
         super.finalizeAttributes(enchantmentMap);
+        float baseMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_BASE_MOD, 1.0F);
+        float processMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_DYNAMO_POWER, 1.0F);
+        float totalMod = baseMod * processMod;
 
-        float scaleMin = AUG_SCALE_MIN;
-        float scaleMax = AUG_SCALE_MAX;
+        energyStorage.applyModifiers(totalMod, totalMod);
 
-        energyStorage.applyModifiers(baseMod * processMod, baseMod * processMod);
-
-        baseProcessTick = Math.round(getBaseProcessTick() * baseMod * processMod);
-        energyMod = MathHelper.clamp(energyMod, scaleMin, scaleMax);
+        baseProcessTick = Math.round(getBaseProcessTick() * totalMod);
+        energyMod = MathHelper.clamp(energyMod, AUG_SCALE_MIN, AUG_SCALE_MAX);
 
         processTick = baseProcessTick;
         minProcessTick = baseProcessTick / 10;

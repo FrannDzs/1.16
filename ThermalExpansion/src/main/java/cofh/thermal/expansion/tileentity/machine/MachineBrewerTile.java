@@ -83,6 +83,9 @@ public class MachineBrewerTile extends MachineTileProcess {
     @Override
     protected boolean validateOutputs() {
 
+        if (curRecipe == null && !cacheRecipe()) {
+            return false;
+        }
         if (outputTank.isEmpty()) {
             return true;
         }

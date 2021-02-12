@@ -52,6 +52,7 @@ public class ThermalFlags {
     public static String FLAG_UPGRADE_AUGMENTS = "upgrade_augments";
 
     public static String FLAG_CREATIVE_STORAGE_AUGMENTS = "creative_storage_augments";
+    public static String FLAG_CREATIVE_MACHINE_AUGMENTS = "creative_machine_augments";
 
     public static String FLAG_RS_CONTROL_AUGMENT = "rs_control_augment";
     public static String FLAG_SIDE_CONFIG_AUGMENT = "side_config_augment";
@@ -117,6 +118,7 @@ public class ThermalFlags {
         setFlag(FLAG_RESOURCE_CONSTANTAN, () -> getFlag(FLAG_RESOURCE_COPPER).getAsBoolean() && getFlag(FLAG_RESOURCE_NICKEL).getAsBoolean());
 
         setFlag(FLAG_CREATIVE_STORAGE_AUGMENTS, () -> getFlag(FLAG_STORAGE_AUGMENTS).getAsBoolean() && getFlag(FLAG_CREATIVE_AUGMENTS).getAsBoolean());
+        setFlag(FLAG_CREATIVE_MACHINE_AUGMENTS, () -> getFlag(FLAG_MACHINE_AUGMENTS).getAsBoolean() && getFlag(FLAG_CREATIVE_AUGMENTS).getAsBoolean());
     }
 
 }

@@ -1,10 +1,10 @@
 package cofh.thermal.core.util;
 
-import cofh.thermal.core.util.recipes.internal.IRecipeCatalyst;
-
 /**
- * Empty interface which combines base Thermal Inventory functionality along with Recipe Catalyst callbacks.
+ * Empty interface which combines base Thermal Inventory functionality along with a MachineProperties getter.
  */
-public interface IMachineInventory extends IThermalInventory, IRecipeCatalyst {
+public interface IMachineInventory extends IThermalInventory {
+
+    MachineProperties getMachineProperties();
 
 }

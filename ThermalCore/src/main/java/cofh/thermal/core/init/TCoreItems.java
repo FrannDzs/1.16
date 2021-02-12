@@ -303,10 +303,10 @@ public class TCoreItems {
         registerUpgradeAugments();
         registerFeatureAugments();
         registerStorageAugments();
+        registerFilterAugments();
         registerMachineAugments();
         registerDynamoAugments();
         registerAreaAugments();
-        registerFilterAugments();
         registerPotionAugments();
     }
 
@@ -393,6 +393,23 @@ public class TCoreItems {
                         .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
     }
 
+    private static void registerFilterAugments() {
+
+        ItemGroup group = THERMAL_ITEMS;
+
+        registerItem("item_filter_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_FILTER)
+                        //.feature(TAG_FILTER_TYPE, FilterRegistry.ITEM_FILTER_TYPE)
+                        .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
+
+        registerItem("fluid_filter_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_FILTER)
+                        //.feature(TAG_FILTER_TYPE, FilterRegistry.ITEM_FILTER_TYPE)
+                        .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
+    }
+
     private static void registerMachineAugments() {
 
         ItemGroup group = THERMAL_ITEMS;
@@ -403,6 +420,19 @@ public class TCoreItems {
                         .mod(TAG_AUGMENT_MACHINE_POWER, 1.0F)
                         .mod(TAG_AUGMENT_MACHINE_ENERGY, 1.1F)
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
+
+        registerItem("machine_efficiency_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_MACHINE)
+                        .mod(TAG_AUGMENT_MACHINE_SPEED, -0.1F)
+                        .mod(TAG_AUGMENT_MACHINE_ENERGY, 0.9F)
+                        .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
+
+        registerItem("machine_efficiency_creative_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_MACHINE)
+                        .mod(TAG_AUGMENT_MACHINE_ENERGY, 0.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_CREATIVE_MACHINE_AUGMENTS)));
 
         registerItem("machine_output_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -417,6 +447,12 @@ public class TCoreItems {
                         .mod(TAG_AUGMENT_MACHINE_CATALYST, 0.8F)
                         .mod(TAG_AUGMENT_MACHINE_ENERGY, 1.25F)
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
+
+        registerItem("machine_catalyst_creative_augment", () -> new AugmentItem(new Item.Properties().group(group),
+                AugmentDataHelper.builder()
+                        .type(TAG_AUGMENT_TYPE_MACHINE)
+                        .mod(TAG_AUGMENT_MACHINE_CATALYST, 0.0F)
+                        .build()).setShowInGroups(getFlag(FLAG_CREATIVE_MACHINE_AUGMENTS)));
 
         registerItem("machine_cycle_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
@@ -439,7 +475,7 @@ public class TCoreItems {
         registerItem("dynamo_fuel_augment", () -> new AugmentItem(new Item.Properties().group(group),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_DYNAMO)
-                        .mod(TAG_AUGMENT_DYNAMO_ENERGY, 1.10F)
+                        .mod(TAG_AUGMENT_DYNAMO_ENERGY, 1.1F)
                         .build()).setShowInGroups(getFlag(FLAG_DYNAMO_AUGMENTS)));
     }
 
@@ -452,23 +488,6 @@ public class TCoreItems {
                         .type(TAG_AUGMENT_TYPE_AREA_EFFECT)
                         .mod(TAG_AUGMENT_AREA_RADIUS, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_AREA_AUGMENTS)));
-    }
-
-    private static void registerFilterAugments() {
-
-        ItemGroup group = THERMAL_ITEMS;
-
-        registerItem("filter_item_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_FILTER)
-                        //.feature(TAG_FILTER_TYPE, FilterRegistry.ITEM_FILTER_TYPE)
-                        .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
-
-        registerItem("filter_fluid_augment", () -> new AugmentItem(new Item.Properties().group(group),
-                AugmentDataHelper.builder()
-                        .type(TAG_AUGMENT_TYPE_FILTER)
-                        //.feature(TAG_FILTER_TYPE, FilterRegistry.ITEM_FILTER_TYPE)
-                        .build()).setShowInGroups(getFlag(FLAG_FILTER_AUGMENTS)));
     }
 
     private static void registerPotionAugments() {

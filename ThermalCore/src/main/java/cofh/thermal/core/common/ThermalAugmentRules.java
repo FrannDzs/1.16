@@ -37,6 +37,7 @@ public class ThermalAugmentRules {
                 TAG_AUGMENT_MACHINE_POWER,
                 TAG_AUGMENT_MACHINE_PRIMARY,
                 TAG_AUGMENT_MACHINE_SECONDARY,
+                TAG_AUGMENT_MACHINE_SPEED,
 
                 TAG_AUGMENT_POTION_AMPLIFIER,
                 TAG_AUGMENT_POTION_DURATION

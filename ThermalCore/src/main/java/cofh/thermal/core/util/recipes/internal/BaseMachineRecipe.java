@@ -108,7 +108,7 @@ public class BaseMachineRecipe implements IMachineRecipe {
             if (modifiedChances.get(i) < 0.0F) {
                 modifiedChances.set(i, Math.abs(modifiedChances.get(i)));
             } else {
-                modifiedChances.set(i, Math.max(modifiedChances.get(i) * (i == 0 ? inventory.getPrimaryMod() : inventory.getSecondaryMod()), inventory.getMinOutputChance()));
+                modifiedChances.set(i, Math.max(modifiedChances.get(i) * (i == 0 ? inventory.getMachineProperties().getPrimaryMod() : inventory.getMachineProperties().getSecondaryMod()), inventory.getMachineProperties().getMinOutputChance()));
             }
         }
         return modifiedChances;
@@ -173,13 +173,13 @@ public class BaseMachineRecipe implements IMachineRecipe {
     @Override
     public int getEnergy(IMachineInventory inventory) {
 
-        return Math.abs(Math.round(energy * inventory.getEnergyMod()));
+        return Math.abs(Math.round(energy * inventory.getMachineProperties().getEnergyMod()));
     }
 
     @Override
     public float getXp(IMachineInventory inventory) {
 
-        return experience * inventory.getXpMod();
+        return experience * inventory.getMachineProperties().getXpMod();
     }
     // endregion
 }

@@ -65,6 +65,11 @@ public class AugmentableHelper {
     // endregion
 
     // region ATTRIBUTES
+    public static void setAttribute(CompoundNBT subTag, String attribute, float value) {
+
+        subTag.putFloat(attribute, value);
+    }
+
     public static void setAttributeFromAugmentMax(CompoundNBT subTag, CompoundNBT augmentData, String attribute) {
 
         float mod = Math.max(getAttributeMod(augmentData, attribute), getAttributeMod(subTag, attribute));

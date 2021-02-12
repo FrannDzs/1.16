@@ -575,8 +575,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected boolean creativeTanks = false;
     protected boolean creativeSlots = false;
 
-    protected float baseMod = 1.0F;
-
     // This is CLEARED after augments are finalized.
     protected CompoundNBT augmentNBT = new CompoundNBT();
 
@@ -614,16 +612,14 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected void resetAttributes() {
 
+        augmentNBT = new CompoundNBT();
+
         redstoneControlFeature = defaultRedstoneControlState();
         xpStorageFeature = defaultXpStorageState();
 
         creativeEnergy = false;
         creativeTanks = false;
         creativeSlots = false;
-
-        baseMod = 1.0F;
-
-        augmentNBT = new CompoundNBT();
     }
 
     protected void setAttributesFromAugment(CompoundNBT augmentData) {
@@ -636,8 +632,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_FLUID_STORAGE);
 
-        baseMod = Math.max(getAttributeMod(augmentData, TAG_AUGMENT_BASE_MOD), baseMod);
-
         creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_RF_CREATIVE) > 0;
         creativeTanks |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
     }
@@ -645,6 +639,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
         float holdingMod = getHoldingMod(enchantmentMap);
+        float baseMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_BASE_MOD, 1.0F);
 
         float energyStorageMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_RF_STORAGE, 1.0F);
         float energyXferMod = holdingMod * baseMod * getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_RF_STORAGE, 1.0F);

@@ -24,6 +24,7 @@ import java.util.Map;
 import static cofh.lib.util.StorageGroup.INTERNAL;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.cultivation.init.TCulReferences.DEVICE_SOIL_INFUSER_TILE;
 
@@ -202,6 +203,7 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 
         super.finalizeAttributes(enchantmentMap);
+        float baseMod = getAttributeModWithDefault(augmentNBT, TAG_AUGMENT_BASE_MOD, 1.0F);
 
         processMax = BASE_PROCESS_MAX * (1 + radius);
         processTick = Math.round(getBaseProcessTick() * baseMod);

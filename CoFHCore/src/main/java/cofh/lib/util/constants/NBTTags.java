@@ -142,8 +142,9 @@ public class NBTTags {
     public static final String TAG_AUGMENT_MACHINE_SECONDARY = "MachineSec";
 
     public static final String TAG_AUGMENT_MACHINE_CATALYST = "MachineCat";
-    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MachineEnergyergy";
+    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MachineEnergy";
     public static final String TAG_AUGMENT_MACHINE_POWER = "MachinePower";
+    public static final String TAG_AUGMENT_MACHINE_SPEED = "MachineSpeed";
     public static final String TAG_AUGMENT_MACHINE_XP = "MachineXp";
     // endregion
 }
